@@ -336,23 +336,23 @@ export default function Index() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Strategy Type</Label>
+                  <Label className="text-slate-200">Strategy Type</Label>
                   <Select
                     value={selectedStrategyType}
                     onValueChange={(value: PricingStrategyType) =>
                       setSelectedStrategyType(value)
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-slate-800 border-slate-600">
                       {Object.entries(STRATEGY_LABELS).map(([type, label]) => {
                         const Icon = getStrategyIcon(
                           type as PricingStrategyType,
                         );
                         return (
-                          <SelectItem key={type} value={type}>
+                          <SelectItem key={type} value={type} className="text-slate-100 focus:bg-slate-700">
                             <div className="flex items-center gap-2">
                               <Icon className="w-4 h-4" />
                               {label}
@@ -362,13 +362,13 @@ export default function Index() {
                       })}
                     </SelectContent>
                   </Select>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-slate-400">
                     {STRATEGY_DESCRIPTIONS[selectedStrategyType]}
                   </p>
                 </div>
                 <Button
                   onClick={() => addStrategy(selectedStrategyType)}
-                  className="w-full"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add {STRATEGY_LABELS[selectedStrategyType]}
