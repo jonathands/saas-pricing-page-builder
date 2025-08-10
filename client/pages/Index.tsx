@@ -146,7 +146,8 @@ export default function Index() {
   }, [strategies]);
 
   const updateStrategy = useCallback((id: string, updates: any) => {
-    setStrategies((prev: any) => prev.map((s: any) => s.id === id ? { ...s, ...updates } : s));
+    // @ts-ignore
+    setStrategies(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
   }, []);
 
   const removeStrategy = useCallback((id: string) => {
