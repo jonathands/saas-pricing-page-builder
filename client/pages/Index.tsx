@@ -324,13 +324,13 @@ export default function Index() {
         {/* Resizable Sidebar - Builder Area */}
         <ResizableSidebar defaultWidth={450} minWidth={320} maxWidth={800}>
           <div className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100">
-            <Card>
+            <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-slate-100">
                   <Plus className="w-5 h-5" />
                   Add Pricing Strategy
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-slate-300">
                   Choose a pricing strategy to configure and preview
                 </CardDescription>
               </CardHeader>
