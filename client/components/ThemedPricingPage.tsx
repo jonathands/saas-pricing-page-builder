@@ -20,7 +20,7 @@ export function ThemedPricingPage({
         fontFamily: `var(--font-text, ${theme.textFont})`,
       }}
     >
-      <style jsx>{`
+      <style>{`
         .themed-pricing-page {
           --tw-gradient-from: ${theme.backgroundColor.includes("from-")
             ? `var(--${theme.backgroundColor.split("from-")[1].split(" ")[0]})`
