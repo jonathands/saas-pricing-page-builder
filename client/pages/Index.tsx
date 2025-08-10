@@ -48,7 +48,7 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
   },
   'tiered': {
     id: 'tiered-1',
-    type: 'tiered',
+    type: 'tiered' as const,
     name: 'Growth Plans',
     description: 'Multiple tiers for different customer segments',
     tiers: [
@@ -57,14 +57,14 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: 'Basic',
         price: 19,
         features: ['5 projects', 'Basic support', 'Core features'],
-        billingPeriod: 'monthly'
+        billingPeriod: 'monthly' as const
       },
       {
         id: 'pro',
         name: 'Pro',
         price: 49,
         features: ['25 projects', 'Priority support', 'Advanced features', 'API access'],
-        billingPeriod: 'monthly',
+        billingPeriod: 'monthly' as const,
         popular: true
       },
       {
@@ -72,23 +72,23 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: 'Enterprise',
         price: 149,
         features: ['Unlimited projects', 'Dedicated support', 'Custom integrations', 'SLA guarantee'],
-        billingPeriod: 'monthly'
+        billingPeriod: 'monthly' as const
       }
     ]
-  } as TieredStrategy,
+  },
   'per-user': {
     id: 'user-1',
-    type: 'per-user',
+    type: 'per-user' as const,
     name: 'Team Collaboration',
     description: 'Perfect for team-based SaaS products',
     pricePerUser: 15,
     minimumUsers: 3,
     features: ['Per-user workspaces', 'Team collaboration', 'Admin controls', 'Usage insights'],
-    billingPeriod: 'monthly'
-  } as PerUserStrategy,
+    billingPeriod: 'monthly' as const
+  },
   'freemium': {
     id: 'freemium-1',
-    type: 'freemium',
+    type: 'freemium' as const,
     name: 'Freemium Growth',
     description: 'Free tier with premium upgrades',
     freeTier: {
@@ -102,20 +102,20 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         price: 9,
         features: ['5 projects', 'Premium features', 'Email support'],
         usageLimit: 1000,
-        billingPeriod: 'monthly'
+        billingPeriod: 'monthly' as const
       },
       {
         id: 'professional',
         name: 'Professional',
         price: 29,
         features: ['Unlimited projects', 'All features', 'Priority support'],
-        billingPeriod: 'monthly'
+        billingPeriod: 'monthly' as const
       }
     ]
-  } as FreemiumStrategy,
+  },
   'feature-based': {
     id: 'feature-1',
-    type: 'feature-based',
+    type: 'feature-based' as const,
     name: 'Custom Bundle',
     description: 'Pay only for the features you need',
     basePrice: 19,
@@ -125,8 +125,8 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
       { id: 'integrations', name: 'Third-party Integrations', price: 20, description: 'Connect with external tools' },
       { id: 'whitelabel', name: 'White-label', price: 50, description: 'Remove branding and customize' }
     ],
-    billingPeriod: 'monthly'
-  } as FeatureBasedStrategy
+    billingPeriod: 'monthly' as const
+  }
 };
 
 export default function Index() {
