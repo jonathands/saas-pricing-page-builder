@@ -295,7 +295,21 @@ export default function Index() {
                     </div>
                   </div>
                 ) : (
-                  <PricingPreview strategies={strategies} comparisonMode={comparisonMode} />
+                  <div>
+                    <PricingPreview strategies={strategies} comparisonMode={comparisonMode} />
+                    {comparisonMode && strategies.length > 1 && (
+                      <div className="mt-8 space-y-6">
+                        <div>
+                          <h3 className="text-xl font-semibold mb-4">Strategy Comparison</h3>
+                          <ComparisonTable strategies={strategies} />
+                        </div>
+                        <div>
+                          <h4 className="text-lg font-semibold mb-4">Cost Analysis</h4>
+                          <CostChart strategies={strategies} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </CardContent>
             </Card>
