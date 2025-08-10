@@ -149,10 +149,10 @@ export function ThemeSettings() {
             <TabsContent value="colors" className="space-y-6">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-base font-semibold">
+                  <Label className="text-base font-semibold text-slate-100">
                     Primary Color
                   </Label>
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <p className="text-sm text-slate-300 mb-3">
                     Used for buttons, links, and accents
                   </p>
                   <div className="flex flex-wrap gap-2 mb-3">
