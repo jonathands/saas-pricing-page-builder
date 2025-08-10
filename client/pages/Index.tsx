@@ -854,6 +854,237 @@ function StrategyForm({
     );
   }
 
+  if (strategy.type === "freemium") {
+    const freemiumStrategy = strategy as FreemiumStrategy;
+
+    const addPaidTier = () => {
+      const newPaidTiers = [
+        ...freemiumStrategy.paidTiers,
+        {
+          id: `tier-${Date.now()}`,
+          name: "New Tier",
+          price: 29,
+          features: ["Premium features"],
+          billingPeriod: "monthly" as const,
+        },
+      ];
+      updateField("paidTiers", newPaidTiers);
+    };
+
+    const updatePaidTier = (index: number, field: string, value: any) => {
+      const newPaidTiers = [...freemiumStrategy.paidTiers];
+      newPaidTiers[index] = { ...newPaidTiers[index], [field]: value };
+      updateField("paidTiers", newPaidTiers);
+    };
+
+    const removePaidTier = (index: number) => {
+      const newPaidTiers = freemiumStrategy.paidTiers.filter(
+        (_, i) => i !== index,
+      );
+      updateField("paidTiers", newPaidTiers);
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Free Tier Configuration */}
+        <Card className="p-4 bg-green-900/20 border-green-700">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Zap className="w-5 h-5 text-green-400" />
+              <Label className="text-green-300 text-base font-semibold">
+                Free Tier Configuration
+              </Label>
+              <Badge className="bg-green-600 text-white">Always Free</Badge>
+            </div>
+
+            <div>
+              <Label className="text-slate-200">Features (one per line)</Label>
+              <Textarea
+                value={freemiumStrategy.freeTier.features.join("\n")}
+                onChange={(e) => {
+                  const newFreeTier = {
+                    ...freemiumStrategy.freeTier,
+                    features: e.target.value
+                      .split("\n")
+                      .filter((f) => f.trim()),
+                  };
+                  updateField("freeTier", newFreeTier);
+                }}
+                rows={3}
+                className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
+                placeholder="e.g., Basic access&#10;Community support&#10;1 project"
+              />
+            </div>
+
+            <div>
+              <Label className="text-slate-200">Usage Limit (optional)</Label>
+              <Input
+                type="number"
+                value={freemiumStrategy.freeTier.usageLimit || ""}
+                onChange={(e) => {
+                  const newFreeTier = {
+                    ...freemiumStrategy.freeTier,
+                    usageLimit: e.target.value ? Number(e.target.value) : undefined,
+                  };
+                  updateField("freeTier", newFreeTier);
+                }}
+                className="bg-slate-600 border-slate-500 text-slate-100"
+                placeholder="e.g., 100 API calls per month"
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Paid Tiers Configuration */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label className="text-slate-200 text-base font-semibold">
+              Paid Tiers Configuration
+            </Label>
+            <Button
+              type="button"
+              onClick={addPaidTier}
+              size="sm"
+              className="bg-primary hover:bg-primary/90"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Paid Tier
+            </Button>
+          </div>
+
+          {freemiumStrategy.paidTiers.map((tier, index) => (
+            <Card key={tier.id} className="p-4 bg-slate-700 border-slate-600">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <CreditCard className="w-4 h-4 text-slate-300" />
+                    <Label className="text-slate-200 font-medium">
+                      Paid Tier {index + 1}
+                    </Label>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removePaidTier(index)}
+                    className="text-slate-400 hover:text-slate-200 hover:bg-slate-600"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label className="text-slate-200">Tier Name</Label>
+                    <Input
+                      value={tier.name}
+                      onChange={(e) =>
+                        updatePaidTier(index, "name", e.target.value)
+                      }
+                      className="bg-slate-600 border-slate-500 text-slate-100"
+                      placeholder="e.g., Pro, Premium"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-slate-200">Price ($)</Label>
+                    <Input
+                      type="number"
+                      value={tier.price}
+                      onChange={(e) =>
+                        updatePaidTier(index, "price", Number(e.target.value))
+                      }
+                      className="bg-slate-600 border-slate-500 text-slate-100"
+                      min="0"
+                      step="0.01"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label className="text-slate-200">Billing Period</Label>
+                    <Select
+                      value={tier.billingPeriod}
+                      onValueChange={(value) =>
+                        updatePaidTier(index, "billingPeriod", value)
+                      }
+                    >
+                      <SelectTrigger className="bg-slate-600 border-slate-500 text-slate-100">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-slate-600">
+                        <SelectItem
+                          value="monthly"
+                          className="text-slate-100 focus:bg-slate-700"
+                        >
+                          Monthly
+                        </SelectItem>
+                        <SelectItem
+                          value="yearly"
+                          className="text-slate-100 focus:bg-slate-700"
+                        >
+                          Yearly
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-slate-200">Usage Limit (optional)</Label>
+                    <Input
+                      type="number"
+                      value={tier.usageLimit || ""}
+                      onChange={(e) =>
+                        updatePaidTier(
+                          index,
+                          "usageLimit",
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      className="bg-slate-600 border-slate-500 text-slate-100"
+                      placeholder="Leave empty for unlimited"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-slate-200">Features (one per line)</Label>
+                  <Textarea
+                    value={tier.features.join("\n")}
+                    onChange={(e) => {
+                      updatePaidTier(
+                        index,
+                        "features",
+                        e.target.value.split("\n").filter((f) => f.trim()),
+                      );
+                    }}
+                    rows={3}
+                    className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
+                    placeholder="e.g., Priority support&#10;Advanced features&#10;Unlimited projects"
+                  />
+                </div>
+              </div>
+            </Card>
+          ))}
+
+          {freemiumStrategy.paidTiers.length === 0 && (
+            <div className="text-center py-8 bg-slate-800 rounded-lg border-2 border-dashed border-slate-600">
+              <CreditCard className="w-8 h-8 text-slate-500 mx-auto mb-2" />
+              <p className="text-slate-400 mb-3">No paid tiers configured</p>
+              <Button
+                type="button"
+                onClick={addPaidTier}
+                variant="outline"
+                className="border-slate-600 text-slate-300 hover:bg-slate-700"
+              >
+                Add Your First Paid Tier
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   if (strategy.type === "feature-based") {
     const featureStrategy = strategy as FeatureBasedStrategy;
 
