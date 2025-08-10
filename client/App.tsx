@@ -13,10 +13,13 @@ import NotFound from "./pages/NotFound";
 // Suppress Recharts defaultProps warnings
 const originalWarn = console.warn;
 console.warn = (...args) => {
+  const message = args[0];
   if (
-    args[0] &&
-    typeof args[0] === "string" &&
-    args[0].includes("defaultProps will be removed from function components")
+    typeof message === "string" && (
+      message.includes("defaultProps will be removed from function components") ||
+      message.includes("Support for defaultProps will be removed from function components") ||
+      (message.includes("defaultProps") && (message.includes("XAxis") || message.includes("YAxis")))
+    )
   ) {
     return;
   }
