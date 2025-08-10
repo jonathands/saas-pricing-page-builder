@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import {
   Card,
   CardContent,
@@ -8,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -17,33 +18,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
 import {
   Download,
   Plus,
-  Trash2,
-  Eye,
   BarChart3,
   Zap,
   Users,
   Star,
   Package,
   Settings,
-  CheckCircle,
-  Check,
-  CreditCard,
   Monitor,
 } from "lucide-react";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { PricingPagePreviewModal } from "@/components/PricingPagePreviewModal";
-import { FeatureBasedPreview } from "@/components/FeatureBasedPreview";
 import { ThemeSettings } from "@/components/ThemeSettings";
 import { ResizableSidebar } from "@/components/ResizableSidebar";
 import { ThemedPricingPage } from "@/components/ThemedPricingPage";
+import { StrategyConfigCard } from "@/components/StrategyConfigCard";
+import { PricingPreview } from "@/components/PricingPreview";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
   PricingStrategy,
@@ -405,6 +397,7 @@ export default function Index() {
 
         {/* Main Content Area - Pricing Page Preview */}
         <div className="flex-1 overflow-hidden">
+          
           <ThemedPricingPage className="h-full">
             <div className="h-full flex flex-col">
               {/* Preview Header */}
@@ -487,11 +480,13 @@ export default function Index() {
               </div>
             </div>
           </ThemedPricingPage>
-        </div>
-      </div>
 
       {/* Theme Settings */}
       <ThemeSettings />
+
+        </div>
+      </div>
+
 
       {/* Pricing Page Preview Modal */}
       <PricingPagePreviewModal
@@ -503,61 +498,9 @@ export default function Index() {
   );
 }
 
-function StrategyConfigCard({
-  strategy,
-  onUpdate,
-  onRemove,
-}: {
-  strategy: PricingStrategy;
-  onUpdate: (id: string, updates: Partial<PricingStrategy>) => void;
-  onRemove: (id: string) => void;
-}) {
-  const Icon =
-    strategy.type === "flat-rate"
-      ? Package
-      : strategy.type === "usage-based"
-        ? BarChart3
-        : strategy.type === "tiered"
-          ? Star
-          : strategy.type === "per-user"
-            ? Users
-            : strategy.type === "freemium"
-              ? Zap
-              : Settings;
 
-  return (
-    <Card className="bg-slate-800 border-slate-700">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon className="w-5 h-5 text-slate-300" />
-            <CardTitle className="text-lg text-slate-100">
-              {strategy.name}
-            </CardTitle>
-            <Badge
-              variant="secondary"
-              className="bg-slate-700 text-slate-200 border-slate-600"
-            >
-              {STRATEGY_LABELS[strategy.type]}
-            </Badge>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onRemove(strategy.id)}
-            className="text-slate-400 hover:text-slate-200 hover:bg-slate-700"
-          >
-            <Trash2 className="w-4 h-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <StrategyForm strategy={strategy} onUpdate={onUpdate} />
-      </CardContent>
-    </Card>
-  );
-}
 
+<<<<<<< HEAD
 function StrategyForm({
   strategy,
   onUpdate,
@@ -1608,3 +1551,5 @@ function FreemiumPreview({ strategy }: { strategy: FreemiumStrategy }) {
     </div>
   );
 }
+=======
+>>>>>>> origin/main

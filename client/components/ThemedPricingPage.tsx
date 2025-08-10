@@ -19,6 +19,7 @@ export function ThemedPricingPage({
         background: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
       }}
     >
+<<<<<<< HEAD
       <style>{`
         .themed-pricing-page {
           --tw-gradient-from: ${theme.backgroundColor.includes("from-")
@@ -42,23 +43,36 @@ export function ThemedPricingPage({
         .themed-pricing-page h6 {
           font-family: var(--font-header, ${theme.headerFont}) !important;
         }
+=======
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .themed-pricing-page h1,
+          .themed-pricing-page h2,
+          .themed-pricing-page h3,
+          .themed-pricing-page h4,
+          .themed-pricing-page h5,
+          .themed-pricing-page h6 {
+            font-family: var(--font-header, ${theme.headerFont}) !important;
+          }
 
-        .themed-pricing-page button {
-          font-family: var(--font-button, ${theme.buttonFont}) !important;
-        }
+          .themed-pricing-page button {
+            font-family: var(--font-button, ${theme.buttonFont}) !important;
+          }
+>>>>>>> origin/main
 
-        .themed-pricing-page .pricing-card {
-          backdrop-filter: blur(10px);
-          background: rgba(255, 255, 255, 0.9);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+          .themed-pricing-page .pricing-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
 
-        .themed-pricing-page .glass-effect {
-          backdrop-filter: blur(20px);
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
+          .themed-pricing-page .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+        `
+      }} />
 
       <div
         className={`themed-pricing-page min-h-full bg-gradient-to-br ${theme.backgroundColor}`}
