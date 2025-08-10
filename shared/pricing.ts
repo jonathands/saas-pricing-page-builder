@@ -78,6 +78,7 @@ export interface FeatureBasedStrategy extends BasePricingStrategy {
     name: string;
     price: number;
     description: string;
+    mandatory?: boolean;
   }[];
   billingPeriod: "monthly" | "yearly";
 }
