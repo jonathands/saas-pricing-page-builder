@@ -105,25 +105,34 @@ export function ThemeSettings() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style={{ fontFamily: '"Open Sans", sans-serif' }}>
+      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-slate-100">
                 <Palette className="w-5 h-5" />
                 Theme Settings
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-slate-300">
                 Customize the appearance of your pricing page
               </CardDescription>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={resetTheme}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={resetTheme}
+                className="border-slate-600 bg-slate-700 text-slate-200 hover:bg-slate-600 hover:text-slate-100"
+              >
                 <RotateCcw className="w-4 h-4 mr-2" />
                 Reset
               </Button>
-              <Button size="sm" onClick={() => setIsOpen(false)}>
+              <Button
+                size="sm"
+                onClick={() => setIsOpen(false)}
+                className="bg-primary hover:bg-primary/90"
+              >
                 Done
               </Button>
             </div>
