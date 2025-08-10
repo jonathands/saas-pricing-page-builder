@@ -65,7 +65,7 @@ export function ResizableSidebar({
       <div
         ref={resizerRef}
         className={cn(
-          "absolute top-0 right-0 w-1 h-full cursor-col-resize bg-border hover:bg-primary/50 transition-colors",
+          "absolute top-0 right-0 w-1 h-full cursor-col-resize bg-slate-600 hover:bg-primary/70 transition-colors",
           "before:absolute before:content-[''] before:w-3 before:h-full before:-left-1 before:top-0",
           isResizing && "bg-primary"
         )}
