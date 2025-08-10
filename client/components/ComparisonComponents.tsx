@@ -159,9 +159,18 @@ export function CostChart({ strategies }: { strategies: PricingStrategy[] }) {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="usage" />
-            <YAxis />
-            <Tooltip 
+            <XAxis
+              dataKey="usage"
+              type="number"
+              domain={['dataMin', 'dataMax']}
+              tickFormatter={(value) => value.toLocaleString()}
+            />
+            <YAxis
+              type="number"
+              domain={['dataMin', 'dataMax']}
+              tickFormatter={(value) => `$${value}`}
+            />
+            <Tooltip
               formatter={(value: any) => [`$${value}`, 'Cost']}
               labelFormatter={(value) => `Usage: ${value}`}
             />
