@@ -17,7 +17,6 @@ export function ThemedPricingPage({
       className={`${className} transition-all duration-300`}
       style={{
         background: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-        fontFamily: `var(--font-text, ${theme.textFont})`,
       }}
     >
       <style>{`
