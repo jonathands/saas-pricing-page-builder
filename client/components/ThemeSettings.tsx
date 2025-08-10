@@ -319,7 +319,7 @@ export function ThemeSettings() {
                       <div
                         className={`w-full h-12 rounded bg-gradient-to-br ${preset.value} mb-2`}
                       />
-                      <p className="font-medium text-sm">{preset.name}</p>
+                      <p className="font-medium text-sm text-slate-200">{preset.name}</p>
                     </button>
                   ))}
                 </div>
