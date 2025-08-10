@@ -239,7 +239,7 @@ export function ThemeSettings() {
                     </SelectTrigger>
                     <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
-                        <SelectItem key={font} value={font}>
+                        <SelectItem key={font} value={font} className="text-slate-100 focus:bg-slate-700">
                           <span style={{ fontFamily: font }}>{font}</span>
                         </SelectItem>
                       ))}
@@ -248,8 +248,8 @@ export function ThemeSettings() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-semibold">Button Font</Label>
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <Label className="text-base font-semibold text-slate-100">Button Font</Label>
+                  <p className="text-sm text-slate-300 mb-3">
                     Used for buttons and call-to-actions
                   </p>
                   <Select
@@ -258,12 +258,12 @@ export function ThemeSettings() {
                       updateTheme({ buttonFont: value })
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="max-h-48">
+                    <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
-                        <SelectItem key={font} value={font}>
+                        <SelectItem key={font} value={font} className="text-slate-100 focus:bg-slate-700">
                           <span style={{ fontFamily: font }}>{font}</span>
                         </SelectItem>
                       ))}
