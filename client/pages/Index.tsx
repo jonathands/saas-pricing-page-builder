@@ -613,8 +613,14 @@ function PricingPreview({
           {strategy.type === 'tiered' && (
             <TieredPreview strategy={strategy as TieredStrategy} />
           )}
-          
-          {/* Add other strategy previews... */}
+
+          {strategy.type === 'usage-based' && (
+            <UsageBasedPreview strategy={strategy as UsageBasedStrategy} />
+          )}
+
+          {strategy.type === 'per-user' && (
+            <PerUserPreview strategy={strategy as PerUserStrategy} />
+          )}
           
           <Separator />
         </div>
