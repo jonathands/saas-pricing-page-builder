@@ -140,10 +140,10 @@ export function ThemeSettings() {
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="colors" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="colors">Colors</TabsTrigger>
-              <TabsTrigger value="typography">Typography</TabsTrigger>
-              <TabsTrigger value="background">Background</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 bg-slate-700 border-slate-600">
+              <TabsTrigger value="colors" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Colors</TabsTrigger>
+              <TabsTrigger value="typography" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Typography</TabsTrigger>
+              <TabsTrigger value="background" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Background</TabsTrigger>
             </TabsList>
 
             <TabsContent value="colors" className="space-y-6">
