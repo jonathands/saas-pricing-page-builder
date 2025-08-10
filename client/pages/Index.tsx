@@ -803,7 +803,7 @@ function StrategyForm({
   }
 
   return (
-    <div className="p-4 text-center text-muted-foreground">
+    <div className="p-4 text-center text-slate-400">
       Configuration form for {strategy.type} coming soon...
     </div>
   );
