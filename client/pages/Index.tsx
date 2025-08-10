@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback } from "react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import {
   Card,
@@ -258,100 +258,90 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header
-        className="border-b border-slate-700 bg-slate-900 sticky top-0 z-50"
-        style={{ fontFamily: '"Open Sans", sans-serif' }}
-      >
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-primary-foreground" />
+    <ThemeProvider>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <header
+          className="border-b border-slate-700 bg-slate-900 sticky top-0 z-50"
+          style={{ fontFamily: '"Open Sans", sans-serif' }}
+        >
+          <div className="px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-slate-100">
+                    PricingCraft
+                  </h1>
+                  <p className="text-sm text-slate-300">
+                    SaaS Pricing Strategy Builder
+                  </p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-slate-100">
-                  PricingCraft
-                </h1>
-                <p className="text-sm text-slate-300">
-                  SaaS Pricing Strategy Builder
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <Label
-                  htmlFor="comparison-mode"
-                  className="text-sm text-slate-200"
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <Label
+                    htmlFor="comparison-mode"
+                    className="text-sm text-slate-200"
+                  >
+                    Comparison
+                  </Label>
+                  <Switch
+                    id="comparison-mode"
+                    checked={comparisonMode}
+                    onCheckedChange={setComparisonMode}
+                  />
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPreviewModalOpen(true)}
+                  className="border-slate-600 text-slate-200 hover:bg-slate-800"
                 >
-                  Comparison
-                </Label>
-                <Switch
-                  id="comparison-mode"
-                  checked={comparisonMode}
-                  onCheckedChange={setComparisonMode}
-                />
+                  <Monitor className="w-4 h-4 mr-2" />
+                  Preview Page
+                </Button>
+                <Button
+                  onClick={exportConfiguration}
+                  size="sm"
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export
+                </Button>
+                <ThemeSettings />
               </div>
-              <Button
-                onClick={() => setPreviewModalOpen(true)}
-                variant="outline"
-                size="sm"
-                disabled={strategies.length === 0}
-                className="border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-slate-100"
-              >
-                <Monitor className="w-4 h-4 mr-2" />
-                Preview Page
-              </Button>
-              <Button
-                onClick={exportConfiguration}
-                variant="outline"
-                size="sm"
-                className="border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-slate-100"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Export JSON
-              </Button>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Layout with Resizable Sidebar */}
-      <div className="flex h-[calc(100vh-73px)]">
-        {/* Resizable Sidebar - Builder Area */}
-        <ResizableSidebar defaultWidth={450} minWidth={320} maxWidth={800}>
-          <div
-            className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100"
-            style={{ fontFamily: '"Open Sans", sans-serif' }}
-          >
-            <Card className="bg-slate-800 border-slate-700">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-slate-100">
-                  <Plus className="w-5 h-5" />
+        {/* Main Content */}
+        <div className="flex h-[calc(100vh-80px)]">
+          <ResizableSidebar>
+            {/* Left Sidebar - Strategy Builder */}
+            <div className="p-6 bg-slate-900 h-full overflow-y-auto space-y-6">
+              {/* Add Strategy Section */}
+              <div className="space-y-4">
+                <h2 className="text-lg font-semibold text-slate-100">
                   Add Pricing Strategy
-                </CardTitle>
-                <CardDescription className="text-slate-300">
-                  Choose a pricing strategy to configure and preview
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label className="text-slate-200">Strategy Type</Label>
+                </h2>
+                <div className="flex gap-3">
                   <Select
                     value={selectedStrategyType}
                     onValueChange={(value: PricingStrategyType) =>
                       setSelectedStrategyType(value)
                     }
                   >
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
+                    <SelectTrigger className="flex-1 bg-slate-800 border-slate-700 text-slate-100">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-800 border-slate-600">
-                      {Object.entries(STRATEGY_LABELS).map(([type, label]) => {
-                        const Icon = getStrategyIcon(
-                          type as PricingStrategyType,
-                        );
+                      {(
+                        Object.keys(STRATEGY_LABELS) as PricingStrategyType[]
+                      ).map((type) => {
+                        const Icon = getStrategyIcon(type);
                         return (
                           <SelectItem
                             key={type}
@@ -360,1196 +350,82 @@ export default function Index() {
                           >
                             <div className="flex items-center gap-2">
                               <Icon className="w-4 h-4" />
-                              {label}
+                              {STRATEGY_LABELS[type]}
                             </div>
                           </SelectItem>
                         );
                       })}
                     </SelectContent>
                   </Select>
-                  <p className="text-sm text-slate-400">
-                    {STRATEGY_DESCRIPTIONS[selectedStrategyType]}
-                  </p>
+                  <Button
+                    onClick={() => addStrategy(selectedStrategyType)}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </Button>
                 </div>
-                <Button
-                  onClick={() => addStrategy(selectedStrategyType)}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add {STRATEGY_LABELS[selectedStrategyType]}
-                </Button>
-              </CardContent>
-            </Card>
+                <p className="text-sm text-slate-400">
+                  {STRATEGY_DESCRIPTIONS[selectedStrategyType]}
+                </p>
+              </div>
 
-            {/* Strategy Configuration */}
-            <div className="space-y-4">
-              {strategies.map((strategy) => (
-                <StrategyConfigCard
-                  key={strategy.id}
-                  strategy={strategy}
-                  onUpdate={updateStrategy}
-                  onRemove={removeStrategy}
-                />
-              ))}
-            </div>
-          </div>
-        </ResizableSidebar>
-
-        {/* Main Content Area - Pricing Page Preview */}
-        <div className="flex-1 overflow-hidden">
-          
-          <ThemedPricingPage className="h-full">
-            <div className="h-full flex flex-col">
-              {/* Preview Header */}
-              <div className="bg-white/90 backdrop-blur-sm border-b px-6 py-4 flex-shrink-0">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-lg font-semibold text-foreground">
-                      Live Pricing Page
-                    </h2>
-                    <p className="text-sm text-muted-foreground">
-                      Real-time preview with your theme and strategies
+              {/* Strategy Cards */}
+              <div className="space-y-4">
+                <h2 className="text-lg font-semibold text-slate-100">
+                  Configure Strategies
+                </h2>
+                {strategies.length === 0 ? (
+                  <div className="text-center py-8 bg-slate-800 rounded-lg border-2 border-dashed border-slate-600">
+                    <Package className="w-8 h-8 text-slate-500 mx-auto mb-2" />
+                    <p className="text-slate-400 mb-3">No strategies added</p>
+                    <p className="text-sm text-slate-500">
+                      Add your first pricing strategy to get started
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {strategies.length > 0 &&
-                      comparisonMode &&
-                      strategies.length > 1 && (
-                        <Badge variant="secondary">Comparison Mode</Badge>
-                      )}
-                    <Badge variant="outline">
-                      {strategies.length} strateg
-                      {strategies.length === 1 ? "y" : "ies"}
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-
-              {/* Preview Content */}
-              <div className="flex-1 overflow-y-auto">
-                {strategies.length === 0 ? (
-                  <div className="flex items-center justify-center h-full text-center">
-                    <div className="space-y-4 max-w-md">
-                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                        <BarChart3 className="w-8 h-8 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-foreground mb-2">
-                          Design Your Pricing Strategy
-                        </h3>
-                        <p className="text-muted-foreground mb-4">
-                          Add pricing strategies from the sidebar to see your
-                          live pricing page. Customize themes and see real-time
-                          updates.
-                        </p>
-                        <Button
-                          variant="outline"
-                          disabled
-                          className="glass-effect"
-                        >
-                          <Plus className="w-4 h-4 mr-2" />
-                          Add strategies to get started
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
                 ) : (
-                  <div className="p-6">
-                    <PricingPreview
-                      strategies={strategies}
-                      comparisonMode={comparisonMode}
+                  strategies.map((strategy) => (
+                    <StrategyConfigCard
+                      key={strategy.id}
+                      strategy={strategy}
+                      onUpdate={updateStrategy}
+                      onRemove={removeStrategy}
                     />
-                    {comparisonMode && strategies.length > 1 && (
-                      <div className="mt-12 space-y-8">
-                        <div>
-                          <h3 className="text-2xl font-semibold mb-6">
-                            Strategy Comparison
-                          </h3>
-                          <ComparisonTable strategies={strategies} />
-                        </div>
-                        <div>
-                          <h4 className="text-xl font-semibold mb-6">
-                            Cost Analysis
-                          </h4>
-                          <CostChart strategies={strategies} />
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  ))
                 )}
               </div>
-            </div>
-          </ThemedPricingPage>
 
-      {/* Theme Settings */}
-      <ThemeSettings />
-
-        </div>
-      </div>
-
-
-      {/* Pricing Page Preview Modal */}
-      <PricingPagePreviewModal
-        isOpen={previewModalOpen}
-        onClose={() => setPreviewModalOpen(false)}
-        strategies={strategies}
-      />
-    </div>
-  );
-}
-
-
-
-<<<<<<< HEAD
-function StrategyForm({
-  strategy,
-  onUpdate,
-}: {
-  strategy: PricingStrategy;
-  onUpdate: (id: string, updates: Partial<PricingStrategy>) => void;
-}) {
-  const updateField = (field: string, value: any) => {
-    onUpdate(strategy.id, { [field]: value });
-  };
-
-  const updateNestedField = (
-    parentField: string,
-    field: string,
-    value: any,
-  ) => {
-    const parent = (strategy as any)[parentField];
-    onUpdate(strategy.id, {
-      [parentField]: { ...parent, [field]: value },
-    });
-  };
-
-  if (strategy.type === "flat-rate") {
-    const flatStrategy = strategy as FlatRateStrategy;
-    return (
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="text-slate-200">Price ($)</Label>
-            <Input
-              type="number"
-              value={flatStrategy.price}
-              onChange={(e) => updateField("price", Number(e.target.value))}
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-          <div>
-            <Label className="text-slate-200">Billing Period</Label>
-            <Select
-              value={flatStrategy.billingPeriod}
-              onValueChange={(value) => updateField("billingPeriod", value)}
-            >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem
-                  value="monthly"
-                  className="text-slate-100 focus:bg-slate-700"
-                >
-                  Monthly
-                </SelectItem>
-                <SelectItem
-                  value="yearly"
-                  className="text-slate-100 focus:bg-slate-700"
-                >
-                  Yearly
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <div>
-          <Label className="text-slate-200">Features (one per line)</Label>
-          <Textarea
-            value={flatStrategy.features.join("\n")}
-            onChange={(e) =>
-              updateField(
-                "features",
-                e.target.value.split("\n").filter((f) => f.trim()),
-              )
-            }
-            rows={4}
-            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
-          />
-        </div>
-      </div>
-    );
-  }
-
-  if (strategy.type === "tiered") {
-    const tieredStrategy = strategy as TieredStrategy;
-    return (
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-slate-200">
-          Tiers Configuration
-        </div>
-        {tieredStrategy.tiers.map((tier, index) => (
-          <Card key={tier.id} className="p-4 bg-slate-700 border-slate-600">
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <Label className="text-slate-200">Tier Name</Label>
-                  <Input
-                    value={tier.name}
-                    onChange={(e) => {
-                      const newTiers = [...tieredStrategy.tiers];
-                      newTiers[index] = { ...tier, name: e.target.value };
-                      updateField("tiers", newTiers);
-                    }}
-                    className="bg-slate-600 border-slate-500 text-slate-100"
-                  />
-                </div>
-                <div>
-                  <Label className="text-slate-200">Price ($)</Label>
-                  <Input
-                    type="number"
-                    value={tier.price}
-                    onChange={(e) => {
-                      const newTiers = [...tieredStrategy.tiers];
-                      newTiers[index] = {
-                        ...tier,
-                        price: Number(e.target.value),
-                      };
-                      updateField("tiers", newTiers);
-                    }}
-                    className="bg-slate-600 border-slate-500 text-slate-100"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label className="text-slate-200">
-                  Features (one per line)
-                </Label>
-                <Textarea
-                  value={tier.features.join("\n")}
-                  onChange={(e) => {
-                    const newTiers = [...tieredStrategy.tiers];
-                    newTiers[index] = {
-                      ...tier,
-                      features: e.target.value
-                        .split("\n")
-                        .filter((f) => f.trim()),
-                    };
-                    updateField("tiers", newTiers);
-                  }}
-                  rows={3}
-                  className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <Switch
-                  checked={tier.popular || false}
-                  onCheckedChange={(checked) => {
-                    const newTiers = [...tieredStrategy.tiers];
-                    newTiers[index] = { ...tier, popular: checked };
-                    updateField("tiers", newTiers);
-                  }}
-                />
-                <Label className="text-slate-200">Mark as popular</Label>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
-    );
-  }
-
-  if (strategy.type === "usage-based") {
-    const usageStrategy = strategy as UsageBasedStrategy;
-    return (
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="text-slate-200">Base Price ($)</Label>
-            <Input
-              type="number"
-              value={usageStrategy.basePrice}
-              onChange={(e) => updateField("basePrice", Number(e.target.value))}
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-          <div>
-            <Label className="text-slate-200">Usage Price ($)</Label>
-            <Input
-              type="number"
-              step="0.01"
-              value={usageStrategy.usagePrice}
-              onChange={(e) =>
-                updateField("usagePrice", Number(e.target.value))
-              }
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="text-slate-200">Usage Unit</Label>
-            <Input
-              value={usageStrategy.usageUnit}
-              onChange={(e) => updateField("usageUnit", e.target.value)}
-              placeholder="e.g., API calls"
-              className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
-            />
-          </div>
-          <div>
-            <Label className="text-slate-200">Included Usage</Label>
-            <Input
-              type="number"
-              value={usageStrategy.includedUsage}
-              onChange={(e) =>
-                updateField("includedUsage", Number(e.target.value))
-              }
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-        </div>
-        <div>
-          <Label className="text-slate-200">Features (one per line)</Label>
-          <Textarea
-            value={usageStrategy.features.join("\n")}
-            onChange={(e) =>
-              updateField(
-                "features",
-                e.target.value.split("\n").filter((f) => f.trim()),
-              )
-            }
-            rows={4}
-            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
-          />
-        </div>
-      </div>
-    );
-  }
-
-  if (strategy.type === "per-user") {
-    const userStrategy = strategy as PerUserStrategy;
-    return (
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="text-slate-200">Price Per User ($)</Label>
-            <Input
-              type="number"
-              value={userStrategy.pricePerUser}
-              onChange={(e) =>
-                updateField("pricePerUser", Number(e.target.value))
-              }
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-          <div>
-            <Label className="text-slate-200">Minimum Users</Label>
-            <Input
-              type="number"
-              value={userStrategy.minimumUsers}
-              onChange={(e) =>
-                updateField("minimumUsers", Number(e.target.value))
-              }
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-        </div>
-        <div>
-          <Label className="text-slate-200">Billing Period</Label>
-          <Select
-            value={userStrategy.billingPeriod}
-            onValueChange={(value) => updateField("billingPeriod", value)}
-          >
-            <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-600">
-              <SelectItem
-                value="monthly"
-                className="text-slate-100 focus:bg-slate-700"
-              >
-                Monthly
-              </SelectItem>
-              <SelectItem
-                value="yearly"
-                className="text-slate-100 focus:bg-slate-700"
-              >
-                Yearly
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <Label className="text-slate-200">Features (one per line)</Label>
-          <Textarea
-            value={userStrategy.features.join("\n")}
-            onChange={(e) =>
-              updateField(
-                "features",
-                e.target.value.split("\n").filter((f) => f.trim()),
-              )
-            }
-            rows={4}
-            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
-          />
-        </div>
-      </div>
-    );
-  }
-
-  if (strategy.type === "freemium") {
-    const freemiumStrategy = strategy as FreemiumStrategy;
-
-    const addPaidTier = () => {
-      const newPaidTiers = [
-        ...freemiumStrategy.paidTiers,
-        {
-          id: `tier-${Date.now()}`,
-          name: "New Tier",
-          price: 29,
-          features: ["Premium features"],
-          billingPeriod: "monthly" as const,
-        },
-      ];
-      updateField("paidTiers", newPaidTiers);
-    };
-
-    const updatePaidTier = (index: number, field: string, value: any) => {
-      const newPaidTiers = [...freemiumStrategy.paidTiers];
-      newPaidTiers[index] = { ...newPaidTiers[index], [field]: value };
-      updateField("paidTiers", newPaidTiers);
-    };
-
-    const removePaidTier = (index: number) => {
-      const newPaidTiers = freemiumStrategy.paidTiers.filter(
-        (_, i) => i !== index,
-      );
-      updateField("paidTiers", newPaidTiers);
-    };
-
-    return (
-      <div className="space-y-6">
-        {/* Free Tier Configuration */}
-        <Card className="p-4 bg-green-900/20 border-green-700">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Zap className="w-5 h-5 text-green-400" />
-              <Label className="text-green-300 text-base font-semibold">
-                Free Tier Configuration
-              </Label>
-              <Badge className="bg-green-600 text-white">Always Free</Badge>
-            </div>
-
-            <div>
-              <Label className="text-slate-200">Features (one per line)</Label>
-              <Textarea
-                value={freemiumStrategy.freeTier.features.join("\n")}
-                onChange={(e) => {
-                  const newFreeTier = {
-                    ...freemiumStrategy.freeTier,
-                    features: e.target.value
-                      .split("\n")
-                      .filter((f) => f.trim()),
-                  };
-                  updateField("freeTier", newFreeTier);
-                }}
-                rows={3}
-                className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                placeholder="e.g., Basic access&#10;Community support&#10;1 project"
-              />
-            </div>
-
-            <div>
-              <Label className="text-slate-200">Usage Limit (optional)</Label>
-              <Input
-                type="number"
-                value={freemiumStrategy.freeTier.usageLimit || ""}
-                onChange={(e) => {
-                  const newFreeTier = {
-                    ...freemiumStrategy.freeTier,
-                    usageLimit: e.target.value ? Number(e.target.value) : undefined,
-                  };
-                  updateField("freeTier", newFreeTier);
-                }}
-                className="bg-slate-600 border-slate-500 text-slate-100"
-                placeholder="e.g., 100 API calls per month"
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* Paid Tiers Configuration */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label className="text-slate-200 text-base font-semibold">
-              Paid Tiers Configuration
-            </Label>
-            <Button
-              type="button"
-              onClick={addPaidTier}
-              size="sm"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Paid Tier
-            </Button>
-          </div>
-
-          {freemiumStrategy.paidTiers.map((tier, index) => (
-            <Card key={tier.id} className="p-4 bg-slate-700 border-slate-600">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CreditCard className="w-4 h-4 text-slate-300" />
-                    <Label className="text-slate-200 font-medium">
-                      Paid Tier {index + 1}
-                    </Label>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => removePaidTier(index)}
-                    className="text-slate-400 hover:text-slate-200 hover:bg-slate-600"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-slate-200">Tier Name</Label>
-                    <Input
-                      value={tier.name}
-                      onChange={(e) =>
-                        updatePaidTier(index, "name", e.target.value)
-                      }
-                      className="bg-slate-600 border-slate-500 text-slate-100"
-                      placeholder="e.g., Pro, Premium"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-slate-200">Price ($)</Label>
-                    <Input
-                      type="number"
-                      value={tier.price}
-                      onChange={(e) =>
-                        updatePaidTier(index, "price", Number(e.target.value))
-                      }
-                      className="bg-slate-600 border-slate-500 text-slate-100"
-                      min="0"
-                      step="0.01"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-slate-200">Billing Period</Label>
-                    <Select
-                      value={tier.billingPeriod}
-                      onValueChange={(value) =>
-                        updatePaidTier(index, "billingPeriod", value)
-                      }
-                    >
-                      <SelectTrigger className="bg-slate-600 border-slate-500 text-slate-100">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem
-                          value="monthly"
-                          className="text-slate-100 focus:bg-slate-700"
-                        >
-                          Monthly
-                        </SelectItem>
-                        <SelectItem
-                          value="yearly"
-                          className="text-slate-100 focus:bg-slate-700"
-                        >
-                          Yearly
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label className="text-slate-200">Usage Limit (optional)</Label>
-                    <Input
-                      type="number"
-                      value={tier.usageLimit || ""}
-                      onChange={(e) =>
-                        updatePaidTier(
-                          index,
-                          "usageLimit",
-                          e.target.value ? Number(e.target.value) : undefined,
-                        )
-                      }
-                      className="bg-slate-600 border-slate-500 text-slate-100"
-                      placeholder="Leave empty for unlimited"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-slate-200">Features (one per line)</Label>
-                  <Textarea
-                    value={tier.features.join("\n")}
-                    onChange={(e) => {
-                      updatePaidTier(
-                        index,
-                        "features",
-                        e.target.value.split("\n").filter((f) => f.trim()),
-                      );
-                    }}
-                    rows={3}
-                    className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                    placeholder="e.g., Priority support&#10;Advanced features&#10;Unlimited projects"
-                  />
-                </div>
-              </div>
-            </Card>
-          ))}
-
-          {freemiumStrategy.paidTiers.length === 0 && (
-            <div className="text-center py-8 bg-slate-800 rounded-lg border-2 border-dashed border-slate-600">
-              <CreditCard className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-              <p className="text-slate-400 mb-3">No paid tiers configured</p>
-              <Button
-                type="button"
-                onClick={addPaidTier}
-                variant="outline"
-                className="border-slate-600 text-slate-300 hover:bg-slate-700"
-              >
-                Add Your First Paid Tier
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (strategy.type === "feature-based") {
-    const featureStrategy = strategy as FeatureBasedStrategy;
-
-    const addFeature = () => {
-      const newFeatures = [
-        ...featureStrategy.features,
-        {
-          id: `feature-${Date.now()}`,
-          name: "New Feature",
-          price: 10,
-          description: "Feature description",
-          mandatory: false,
-        },
-      ];
-      updateField("features", newFeatures);
-    };
-
-    const updateFeature = (index: number, field: string, value: any) => {
-      const newFeatures = [...featureStrategy.features];
-      newFeatures[index] = { ...newFeatures[index], [field]: value };
-      updateField("features", newFeatures);
-    };
-
-    const removeFeature = (index: number) => {
-      const newFeatures = featureStrategy.features.filter(
-        (_, i) => i !== index,
-      );
-      updateField("features", newFeatures);
-    };
-
-    return (
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="text-slate-200">Base Price ($)</Label>
-            <Input
-              type="number"
-              value={featureStrategy.basePrice}
-              onChange={(e) => updateField("basePrice", Number(e.target.value))}
-              className="bg-slate-700 border-slate-600 text-slate-100"
-            />
-          </div>
-          <div>
-            <Label className="text-slate-200">Billing Period</Label>
-            <Select
-              value={featureStrategy.billingPeriod}
-              onValueChange={(value) => updateField("billingPeriod", value)}
-            >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem
-                  value="monthly"
-                  className="text-slate-100 focus:bg-slate-700"
-                >
-                  Monthly
-                </SelectItem>
-                <SelectItem
-                  value="yearly"
-                  className="text-slate-100 focus:bg-slate-700"
-                >
-                  Yearly
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <Label className="text-slate-200 text-base font-semibold">
-              Features Configuration
-            </Label>
-            <Button
-              type="button"
-              onClick={addFeature}
-              size="sm"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Feature
-            </Button>
-          </div>
-
-          {featureStrategy.features.map((feature, index) => (
-            <Card
-              key={feature.id}
-              className="p-4 bg-slate-700 border-slate-600"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Package className="w-4 h-4 text-slate-300" />
-                    <Label className="text-slate-200 font-medium">
-                      Feature {index + 1}
-                    </Label>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => removeFeature(index)}
-                    className="text-slate-400 hover:text-slate-200 hover:bg-slate-600"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label className="text-slate-200">Feature Name</Label>
-                    <Input
-                      value={feature.name}
-                      onChange={(e) =>
-                        updateFeature(index, "name", e.target.value)
-                      }
-                      className="bg-slate-600 border-slate-500 text-slate-100"
-                      placeholder="e.g., Advanced Analytics"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-slate-200">Price ($)</Label>
-                    <Input
-                      type="number"
-                      value={feature.price}
-                      onChange={(e) =>
-                        updateFeature(index, "price", Number(e.target.value))
-                      }
-                      className="bg-slate-600 border-slate-500 text-slate-100"
-                      min="0"
-                      step="0.01"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-slate-200">Description</Label>
-                  <Textarea
-                    value={feature.description}
-                    onChange={(e) =>
-                      updateFeature(index, "description", e.target.value)
-                    }
-                    className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                    placeholder="Brief description of the feature"
-                    rows={2}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      checked={(feature as any).mandatory || false}
-                      onCheckedChange={(checked) =>
-                        updateFeature(index, "mandatory", checked)
-                      }
-                    />
-                    <Label className="text-slate-200">Mandatory Feature</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant={
-                        (feature as any).mandatory ? "default" : "secondary"
-                      }
-                      className={
-                        (feature as any).mandatory
-                          ? "bg-orange-600 text-white"
-                          : "bg-slate-600 text-slate-200"
-                      }
-                    >
-                      {(feature as any).mandatory ? "Required" : "Optional"}
-                    </Badge>
-                  </div>
-                </div>
-
-                {!(feature as any).mandatory && (
-                  <div className="bg-slate-800 p-3 rounded-md">
-                    <div className="flex items-center gap-2 text-sm text-slate-300">
-                      <Settings className="w-4 h-4" />
-                      <span>Customers can toggle this feature on/off</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </Card>
-          ))}
-
-          {featureStrategy.features.length === 0 && (
-            <div className="text-center py-8 bg-slate-800 rounded-lg border-2 border-dashed border-slate-600">
-              <Package className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-              <p className="text-slate-400 mb-3">No features configured</p>
-              <Button
-                type="button"
-                onClick={addFeature}
-                variant="outline"
-                className="border-slate-600 text-slate-300 hover:bg-slate-700"
-              >
-                Add Your First Feature
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-4 text-center text-slate-400">
-      Configuration form for {(strategy as any).type} coming soon...
-    </div>
-  );
-}
-
-function PricingPreview({
-  strategies,
-  comparisonMode,
-}: {
-  strategies: PricingStrategy[];
-  comparisonMode: boolean;
-}) {
-  return (
-    <div className="space-y-8">
-      <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">Choose Your Plan</h2>
-        <p className="text-muted-foreground">
-          Select the perfect plan for your needs
-        </p>
-      </div>
-
-      {strategies.map((strategy) => (
-        <div key={strategy.id} className="space-y-4">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold">{strategy.name}</h3>
-            <Badge variant="outline">{STRATEGY_LABELS[strategy.type]}</Badge>
-          </div>
-
-          {strategy.type === "flat-rate" && (
-            <FlatRatePreview strategy={strategy as FlatRateStrategy} />
-          )}
-
-          {strategy.type === "tiered" && (
-            <TieredPreview strategy={strategy as TieredStrategy} />
-          )}
-
-          {strategy.type === "usage-based" && (
-            <UsageBasedPreview strategy={strategy as UsageBasedStrategy} />
-          )}
-
-          {strategy.type === "per-user" && (
-            <PerUserPreview strategy={strategy as PerUserStrategy} />
-          )}
-
-          {strategy.type === "freemium" && (
-            <FreemiumPreview strategy={strategy as FreemiumStrategy} />
-          )}
-
-          {strategy.type === "feature-based" && (
-            <FeatureBasedPreview strategy={strategy as FeatureBasedStrategy} />
-          )}
-
-          <Separator />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function FlatRatePreview({ strategy }: { strategy: FlatRateStrategy }) {
-  return (
-    <Card className="max-w-md">
-      <CardHeader className="text-center">
-        <CardTitle>{strategy.name}</CardTitle>
-        <div className="space-y-1">
-          <div className="text-3xl font-bold">${strategy.price}</div>
-          <div className="text-muted-foreground">
-            per {strategy.billingPeriod === "monthly" ? "month" : "year"}
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <ul className="space-y-2">
-          {strategy.features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-        <Button className="w-full">Get Started</Button>
-      </CardContent>
-    </Card>
-  );
-}
-
-function TieredPreview({ strategy }: { strategy: TieredStrategy }) {
-  return (
-    <div className="grid md:grid-cols-3 gap-6">
-      {strategy.tiers.map((tier) => (
-        <Card
-          key={tier.id}
-          className={`relative ${tier.popular ? "ring-2 ring-primary" : ""}`}
-        >
-          {tier.popular && (
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <Badge className="bg-primary text-primary-foreground">
-                Most Popular
-              </Badge>
-            </div>
-          )}
-          <CardHeader className="text-center">
-            <CardTitle>{tier.name}</CardTitle>
-            <div className="space-y-1">
-              <div className="text-3xl font-bold">${tier.price}</div>
-              <div className="text-muted-foreground">
-                per {tier.billingPeriod === "monthly" ? "month" : "year"}
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ul className="space-y-2">
-              {tier.features.map((feature, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <Button
-              className="w-full"
-              variant={tier.popular ? "default" : "outline"}
-            >
-              Get Started
-            </Button>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
-
-function UsageBasedPreview({ strategy }: { strategy: UsageBasedStrategy }) {
-  const sampleUsages = [100, 500, 1000, 2500, 5000];
-
-  return (
-    <div className="grid md:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle>{strategy.name}</CardTitle>
-          <div className="space-y-1">
-            <div className="text-3xl font-bold">${strategy.basePrice}</div>
-            <div className="text-muted-foreground">
-              base + ${strategy.usagePrice} per {strategy.usageUnit}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Includes {strategy.includedUsage} {strategy.usageUnit}
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <ul className="space-y-2">
-            {strategy.features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-primary" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <Button className="w-full">Get Started</Button>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Usage Examples</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {sampleUsages.map((usage) => {
-              const overage = Math.max(0, usage - strategy.includedUsage);
-              const totalCost =
-                strategy.basePrice + overage * strategy.usagePrice;
-              return (
-                <div key={usage} className="flex justify-between text-sm">
-                  <span>
-                    {usage.toLocaleString()} {strategy.usageUnit}
-                  </span>
-                  <span className="font-semibold">${totalCost.toFixed(2)}</span>
-                </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function PerUserPreview({ strategy }: { strategy: PerUserStrategy }) {
-  const sampleUserCounts = [3, 5, 10, 25, 50];
-
-  return (
-    <div className="grid md:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle>{strategy.name}</CardTitle>
-          <div className="space-y-1">
-            <div className="text-3xl font-bold">${strategy.pricePerUser}</div>
-            <div className="text-muted-foreground">
-              per user /{" "}
-              {strategy.billingPeriod === "monthly" ? "month" : "year"}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Minimum {strategy.minimumUsers} users
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <ul className="space-y-2">
-            {strategy.features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-primary" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <Button className="w-full">Get Started</Button>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Pricing Examples</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {sampleUserCounts.map((userCount) => {
-              const effectiveUsers = Math.max(userCount, strategy.minimumUsers);
-              const totalCost = effectiveUsers * strategy.pricePerUser;
-              return (
-                <div key={userCount} className="flex justify-between text-sm">
-                  <span>{userCount} users</span>
-                  <span className="font-semibold">${totalCost.toFixed(2)}</span>
-                </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function FreemiumPreview({ strategy }: { strategy: FreemiumStrategy }) {
-  const allTiers = [
-    {
-      id: "free",
-      name: "Free",
-      price: 0,
-      features: strategy.freeTier.features,
-      usageLimit: strategy.freeTier.usageLimit,
-      billingPeriod: "monthly" as const,
-      isFree: true,
-    },
-    ...strategy.paidTiers.map(tier => ({ ...tier, isFree: false })),
-  ];
-
-  return (
-    <div className={`grid gap-6 ${allTiers.length === 2 ? 'md:grid-cols-2' : allTiers.length === 3 ? 'md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
-      {allTiers.map((tier) => (
-        <Card
-          key={tier.id}
-          className={`relative ${tier.isFree ? 'border-green-500 bg-green-50/5' : ''}`}
-        >
-          {tier.isFree && (
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-              <Badge className="bg-green-600 text-white px-3 py-1">
-                <Zap className="w-3 h-3 mr-1" />
-                Free Forever
-              </Badge>
-            </div>
-          )}
-
-          <CardHeader className="text-center">
-            <CardTitle className={tier.isFree ? 'text-green-600' : ''}>{tier.name}</CardTitle>
-            <div className="space-y-1">
-              <div className={`text-3xl font-bold ${tier.isFree ? 'text-green-600' : ''}`}>
-                {tier.isFree ? 'Free' : `$${tier.price}`}
-              </div>
-              {!tier.isFree && (
-                <div className="text-muted-foreground">
-                  per {tier.billingPeriod === "monthly" ? "month" : "year"}
-                </div>
-              )}
-              {tier.usageLimit && (
-                <div className="text-sm text-muted-foreground">
-                  {tier.usageLimit} {tier.isFree ? 'usage limit' : 'included'}
+              {/* Comparison Tools */}
+              {comparisonMode && strategies.length > 1 && (
+                <div className="space-y-4">
+                  <h2 className="text-lg font-semibold text-slate-100">
+                    Comparison Analysis
+                  </h2>
+                  <ComparisonTable strategies={strategies} />
+                  <CostChart strategies={strategies} />
                 </div>
               )}
             </div>
-          </CardHeader>
+          </ResizableSidebar>
 
-          <CardContent className="space-y-4">
-            <ul className="space-y-2">
-              {tier.features.map((feature, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Check className={`w-4 h-4 ${tier.isFree ? 'text-green-500' : 'text-primary'}`} />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          {/* Right Side - Preview */}
+          <div className="flex-1 bg-background">
+            <ThemedPricingPage className="h-full overflow-y-auto p-8">
+              <PricingPreview
+                strategies={strategies}
+                comparisonMode={comparisonMode}
+              />
+            </ThemedPricingPage>
+          </div>
+        </div>
 
-            <Button
-              className={`w-full ${tier.isFree ? 'bg-green-600 hover:bg-green-700' : ''}`}
-              variant={tier.isFree ? "default" : "outline"}
-            >
-              {tier.isFree ? 'Get Started Free' : 'Upgrade Now'}
-            </Button>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+        {/* Preview Modal */}
+        <PricingPagePreviewModal
+          isOpen={previewModalOpen}
+          onClose={() => setPreviewModalOpen(false)}
+          strategies={strategies}
+          comparisonMode={comparisonMode}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
-=======
->>>>>>> origin/main
