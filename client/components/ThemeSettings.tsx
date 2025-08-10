@@ -297,10 +297,10 @@ export function ThemeSettings() {
 
             <TabsContent value="background" className="space-y-6">
               <div>
-                <Label className="text-base font-semibold">
+                <Label className="text-base font-semibold text-slate-100">
                   Background Style
                 </Label>
-                <p className="text-sm text-muted-foreground mb-3">
+                <p className="text-sm text-slate-300 mb-3">
                   Choose a background gradient for your pricing page
                 </p>
                 <div className="grid grid-cols-2 gap-3">
@@ -310,7 +310,7 @@ export function ThemeSettings() {
                       className={`p-4 rounded-lg border-2 text-left hover:scale-105 transition-transform ${
                         theme.backgroundColor === preset.value
                           ? "border-primary"
-                          : "border-border"
+                          : "border-slate-600"
                       }`}
                       onClick={() =>
                         updateTheme({ backgroundColor: preset.value })
