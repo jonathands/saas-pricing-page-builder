@@ -769,7 +769,7 @@ export function StrategyForm({
 
   return (
     <div className="p-4 text-center text-slate-400">
-      Configuration form for {strategy.type} coming soon...
+      Configuration form for {(strategy as any).type} coming soon...
     </div>
   );
 }
