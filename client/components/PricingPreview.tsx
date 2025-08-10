@@ -5,6 +5,7 @@ import { FlatRatePreview } from "./previews/FlatRatePreview";
 import { TieredPreview } from "./previews/TieredPreview";
 import { UsageBasedPreview } from "./previews/UsageBasedPreview";
 import { PerUserPreview } from "./previews/PerUserPreview";
+import { FreemiumPreview } from "./previews/FreemiumPreview";
 import { FeatureBasedPreview } from "./FeatureBasedPreview";
 import {
   PricingStrategy,
@@ -13,6 +14,7 @@ import {
   TieredStrategy,
   UsageBasedStrategy,
   PerUserStrategy,
+  FreemiumStrategy,
   FeatureBasedStrategy,
 } from "@shared/pricing";
 
