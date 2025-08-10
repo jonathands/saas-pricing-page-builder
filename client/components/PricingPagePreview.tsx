@@ -329,27 +329,42 @@ export function PricingPagePreview({
       <div className="text-center max-w-4xl mx-auto mb-16">
         <h1
           className="text-5xl font-bold mb-6"
-          style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+          style={{ 
+            fontFamily: `var(--font-header, ${theme.headerFont})`,
+            color: theme.primaryColor
+          }}
         >
           Choose Your Perfect Plan
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p 
+          className="text-xl max-w-2xl mx-auto"
+          style={{
+            fontFamily: `var(--font-text, ${theme.textFont})`,
+            color: 'hsl(var(--muted-foreground))'
+          }}
+        >
           Join thousands of businesses who trust our platform to grow their
           revenue. Start with a plan that fits your needs and scale as you grow.
         </p>
 
         {/* Trust indicators */}
-        <div className="flex items-center justify-center gap-8 mt-8 text-sm text-muted-foreground">
+        <div 
+          className="flex items-center justify-center gap-8 mt-8 text-sm"
+          style={{
+            fontFamily: `var(--font-text, ${theme.textFont})`,
+            color: 'hsl(var(--muted-foreground))'
+          }}
+        >
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4" />
+            <Shield className="w-4 h-4" style={{ color: theme.primaryColor }} />
             <span>Enterprise Security</span>
           </div>
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4" />
+            <Zap className="w-4 h-4" style={{ color: theme.primaryColor }} />
             <span>99.9% Uptime</span>
           </div>
           <div className="flex items-center gap-2">
-            <Star className="w-4 h-4" />
+            <Star className="w-4 h-4" style={{ color: theme.primaryColor }} />
             <span>5-star Support</span>
           </div>
         </div>
@@ -364,11 +379,19 @@ export function PricingPagePreview({
                 className="text-3xl font-bold mb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
+                  color: theme.primaryColor
                 }}
               >
                 {strategy.name}
               </h2>
-              <p className="text-muted-foreground">{strategy.description}</p>
+              <p 
+                style={{
+                  fontFamily: `var(--font-text, ${theme.textFont})`,
+                  color: 'hsl(var(--muted-foreground))'
+                }}
+              >
+                {strategy.description}
+              </p>
             </div>
 
             {strategy.type === "flat-rate" && (
@@ -410,18 +433,32 @@ export function PricingPagePreview({
       <div className="text-center mt-20 max-w-2xl mx-auto">
         <h3
           className="text-2xl font-bold mb-4"
-          style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+          style={{ 
+            fontFamily: `var(--font-header, ${theme.headerFont})`,
+            color: theme.primaryColor
+          }}
         >
           Questions? We're here to help
         </h3>
-        <p className="text-muted-foreground mb-6">
+        <p 
+          className="mb-6"
+          style={{
+            fontFamily: `var(--font-text, ${theme.textFont})`,
+            color: 'hsl(var(--muted-foreground))'
+          }}
+        >
           Get in touch with our sales team to find the perfect plan for your
           business needs.
         </p>
         <Button
           variant="outline"
           size="lg"
-          style={{ fontFamily: `var(--font-button, ${theme.buttonFont})` }}
+          style={{ 
+            fontFamily: `var(--font-button, ${theme.buttonFont})`,
+            borderColor: theme.primaryColor,
+            color: theme.primaryColor
+          }}
+          className="hover:bg-primary/10"
         >
           Contact Sales
         </Button>
@@ -440,12 +477,30 @@ export function PricingPagePreview({
 function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{strategy.name}</CardTitle>
+          <CardTitle 
+            className="text-2xl"
+            style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+          >
+            {strategy.name}
+          </CardTitle>
           <div className="space-y-2">
-            <div className="text-4xl font-bold">${strategy.price}</div>
-            <div className="text-muted-foreground">
+            <div 
+              className="text-4xl font-bold"
+              style={{ 
+                fontFamily: `var(--font-header, ${theme.headerFont})`,
+                color: theme.primaryColor
+              }}
+            >
+              ${strategy.price}
+            </div>
+            <div 
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
+              }}
+            >
               per {strategy.billingPeriod}
             </div>
           </div>
@@ -453,8 +508,12 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
         <CardContent className="space-y-6">
           <ul className="space-y-3">
             {strategy.features.map((feature: string, index: number) => (
-              <li key={index} className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-primary" />
+              <li 
+                key={index} 
+                className="flex items-center gap-3"
+                style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+              >
+                <Check className="w-5 h-5" style={{ color: theme.primaryColor }} />
                 {feature}
               </li>
             ))}
@@ -463,7 +522,11 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
             className="w-full"
             size="lg"
             onClick={() => onGetStarted(strategy, strategy)}
-            style={{ fontFamily: `var(--font-button, ${theme.buttonFont})` }}
+            style={{ 
+              fontFamily: `var(--font-button, ${theme.buttonFont})`,
+              backgroundColor: theme.primaryColor,
+              borderColor: theme.primaryColor
+            }}
           >
             Get Started
           </Button>
@@ -479,20 +542,49 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
       {strategy.tiers.map((tier: any) => (
         <Card
           key={tier.id}
-          className={`relative ${tier.popular ? "ring-2 ring-primary scale-105" : ""}`}
+          className={`relative ${tier.popular ? "scale-105" : ""}`}
+          style={{ 
+            borderColor: tier.popular ? theme.primaryColor : theme.secondaryColor,
+            borderWidth: tier.popular ? '2px' : '1px'
+          }}
         >
           {tier.popular && (
             <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <Badge className="bg-primary text-primary-foreground px-4 py-1">
+              <Badge 
+                className="px-4 py-1"
+                style={{ 
+                  backgroundColor: theme.primaryColor,
+                  color: 'white',
+                  fontFamily: `var(--font-text, ${theme.textFont})`
+                }}
+              >
                 Most Popular
               </Badge>
             </div>
           )}
           <CardHeader className="text-center">
-            <CardTitle className="text-xl">{tier.name}</CardTitle>
+            <CardTitle 
+              className="text-xl"
+              style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+            >
+              {tier.name}
+            </CardTitle>
             <div className="space-y-2">
-              <div className="text-3xl font-bold">${tier.price}</div>
-              <div className="text-muted-foreground">
+              <div 
+                className="text-3xl font-bold"
+                style={{ 
+                  fontFamily: `var(--font-header, ${theme.headerFont})`,
+                  color: theme.primaryColor
+                }}
+              >
+                ${tier.price}
+              </div>
+              <div 
+                style={{
+                  fontFamily: `var(--font-text, ${theme.textFont})`,
+                  color: 'hsl(var(--muted-foreground))'
+                }}
+              >
                 per {tier.billingPeriod}
               </div>
             </div>
@@ -500,8 +592,12 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
           <CardContent className="space-y-6">
             <ul className="space-y-3">
               {tier.features.map((feature: string, index: number) => (
-                <li key={index} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-primary" />
+                <li 
+                  key={index} 
+                  className="flex items-center gap-3"
+                  style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+                >
+                  <Check className="w-5 h-5" style={{ color: theme.primaryColor }} />
                   {feature}
                 </li>
               ))}
@@ -511,7 +607,15 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
               size="lg"
               variant={tier.popular ? "default" : "outline"}
               onClick={() => onGetStarted(tier, strategy)}
-              style={{ fontFamily: `var(--font-button, ${theme.buttonFont})` }}
+              style={tier.popular ? {
+                fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                backgroundColor: theme.primaryColor,
+                borderColor: theme.primaryColor
+              } : {
+                fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                borderColor: theme.primaryColor,
+                color: theme.primaryColor
+              }}
             >
               Get Started
             </Button>
@@ -525,15 +629,39 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
 function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{strategy.name}</CardTitle>
+          <CardTitle 
+            className="text-2xl"
+            style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+          >
+            {strategy.name}
+          </CardTitle>
           <div className="space-y-2">
-            <div className="text-4xl font-bold">${strategy.basePrice}</div>
-            <div className="text-muted-foreground">
+            <div 
+              className="text-4xl font-bold"
+              style={{ 
+                fontFamily: `var(--font-header, ${theme.headerFont})`,
+                color: theme.primaryColor
+              }}
+            >
+              ${strategy.basePrice}
+            </div>
+            <div 
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
+              }}
+            >
               base + ${strategy.usagePrice} per {strategy.usageUnit}
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div 
+              className="text-sm"
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
+              }}
+            >
               Includes {strategy.includedUsage.toLocaleString()}{" "}
               {strategy.usageUnit}
             </div>
@@ -542,8 +670,12 @@ function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
         <CardContent className="space-y-6">
           <ul className="space-y-3">
             {strategy.features.map((feature: string, index: number) => (
-              <li key={index} className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-primary" />
+              <li 
+                key={index} 
+                className="flex items-center gap-3"
+                style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+              >
+                <Check className="w-5 h-5" style={{ color: theme.primaryColor }} />
                 {feature}
               </li>
             ))}
@@ -552,7 +684,11 @@ function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
             className="w-full"
             size="lg"
             onClick={() => onGetStarted(strategy, strategy)}
-            style={{ fontFamily: `var(--font-button, ${theme.buttonFont})` }}
+            style={{ 
+              fontFamily: `var(--font-button, ${theme.buttonFont})`,
+              backgroundColor: theme.primaryColor,
+              borderColor: theme.primaryColor
+            }}
           >
             Get Started
           </Button>
@@ -565,15 +701,39 @@ function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
 function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{strategy.name}</CardTitle>
+          <CardTitle 
+            className="text-2xl"
+            style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+          >
+            {strategy.name}
+          </CardTitle>
           <div className="space-y-2">
-            <div className="text-4xl font-bold">${strategy.pricePerUser}</div>
-            <div className="text-muted-foreground">
+            <div 
+              className="text-4xl font-bold"
+              style={{ 
+                fontFamily: `var(--font-header, ${theme.headerFont})`,
+                color: theme.primaryColor
+              }}
+            >
+              ${strategy.pricePerUser}
+            </div>
+            <div 
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
+              }}
+            >
               per user / {strategy.billingPeriod}
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div 
+              className="text-sm"
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
+              }}
+            >
               Minimum {strategy.minimumUsers} users
             </div>
           </div>
@@ -581,8 +741,12 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
         <CardContent className="space-y-6">
           <ul className="space-y-3">
             {strategy.features.map((feature: string, index: number) => (
-              <li key={index} className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-primary" />
+              <li 
+                key={index} 
+                className="flex items-center gap-3"
+                style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+              >
+                <Check className="w-5 h-5" style={{ color: theme.primaryColor }} />
                 {feature}
               </li>
             ))}
@@ -591,7 +755,11 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
             className="w-full"
             size="lg"
             onClick={() => onGetStarted(strategy, strategy)}
-            style={{ fontFamily: `var(--font-button, ${theme.buttonFont})` }}
+            style={{ 
+              fontFamily: `var(--font-button, ${theme.buttonFont})`,
+              backgroundColor: theme.primaryColor,
+              borderColor: theme.primaryColor
+            }}
           >
             Get Started
           </Button>

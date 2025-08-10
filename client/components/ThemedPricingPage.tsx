@@ -20,42 +20,34 @@ export function ThemedPricingPage({
         fontFamily: `var(--font-text, ${theme.textFont})`,
       }}
     >
-      <style jsx>{`
-        .themed-pricing-page {
-          --tw-gradient-from: ${theme.backgroundColor.includes("from-")
-            ? `var(--${theme.backgroundColor.split("from-")[1].split(" ")[0]})`
-            : "rgb(248 250 252)"};
-          --tw-gradient-to: ${theme.backgroundColor.includes("to-")
-            ? `var(--${theme.backgroundColor.split("to-")[1]})`
-            : "rgb(241 245 249)"};
-          --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-        }
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .themed-pricing-page h1,
+          .themed-pricing-page h2,
+          .themed-pricing-page h3,
+          .themed-pricing-page h4,
+          .themed-pricing-page h5,
+          .themed-pricing-page h6 {
+            font-family: var(--font-header, ${theme.headerFont}) !important;
+          }
 
-        .themed-pricing-page h1,
-        .themed-pricing-page h2,
-        .themed-pricing-page h3,
-        .themed-pricing-page h4,
-        .themed-pricing-page h5,
-        .themed-pricing-page h6 {
-          font-family: var(--font-header, ${theme.headerFont}) !important;
-        }
+          .themed-pricing-page button {
+            font-family: var(--font-button, ${theme.buttonFont}) !important;
+          }
 
-        .themed-pricing-page button {
-          font-family: var(--font-button, ${theme.buttonFont}) !important;
-        }
+          .themed-pricing-page .pricing-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
 
-        .themed-pricing-page .pricing-card {
-          backdrop-filter: blur(10px);
-          background: rgba(255, 255, 255, 0.9);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .themed-pricing-page .glass-effect {
-          backdrop-filter: blur(20px);
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
+          .themed-pricing-page .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+        `
+      }} />
 
       <div
         className={`themed-pricing-page min-h-full bg-gradient-to-br ${theme.backgroundColor}`}
