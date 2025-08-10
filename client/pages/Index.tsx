@@ -141,7 +141,8 @@ export default function Index() {
       id: `${type}-${Date.now()}`,
       name: `${preset.name} ${strategies.filter(s => s.type === type).length + 1}`
     };
-    setStrategies((prev: any) => [...prev, newStrategy]);
+    // @ts-ignore
+    setStrategies(prev => [...prev, newStrategy]);
   }, [strategies]);
 
   const updateStrategy = useCallback((id: string, updates: any) => {
