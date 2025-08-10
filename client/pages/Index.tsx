@@ -138,7 +138,7 @@ export default function Index() {
   const [strategies, setStrategies] = useState<PricingStrategy[]>([]);
   const [selectedStrategyType, setSelectedStrategyType] = useState<PricingStrategyType>('tiered');
   const [comparisonMode, setComparisonMode] = useState(false);
-  const [previewMode, setPreviewMode] = useState<'live' | 'pricing-page'>('live');
+  const [previewModalOpen, setPreviewModalOpen] = useState(false);
 
   const addStrategy = useCallback((type: PricingStrategyType) => {
     const preset = SAMPLE_PRESETS[type];
