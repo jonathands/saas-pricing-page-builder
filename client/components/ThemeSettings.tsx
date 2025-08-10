@@ -224,8 +224,8 @@ export function ThemeSettings() {
             <TabsContent value="typography" className="space-y-6">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-base font-semibold">Header Font</Label>
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <Label className="text-base font-semibold text-slate-100">Header Font</Label>
+                  <p className="text-sm text-slate-300 mb-3">
                     Used for titles and headings
                   </p>
                   <Select
@@ -234,10 +234,10 @@ export function ThemeSettings() {
                       updateTheme({ headerFont: value })
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="max-h-48">
+                    <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
                         <SelectItem key={font} value={font}>
                           <span style={{ fontFamily: font }}>{font}</span>
