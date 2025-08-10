@@ -141,7 +141,7 @@ export default function Index() {
       id: `${type}-${Date.now()}`,
       name: `${preset.name} ${strategies.filter(s => s.type === type).length + 1}`
     };
-    setStrategies(prev => [...prev, newStrategy as PricingStrategy]);
+    setStrategies((prev: any) => [...prev, newStrategy]);
   }, [strategies]);
 
   const updateStrategy = useCallback((id: string, updates: Partial<PricingStrategy>) => {
