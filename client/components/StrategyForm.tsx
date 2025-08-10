@@ -26,6 +26,7 @@ import {
   TieredStrategy,
   UsageBasedStrategy,
   PerUserStrategy,
+  FreemiumStrategy,
   FeatureBasedStrategy,
 } from "@shared/pricing";
 
