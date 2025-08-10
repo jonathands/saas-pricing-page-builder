@@ -747,43 +747,45 @@ function StrategyForm({
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label>Price Per User ($)</Label>
+            <Label className="text-slate-200">Price Per User ($)</Label>
             <Input
               type="number"
               value={userStrategy.pricePerUser}
               onChange={(e) =>
                 updateField("pricePerUser", Number(e.target.value))
               }
+              className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
           <div>
-            <Label>Minimum Users</Label>
+            <Label className="text-slate-200">Minimum Users</Label>
             <Input
               type="number"
               value={userStrategy.minimumUsers}
               onChange={(e) =>
                 updateField("minimumUsers", Number(e.target.value))
               }
+              className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
         </div>
         <div>
-          <Label>Billing Period</Label>
+          <Label className="text-slate-200">Billing Period</Label>
           <Select
             value={userStrategy.billingPeriod}
             onValueChange={(value) => updateField("billingPeriod", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="monthly">Monthly</SelectItem>
-              <SelectItem value="yearly">Yearly</SelectItem>
+            <SelectContent className="bg-slate-800 border-slate-600">
+              <SelectItem value="monthly" className="text-slate-100 focus:bg-slate-700">Monthly</SelectItem>
+              <SelectItem value="yearly" className="text-slate-100 focus:bg-slate-700">Yearly</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div>
-          <Label>Features (one per line)</Label>
+          <Label className="text-slate-200">Features (one per line)</Label>
           <Textarea
             value={userStrategy.features.join("\n")}
             onChange={(e) =>
@@ -793,6 +795,7 @@ function StrategyForm({
               )
             }
             rows={4}
+            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
           />
         </div>
       </div>
