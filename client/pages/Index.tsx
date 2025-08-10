@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings, CheckCircle, CreditCard, Monitor } from "lucide-react";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
-import { PricingPagePreview } from "@/components/PricingPagePreview";
+import { PricingPagePreviewModal } from "@/components/PricingPagePreviewModal";
 import { ThemeSettings } from "@/components/ThemeSettings";
 import { useTheme } from "@/contexts/ThemeContext";
 import { 
