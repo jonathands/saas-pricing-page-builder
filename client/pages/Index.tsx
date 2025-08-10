@@ -479,7 +479,105 @@ function StrategyForm({
     );
   }
 
-  // Add other strategy type forms here...
+  if (strategy.type === 'usage-based') {
+    const usageStrategy = strategy as UsageBasedStrategy;
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Base Price ($)</Label>
+            <Input
+              type="number"
+              value={usageStrategy.basePrice}
+              onChange={(e) => updateField('basePrice', Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <Label>Usage Price ($)</Label>
+            <Input
+              type="number"
+              step="0.01"
+              value={usageStrategy.usagePrice}
+              onChange={(e) => updateField('usagePrice', Number(e.target.value))}
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Usage Unit</Label>
+            <Input
+              value={usageStrategy.usageUnit}
+              onChange={(e) => updateField('usageUnit', e.target.value)}
+              placeholder="e.g., API calls"
+            />
+          </div>
+          <div>
+            <Label>Included Usage</Label>
+            <Input
+              type="number"
+              value={usageStrategy.includedUsage}
+              onChange={(e) => updateField('includedUsage', Number(e.target.value))}
+            />
+          </div>
+        </div>
+        <div>
+          <Label>Features (one per line)</Label>
+          <Textarea
+            value={usageStrategy.features.join('\n')}
+            onChange={(e) => updateField('features', e.target.value.split('\n').filter(f => f.trim()))}
+            rows={4}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (strategy.type === 'per-user') {
+    const userStrategy = strategy as PerUserStrategy;
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Price Per User ($)</Label>
+            <Input
+              type="number"
+              value={userStrategy.pricePerUser}
+              onChange={(e) => updateField('pricePerUser', Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <Label>Minimum Users</Label>
+            <Input
+              type="number"
+              value={userStrategy.minimumUsers}
+              onChange={(e) => updateField('minimumUsers', Number(e.target.value))}
+            />
+          </div>
+        </div>
+        <div>
+          <Label>Billing Period</Label>
+          <Select value={userStrategy.billingPeriod} onValueChange={(value) => updateField('billingPeriod', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="monthly">Monthly</SelectItem>
+              <SelectItem value="yearly">Yearly</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label>Features (one per line)</Label>
+          <Textarea
+            value={userStrategy.features.join('\n')}
+            onChange={(e) => updateField('features', e.target.value.split('\n').filter(f => f.trim()))}
+            rows={4}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 text-center text-muted-foreground">
       Configuration form for {strategy.type} coming soon...
