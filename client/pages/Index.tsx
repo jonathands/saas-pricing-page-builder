@@ -369,6 +369,9 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* Theme Settings */}
+      <ThemeSettings />
     </div>
   );
 }
