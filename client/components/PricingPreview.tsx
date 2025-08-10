@@ -90,6 +90,10 @@ export function PricingPreview({
             <PerUserPreview strategy={strategy as PerUserStrategy} />
           )}
 
+          {strategy.type === "freemium" && (
+            <FreemiumPreview strategy={strategy as FreemiumStrategy} />
+          )}
+
           {strategy.type === "feature-based" && (
             <FeatureBasedPreview strategy={strategy as FeatureBasedStrategy} />
           )}
