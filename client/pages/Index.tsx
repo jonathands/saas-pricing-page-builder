@@ -266,7 +266,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-slate-700 bg-slate-900 sticky top-0 z-50" style={{ fontFamily: '"Open Sans", sans-serif' }}>
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -274,25 +274,17 @@ export default function Index() {
                 <BarChart3 className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1
-                  className="text-xl font-bold text-foreground"
-                  style={{
-                    fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  }}
-                >
+                <h1 className="text-xl font-bold text-slate-100">
                   PricingCraft
                 </h1>
-                <p
-                  className="text-sm text-muted-foreground"
-                  style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
-                >
+                <p className="text-sm text-slate-300">
                   SaaS Pricing Strategy Builder
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="comparison-mode" className="text-sm">
+                <Label htmlFor="comparison-mode" className="text-sm text-slate-200">
                   Comparison
                 </Label>
                 <Switch
@@ -306,11 +298,17 @@ export default function Index() {
                 variant="outline"
                 size="sm"
                 disabled={strategies.length === 0}
+                className="border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-slate-100"
               >
                 <Monitor className="w-4 h-4 mr-2" />
                 Preview Page
               </Button>
-              <Button onClick={exportConfiguration} variant="outline" size="sm">
+              <Button
+                onClick={exportConfiguration}
+                variant="outline"
+                size="sm"
+                className="border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-slate-100"
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Export JSON
               </Button>
