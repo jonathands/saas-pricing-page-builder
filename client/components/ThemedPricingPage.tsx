@@ -12,13 +12,26 @@ export function ThemedPricingPage({
 }: ThemedPricingPageProps) {
   const { theme } = useTheme();
 
+  // Extract HSL values for scoped CSS variables
+  const primaryHsl = theme.primaryColor.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+  const primaryHslValue = primaryHsl ? `${primaryHsl[1]} ${primaryHsl[2]}% ${primaryHsl[3]}%` : "262 80% 50%";
+  
+  const secondaryHsl = theme.secondaryColor.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+  const secondaryHslValue = secondaryHsl ? `${secondaryHsl[1]} ${secondaryHsl[2]}% ${secondaryHsl[3]}%` : "220 14.3% 95.9%";
+
   return (
     <div
       className={`${className} transition-all duration-300`}
       style={{
         background: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-        fontFamily: `var(--font-text, ${theme.textFont})`,
-      }}
+        fontFamily: theme.textFont,
+        // Set scoped CSS variables only for this container and its children
+        '--primary': primaryHslValue,
+        '--secondary': secondaryHslValue,
+        '--font-header': theme.headerFont,
+        '--font-button': theme.buttonFont,
+        '--font-text': theme.textFont,
+      } as React.CSSProperties}
     >
       <style dangerouslySetInnerHTML={{
         __html: `

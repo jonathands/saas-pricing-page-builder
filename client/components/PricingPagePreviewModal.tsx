@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Monitor, Tablet, Smartphone, X } from "lucide-react";
 import { PricingPagePreview } from "@/components/PricingPagePreview";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { PricingStrategy } from "@shared/pricing";
 
 interface PricingPagePreviewModalProps {
@@ -150,7 +151,9 @@ export function PricingPagePreviewModal({
                           : "100%",
                   }}
                 >
-                  <PricingPagePreview strategies={strategies} />
+                  <ThemeProvider>
+                    <PricingPagePreview strategies={strategies} />
+                  </ThemeProvider>
                 </div>
               </div>
             </div>
