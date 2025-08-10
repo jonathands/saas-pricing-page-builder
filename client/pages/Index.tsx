@@ -25,19 +25,19 @@ import {
 } from "@shared/pricing";
 
 // Sample preset data
-const SAMPLE_PRESETS: Record<PricingStrategyType, PricingStrategy> = {
+const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
   'flat-rate': {
     id: 'flat-1',
-    type: 'flat-rate',
+    type: 'flat-rate' as const,
     name: 'Simple SaaS',
     description: 'Perfect for straightforward SaaS products',
     price: 49,
     features: ['Unlimited projects', '24/7 support', 'API access', 'Advanced analytics'],
-    billingPeriod: 'monthly'
-  } as FlatRateStrategy,
+    billingPeriod: 'monthly' as const
+  },
   'usage-based': {
     id: 'usage-1',
-    type: 'usage-based',
+    type: 'usage-based' as const,
     name: 'Pay as you Scale',
     description: 'Perfect for APIs and scalable services',
     basePrice: 10,
@@ -45,7 +45,7 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, PricingStrategy> = {
     usageUnit: 'API calls',
     includedUsage: 1000,
     features: ['Base platform access', 'Real-time monitoring', 'Usage analytics', 'API documentation']
-  } as UsageBasedStrategy,
+  },
   'tiered': {
     id: 'tiered-1',
     type: 'tiered',
