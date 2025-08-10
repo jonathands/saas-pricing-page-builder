@@ -184,17 +184,17 @@ export function ThemeSettings() {
                       }
                       className="w-12 h-8 p-1 border-none"
                     />
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
                       {theme.primaryColor}
                     </Badge>
                   </div>
                 </div>
 
                 <div>
-                  <Label className="text-base font-semibold">
+                  <Label className="text-base font-semibold text-slate-100">
                     Secondary Color
                   </Label>
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <p className="text-sm text-slate-300 mb-3">
                     Used for secondary elements and borders
                   </p>
                   <div className="flex gap-2 items-center">
