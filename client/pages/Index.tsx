@@ -34,6 +34,7 @@ import {
   Package,
   Settings,
   CheckCircle,
+  Check,
   CreditCard,
   Monitor,
 } from "lucide-react";
