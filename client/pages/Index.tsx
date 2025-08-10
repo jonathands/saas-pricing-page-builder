@@ -680,15 +680,16 @@ function StrategyForm({
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label>Base Price ($)</Label>
+            <Label className="text-slate-200">Base Price ($)</Label>
             <Input
               type="number"
               value={usageStrategy.basePrice}
               onChange={(e) => updateField("basePrice", Number(e.target.value))}
+              className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
           <div>
-            <Label>Usage Price ($)</Label>
+            <Label className="text-slate-200">Usage Price ($)</Label>
             <Input
               type="number"
               step="0.01"
@@ -696,31 +697,34 @@ function StrategyForm({
               onChange={(e) =>
                 updateField("usagePrice", Number(e.target.value))
               }
+              className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label>Usage Unit</Label>
+            <Label className="text-slate-200">Usage Unit</Label>
             <Input
               value={usageStrategy.usageUnit}
               onChange={(e) => updateField("usageUnit", e.target.value)}
               placeholder="e.g., API calls"
+              className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
             />
           </div>
           <div>
-            <Label>Included Usage</Label>
+            <Label className="text-slate-200">Included Usage</Label>
             <Input
               type="number"
               value={usageStrategy.includedUsage}
               onChange={(e) =>
                 updateField("includedUsage", Number(e.target.value))
               }
+              className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
         </div>
         <div>
-          <Label>Features (one per line)</Label>
+          <Label className="text-slate-200">Features (one per line)</Label>
           <Textarea
             value={usageStrategy.features.join("\n")}
             onChange={(e) =>
@@ -730,6 +734,7 @@ function StrategyForm({
               )
             }
             rows={4}
+            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
           />
         </div>
       </div>
