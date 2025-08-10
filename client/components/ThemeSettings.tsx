@@ -105,7 +105,10 @@ export function ThemeSettings() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style={{ fontFamily: '"Open Sans", sans-serif' }}>
+    <div
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+      style={{ fontFamily: '"Open Sans", sans-serif' }}
+    >
       <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700">
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -141,9 +144,24 @@ export function ThemeSettings() {
         <CardContent>
           <Tabs defaultValue="colors" className="space-y-6">
             <TabsList className="grid w-full grid-cols-3 bg-slate-700 border-slate-600">
-              <TabsTrigger value="colors" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Colors</TabsTrigger>
-              <TabsTrigger value="typography" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Typography</TabsTrigger>
-              <TabsTrigger value="background" className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300">Background</TabsTrigger>
+              <TabsTrigger
+                value="colors"
+                className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300"
+              >
+                Colors
+              </TabsTrigger>
+              <TabsTrigger
+                value="typography"
+                className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300"
+              >
+                Typography
+              </TabsTrigger>
+              <TabsTrigger
+                value="background"
+                className="data-[state=active]:bg-slate-600 data-[state=active]:text-slate-100 text-slate-300"
+              >
+                Background
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="colors" className="space-y-6">
@@ -184,7 +202,10 @@ export function ThemeSettings() {
                       }
                       className="w-12 h-8 p-1 border-none"
                     />
-                    <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
+                    <Badge
+                      variant="outline"
+                      className="text-xs border-slate-600 text-slate-300"
+                    >
                       {theme.primaryColor}
                     </Badge>
                   </div>
@@ -213,7 +234,10 @@ export function ThemeSettings() {
                       }
                       className="w-12 h-8 p-1 border-none"
                     />
-                    <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
+                    <Badge
+                      variant="outline"
+                      className="text-xs border-slate-600 text-slate-300"
+                    >
                       {theme.secondaryColor}
                     </Badge>
                   </div>
@@ -224,7 +248,9 @@ export function ThemeSettings() {
             <TabsContent value="typography" className="space-y-6">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-base font-semibold text-slate-100">Header Font</Label>
+                  <Label className="text-base font-semibold text-slate-100">
+                    Header Font
+                  </Label>
                   <p className="text-sm text-slate-300 mb-3">
                     Used for titles and headings
                   </p>
@@ -239,7 +265,11 @@ export function ThemeSettings() {
                     </SelectTrigger>
                     <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
-                        <SelectItem key={font} value={font} className="text-slate-100 focus:bg-slate-700">
+                        <SelectItem
+                          key={font}
+                          value={font}
+                          className="text-slate-100 focus:bg-slate-700"
+                        >
                           <span style={{ fontFamily: font }}>{font}</span>
                         </SelectItem>
                       ))}
@@ -248,7 +278,9 @@ export function ThemeSettings() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-semibold text-slate-100">Button Font</Label>
+                  <Label className="text-base font-semibold text-slate-100">
+                    Button Font
+                  </Label>
                   <p className="text-sm text-slate-300 mb-3">
                     Used for buttons and call-to-actions
                   </p>
@@ -263,7 +295,11 @@ export function ThemeSettings() {
                     </SelectTrigger>
                     <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
-                        <SelectItem key={font} value={font} className="text-slate-100 focus:bg-slate-700">
+                        <SelectItem
+                          key={font}
+                          value={font}
+                          className="text-slate-100 focus:bg-slate-700"
+                        >
                           <span style={{ fontFamily: font }}>{font}</span>
                         </SelectItem>
                       ))}
@@ -272,7 +308,9 @@ export function ThemeSettings() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-semibold text-slate-100">Text Font</Label>
+                  <Label className="text-base font-semibold text-slate-100">
+                    Text Font
+                  </Label>
                   <p className="text-sm text-slate-300 mb-3">
                     Used for body text and descriptions
                   </p>
@@ -285,7 +323,11 @@ export function ThemeSettings() {
                     </SelectTrigger>
                     <SelectContent className="max-h-48 bg-slate-800 border-slate-600">
                       {GOOGLE_FONTS.map((font) => (
-                        <SelectItem key={font} value={font} className="text-slate-100 focus:bg-slate-700">
+                        <SelectItem
+                          key={font}
+                          value={font}
+                          className="text-slate-100 focus:bg-slate-700"
+                        >
                           <span style={{ fontFamily: font }}>{font}</span>
                         </SelectItem>
                       ))}
@@ -319,7 +361,9 @@ export function ThemeSettings() {
                       <div
                         className={`w-full h-12 rounded bg-gradient-to-br ${preset.value} mb-2`}
                       />
-                      <p className="font-medium text-sm text-slate-200">{preset.name}</p>
+                      <p className="font-medium text-sm text-slate-200">
+                        {preset.name}
+                      </p>
                     </button>
                   ))}
                 </div>

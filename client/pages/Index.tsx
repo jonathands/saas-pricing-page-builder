@@ -268,7 +268,10 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900 sticky top-0 z-50" style={{ fontFamily: '"Open Sans", sans-serif' }}>
+      <header
+        className="border-b border-slate-700 bg-slate-900 sticky top-0 z-50"
+        style={{ fontFamily: '"Open Sans", sans-serif' }}
+      >
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -286,7 +289,10 @@ export default function Index() {
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="comparison-mode" className="text-sm text-slate-200">
+                <Label
+                  htmlFor="comparison-mode"
+                  className="text-sm text-slate-200"
+                >
                   Comparison
                 </Label>
                 <Switch
@@ -323,7 +329,10 @@ export default function Index() {
       <div className="flex h-[calc(100vh-73px)]">
         {/* Resizable Sidebar - Builder Area */}
         <ResizableSidebar defaultWidth={450} minWidth={320} maxWidth={800}>
-          <div className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100" style={{ fontFamily: '"Open Sans", sans-serif' }}>
+          <div
+            className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100"
+            style={{ fontFamily: '"Open Sans", sans-serif' }}
+          >
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-slate-100">
@@ -352,7 +361,11 @@ export default function Index() {
                           type as PricingStrategyType,
                         );
                         return (
-                          <SelectItem key={type} value={type} className="text-slate-100 focus:bg-slate-700">
+                          <SelectItem
+                            key={type}
+                            value={type}
+                            className="text-slate-100 focus:bg-slate-700"
+                          >
                             <div className="flex items-center gap-2">
                               <Icon className="w-4 h-4" />
                               {label}
@@ -398,17 +411,22 @@ export default function Index() {
               <div className="bg-white/90 backdrop-blur-sm border-b px-6 py-4 flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground">Live Pricing Page</h2>
+                    <h2 className="text-lg font-semibold text-foreground">
+                      Live Pricing Page
+                    </h2>
                     <p className="text-sm text-muted-foreground">
                       Real-time preview with your theme and strategies
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    {strategies.length > 0 && comparisonMode && strategies.length > 1 && (
-                      <Badge variant="secondary">Comparison Mode</Badge>
-                    )}
+                    {strategies.length > 0 &&
+                      comparisonMode &&
+                      strategies.length > 1 && (
+                        <Badge variant="secondary">Comparison Mode</Badge>
+                      )}
                     <Badge variant="outline">
-                      {strategies.length} strateg{strategies.length === 1 ? 'y' : 'ies'}
+                      {strategies.length} strateg
+                      {strategies.length === 1 ? "y" : "ies"}
                     </Badge>
                   </div>
                 </div>
@@ -427,8 +445,9 @@ export default function Index() {
                           Design Your Pricing Strategy
                         </h3>
                         <p className="text-muted-foreground mb-4">
-                          Add pricing strategies from the sidebar to see your live pricing page.
-                          Customize themes and see real-time updates.
+                          Add pricing strategies from the sidebar to see your
+                          live pricing page. Customize themes and see real-time
+                          updates.
                         </p>
                         <Button
                           variant="outline"
@@ -450,11 +469,15 @@ export default function Index() {
                     {comparisonMode && strategies.length > 1 && (
                       <div className="mt-12 space-y-8">
                         <div>
-                          <h3 className="text-2xl font-semibold mb-6">Strategy Comparison</h3>
+                          <h3 className="text-2xl font-semibold mb-6">
+                            Strategy Comparison
+                          </h3>
                           <ComparisonTable strategies={strategies} />
                         </div>
                         <div>
-                          <h4 className="text-xl font-semibold mb-6">Cost Analysis</h4>
+                          <h4 className="text-xl font-semibold mb-6">
+                            Cost Analysis
+                          </h4>
                           <CostChart strategies={strategies} />
                         </div>
                       </div>
@@ -508,8 +531,13 @@ function StrategyConfigCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon className="w-5 h-5 text-slate-300" />
-            <CardTitle className="text-lg text-slate-100">{strategy.name}</CardTitle>
-            <Badge variant="secondary" className="bg-slate-700 text-slate-200 border-slate-600">
+            <CardTitle className="text-lg text-slate-100">
+              {strategy.name}
+            </CardTitle>
+            <Badge
+              variant="secondary"
+              className="bg-slate-700 text-slate-200 border-slate-600"
+            >
               {STRATEGY_LABELS[strategy.type]}
             </Badge>
           </div>
@@ -576,8 +604,18 @@ function StrategyForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="monthly" className="text-slate-100 focus:bg-slate-700">Monthly</SelectItem>
-                <SelectItem value="yearly" className="text-slate-100 focus:bg-slate-700">Yearly</SelectItem>
+                <SelectItem
+                  value="monthly"
+                  className="text-slate-100 focus:bg-slate-700"
+                >
+                  Monthly
+                </SelectItem>
+                <SelectItem
+                  value="yearly"
+                  className="text-slate-100 focus:bg-slate-700"
+                >
+                  Yearly
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -604,7 +642,9 @@ function StrategyForm({
     const tieredStrategy = strategy as TieredStrategy;
     return (
       <div className="space-y-4">
-        <div className="text-sm font-medium text-slate-200">Tiers Configuration</div>
+        <div className="text-sm font-medium text-slate-200">
+          Tiers Configuration
+        </div>
         {tieredStrategy.tiers.map((tier, index) => (
           <Card key={tier.id} className="p-4 bg-slate-700 border-slate-600">
             <div className="space-y-3">
@@ -639,7 +679,9 @@ function StrategyForm({
                 </div>
               </div>
               <div>
-                <Label className="text-slate-200">Features (one per line)</Label>
+                <Label className="text-slate-200">
+                  Features (one per line)
+                </Label>
                 <Textarea
                   value={tier.features.join("\n")}
                   onChange={(e) => {
@@ -779,8 +821,18 @@ function StrategyForm({
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-slate-800 border-slate-600">
-              <SelectItem value="monthly" className="text-slate-100 focus:bg-slate-700">Monthly</SelectItem>
-              <SelectItem value="yearly" className="text-slate-100 focus:bg-slate-700">Yearly</SelectItem>
+              <SelectItem
+                value="monthly"
+                className="text-slate-100 focus:bg-slate-700"
+              >
+                Monthly
+              </SelectItem>
+              <SelectItem
+                value="yearly"
+                className="text-slate-100 focus:bg-slate-700"
+              >
+                Yearly
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -802,29 +854,34 @@ function StrategyForm({
     );
   }
 
-  if (strategy.type === 'feature-based') {
+  if (strategy.type === "feature-based") {
     const featureStrategy = strategy as FeatureBasedStrategy;
 
     const addFeature = () => {
-      const newFeatures = [...featureStrategy.features, {
-        id: `feature-${Date.now()}`,
-        name: 'New Feature',
-        price: 10,
-        description: 'Feature description',
-        mandatory: false
-      }];
-      updateField('features', newFeatures);
+      const newFeatures = [
+        ...featureStrategy.features,
+        {
+          id: `feature-${Date.now()}`,
+          name: "New Feature",
+          price: 10,
+          description: "Feature description",
+          mandatory: false,
+        },
+      ];
+      updateField("features", newFeatures);
     };
 
     const updateFeature = (index: number, field: string, value: any) => {
       const newFeatures = [...featureStrategy.features];
       newFeatures[index] = { ...newFeatures[index], [field]: value };
-      updateField('features', newFeatures);
+      updateField("features", newFeatures);
     };
 
     const removeFeature = (index: number) => {
-      const newFeatures = featureStrategy.features.filter((_, i) => i !== index);
-      updateField('features', newFeatures);
+      const newFeatures = featureStrategy.features.filter(
+        (_, i) => i !== index,
+      );
+      updateField("features", newFeatures);
     };
 
     return (
@@ -835,7 +892,7 @@ function StrategyForm({
             <Input
               type="number"
               value={featureStrategy.basePrice}
-              onChange={(e) => updateField('basePrice', Number(e.target.value))}
+              onChange={(e) => updateField("basePrice", Number(e.target.value))}
               className="bg-slate-700 border-slate-600 text-slate-100"
             />
           </div>
@@ -843,14 +900,24 @@ function StrategyForm({
             <Label className="text-slate-200">Billing Period</Label>
             <Select
               value={featureStrategy.billingPeriod}
-              onValueChange={(value) => updateField('billingPeriod', value)}
+              onValueChange={(value) => updateField("billingPeriod", value)}
             >
               <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
-                <SelectItem value="monthly" className="text-slate-100 focus:bg-slate-700">Monthly</SelectItem>
-                <SelectItem value="yearly" className="text-slate-100 focus:bg-slate-700">Yearly</SelectItem>
+                <SelectItem
+                  value="monthly"
+                  className="text-slate-100 focus:bg-slate-700"
+                >
+                  Monthly
+                </SelectItem>
+                <SelectItem
+                  value="yearly"
+                  className="text-slate-100 focus:bg-slate-700"
+                >
+                  Yearly
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -858,7 +925,9 @@ function StrategyForm({
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <Label className="text-slate-200 text-base font-semibold">Features Configuration</Label>
+            <Label className="text-slate-200 text-base font-semibold">
+              Features Configuration
+            </Label>
             <Button
               type="button"
               onClick={addFeature}
@@ -871,12 +940,17 @@ function StrategyForm({
           </div>
 
           {featureStrategy.features.map((feature, index) => (
-            <Card key={feature.id} className="p-4 bg-slate-700 border-slate-600">
+            <Card
+              key={feature.id}
+              className="p-4 bg-slate-700 border-slate-600"
+            >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Package className="w-4 h-4 text-slate-300" />
-                    <Label className="text-slate-200 font-medium">Feature {index + 1}</Label>
+                    <Label className="text-slate-200 font-medium">
+                      Feature {index + 1}
+                    </Label>
                   </div>
                   <Button
                     type="button"
@@ -894,7 +968,9 @@ function StrategyForm({
                     <Label className="text-slate-200">Feature Name</Label>
                     <Input
                       value={feature.name}
-                      onChange={(e) => updateFeature(index, 'name', e.target.value)}
+                      onChange={(e) =>
+                        updateFeature(index, "name", e.target.value)
+                      }
                       className="bg-slate-600 border-slate-500 text-slate-100"
                       placeholder="e.g., Advanced Analytics"
                     />
@@ -904,7 +980,9 @@ function StrategyForm({
                     <Input
                       type="number"
                       value={feature.price}
-                      onChange={(e) => updateFeature(index, 'price', Number(e.target.value))}
+                      onChange={(e) =>
+                        updateFeature(index, "price", Number(e.target.value))
+                      }
                       className="bg-slate-600 border-slate-500 text-slate-100"
                       min="0"
                       step="0.01"
@@ -916,7 +994,9 @@ function StrategyForm({
                   <Label className="text-slate-200">Description</Label>
                   <Textarea
                     value={feature.description}
-                    onChange={(e) => updateFeature(index, 'description', e.target.value)}
+                    onChange={(e) =>
+                      updateFeature(index, "description", e.target.value)
+                    }
                     className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
                     placeholder="Brief description of the feature"
                     rows={2}
@@ -927,14 +1007,22 @@ function StrategyForm({
                   <div className="flex items-center gap-2">
                     <Switch
                       checked={(feature as any).mandatory || false}
-                      onCheckedChange={(checked) => updateFeature(index, 'mandatory', checked)}
+                      onCheckedChange={(checked) =>
+                        updateFeature(index, "mandatory", checked)
+                      }
                     />
                     <Label className="text-slate-200">Mandatory Feature</Label>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge
-                      variant={(feature as any).mandatory ? "default" : "secondary"}
-                      className={(feature as any).mandatory ? "bg-orange-600 text-white" : "bg-slate-600 text-slate-200"}
+                      variant={
+                        (feature as any).mandatory ? "default" : "secondary"
+                      }
+                      className={
+                        (feature as any).mandatory
+                          ? "bg-orange-600 text-white"
+                          : "bg-slate-600 text-slate-200"
+                      }
                     >
                       {(feature as any).mandatory ? "Required" : "Optional"}
                     </Badge>

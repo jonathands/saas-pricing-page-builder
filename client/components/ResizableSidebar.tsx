@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ResizableSidebarProps {
   children: ReactNode;
@@ -9,12 +9,12 @@ interface ResizableSidebarProps {
   className?: string;
 }
 
-export function ResizableSidebar({ 
-  children, 
-  defaultWidth = 400, 
-  minWidth = 300, 
+export function ResizableSidebar({
+  children,
+  defaultWidth = 400,
+  minWidth = 300,
   maxWidth = 600,
-  className 
+  className,
 }: ResizableSidebarProps) {
   const [width, setWidth] = useState(defaultWidth);
   const [isResizing, setIsResizing] = useState(false);
@@ -24,7 +24,7 @@ export function ResizableSidebar({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
-      
+
       const newWidth = e.clientX;
       const clampedWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
       setWidth(clampedWidth);
@@ -32,20 +32,20 @@ export function ResizableSidebar({
 
     const handleMouseUp = () => {
       setIsResizing(false);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
     };
 
     if (isResizing) {
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing, minWidth, maxWidth]);
 
@@ -54,28 +54,28 @@ export function ResizableSidebar({
   };
 
   return (
-    <div 
+    <div
       ref={sidebarRef}
       className={cn("relative bg-background border-r", className)}
       style={{ width: `${width}px`, flexShrink: 0 }}
     >
       {children}
-      
+
       {/* Resize handle */}
       <div
         ref={resizerRef}
         className={cn(
           "absolute top-0 right-0 w-1 h-full cursor-col-resize bg-slate-600 hover:bg-primary/70 transition-colors",
           "before:absolute before:content-[''] before:w-3 before:h-full before:-left-1 before:top-0",
-          isResizing && "bg-primary"
+          isResizing && "bg-primary",
         )}
         onMouseDown={handleMouseDown}
       />
-      
+
       {/* Resize indicator */}
       {isResizing && (
         <div className="fixed inset-0 z-50 pointer-events-none">
-          <div 
+          <div
             className="absolute top-0 bottom-0 w-0.5 bg-primary shadow-lg"
             style={{ left: `${width}px` }}
           />
