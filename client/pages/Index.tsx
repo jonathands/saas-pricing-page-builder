@@ -304,48 +304,67 @@ export default function Index() {
 
           {/* Right Panel - Preview */}
           <div className="lg:col-span-7 space-y-6">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="w-5 h-5" />
-                  Live Preview
-                </CardTitle>
-                <CardDescription>
-                  See how your pricing strategies would appear to customers
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="h-full overflow-y-auto">
-                {strategies.length === 0 ? (
-                  <div className="flex items-center justify-center h-96 text-center">
-                    <div className="space-y-4">
-                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
-                        <BarChart3 className="w-8 h-8 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">No strategies configured</h3>
-                        <p className="text-muted-foreground">Add a pricing strategy to see the live preview</p>
+            {previewMode === 'live' ? (
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Eye className="w-5 h-5" />
+                    Live Preview
+                  </CardTitle>
+                  <CardDescription>
+                    See how your pricing strategies would appear to customers
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="h-full overflow-y-auto">
+                  {strategies.length === 0 ? (
+                    <div className="flex items-center justify-center h-96 text-center">
+                      <div className="space-y-4">
+                        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+                          <BarChart3 className="w-8 h-8 text-muted-foreground" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-foreground">No strategies configured</h3>
+                          <p className="text-muted-foreground">Add a pricing strategy to see the live preview</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div>
-                    <PricingPreview strategies={strategies} comparisonMode={comparisonMode} />
-                    {comparisonMode && strategies.length > 1 && (
-                      <div className="mt-8 space-y-6">
-                        <div>
-                          <h3 className="text-xl font-semibold mb-4">Strategy Comparison</h3>
-                          <ComparisonTable strategies={strategies} />
+                  ) : (
+                    <div>
+                      <PricingPreview strategies={strategies} comparisonMode={comparisonMode} />
+                      {comparisonMode && strategies.length > 1 && (
+                        <div className="mt-8 space-y-6">
+                          <div>
+                            <h3 className="text-xl font-semibold mb-4">Strategy Comparison</h3>
+                            <ComparisonTable strategies={strategies} />
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-semibold mb-4">Cost Analysis</h4>
+                            <CostChart strategies={strategies} />
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="text-lg font-semibold mb-4">Cost Analysis</h4>
-                          <CostChart strategies={strategies} />
-                        </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CreditCard className="w-5 h-5" />
+                    Pricing Page Preview
+                  </CardTitle>
+                  <CardDescription>
+                    Full pricing page with mock checkout experience
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="h-full overflow-hidden p-0">
+                  <div className="h-full overflow-y-auto">
+                    <PricingPagePreview strategies={strategies} />
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>
