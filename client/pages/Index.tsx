@@ -1,62 +1,571 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings } from "lucide-react";
+import { 
+  PricingStrategy, 
+  PricingStrategyType, 
+  STRATEGY_LABELS, 
+  STRATEGY_DESCRIPTIONS,
+  TieredStrategy,
+  FlatRateStrategy,
+  UsageBasedStrategy,
+  PerUserStrategy,
+  FreemiumStrategy,
+  FeatureBasedStrategy
+} from "@shared/pricing";
+
+// Sample preset data
+const SAMPLE_PRESETS: Record<PricingStrategyType, PricingStrategy> = {
+  'flat-rate': {
+    id: 'flat-1',
+    type: 'flat-rate',
+    name: 'Simple SaaS',
+    description: 'Perfect for straightforward SaaS products',
+    price: 49,
+    features: ['Unlimited projects', '24/7 support', 'API access', 'Advanced analytics'],
+    billingPeriod: 'monthly'
+  } as FlatRateStrategy,
+  'usage-based': {
+    id: 'usage-1',
+    type: 'usage-based',
+    name: 'Pay as you Scale',
+    description: 'Perfect for APIs and scalable services',
+    basePrice: 10,
+    usagePrice: 0.05,
+    usageUnit: 'API calls',
+    includedUsage: 1000,
+    features: ['Base platform access', 'Real-time monitoring', 'Usage analytics', 'API documentation']
+  } as UsageBasedStrategy,
+  'tiered': {
+    id: 'tiered-1',
+    type: 'tiered',
+    name: 'Growth Plans',
+    description: 'Multiple tiers for different customer segments',
+    tiers: [
+      {
+        id: 'basic',
+        name: 'Basic',
+        price: 19,
+        features: ['5 projects', 'Basic support', 'Core features'],
+        billingPeriod: 'monthly'
+      },
+      {
+        id: 'pro',
+        name: 'Pro',
+        price: 49,
+        features: ['25 projects', 'Priority support', 'Advanced features', 'API access'],
+        billingPeriod: 'monthly',
+        popular: true
+      },
+      {
+        id: 'enterprise',
+        name: 'Enterprise',
+        price: 149,
+        features: ['Unlimited projects', 'Dedicated support', 'Custom integrations', 'SLA guarantee'],
+        billingPeriod: 'monthly'
+      }
+    ]
+  } as TieredStrategy,
+  'per-user': {
+    id: 'user-1',
+    type: 'per-user',
+    name: 'Team Collaboration',
+    description: 'Perfect for team-based SaaS products',
+    pricePerUser: 15,
+    minimumUsers: 3,
+    features: ['Per-user workspaces', 'Team collaboration', 'Admin controls', 'Usage insights'],
+    billingPeriod: 'monthly'
+  } as PerUserStrategy,
+  'freemium': {
+    id: 'freemium-1',
+    type: 'freemium',
+    name: 'Freemium Growth',
+    description: 'Free tier with premium upgrades',
+    freeTier: {
+      features: ['1 project', 'Basic features', 'Community support'],
+      usageLimit: 100
+    },
+    paidTiers: [
+      {
+        id: 'starter',
+        name: 'Starter',
+        price: 9,
+        features: ['5 projects', 'Premium features', 'Email support'],
+        usageLimit: 1000,
+        billingPeriod: 'monthly'
+      },
+      {
+        id: 'professional',
+        name: 'Professional',
+        price: 29,
+        features: ['Unlimited projects', 'All features', 'Priority support'],
+        billingPeriod: 'monthly'
+      }
+    ]
+  } as FreemiumStrategy,
+  'feature-based': {
+    id: 'feature-1',
+    type: 'feature-based',
+    name: 'Custom Bundle',
+    description: 'Pay only for the features you need',
+    basePrice: 19,
+    features: [
+      { id: 'analytics', name: 'Advanced Analytics', price: 10, description: 'Detailed reporting and insights' },
+      { id: 'api', name: 'API Access', price: 15, description: 'Full REST API access' },
+      { id: 'integrations', name: 'Third-party Integrations', price: 20, description: 'Connect with external tools' },
+      { id: 'whitelabel', name: 'White-label', price: 50, description: 'Remove branding and customize' }
+    ],
+    billingPeriod: 'monthly'
+  } as FeatureBasedStrategy
+};
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
+  const [strategies, setStrategies] = useState<PricingStrategy[]>([]);
+  const [selectedStrategyType, setSelectedStrategyType] = useState<PricingStrategyType>('tiered');
+  const [comparisonMode, setComparisonMode] = useState(false);
+
+  const addStrategy = useCallback((type: PricingStrategyType) => {
+    const preset = SAMPLE_PRESETS[type];
+    const newStrategy = {
+      ...preset,
+      id: `${type}-${Date.now()}`,
+      name: `${preset.name} ${strategies.filter(s => s.type === type).length + 1}`
+    };
+    setStrategies(prev => [...prev, newStrategy]);
+  }, [strategies]);
+
+  const updateStrategy = useCallback((id: string, updates: Partial<PricingStrategy>) => {
+    setStrategies(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
   }, []);
 
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
-    }
+  const removeStrategy = useCallback((id: string) => {
+    setStrategies(prev => prev.filter(s => s.id !== id));
+  }, []);
+
+  const exportConfiguration = useCallback(() => {
+    const config = { strategies, comparisonMode };
+    const dataStr = JSON.stringify(config, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'pricing-strategies.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  }, [strategies, comparisonMode]);
+
+  const getStrategyIcon = (type: PricingStrategyType) => {
+    const icons = {
+      'flat-rate': Package,
+      'usage-based': BarChart3,
+      'tiered': Star,
+      'per-user': Users,
+      'freemium': Zap,
+      'feature-based': Settings
+    };
+    return icons[type];
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">PricingCraft</h1>
+                <p className="text-sm text-muted-foreground">SaaS Pricing Strategy Builder</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <Label htmlFor="comparison-mode" className="text-sm">Comparison Mode</Label>
+                <Switch 
+                  id="comparison-mode"
+                  checked={comparisonMode}
+                  onCheckedChange={setComparisonMode}
+                />
+              </div>
+              <Button onClick={exportConfiguration} variant="outline" size="sm">
+                <Download className="w-4 h-4 mr-2" />
+                Export JSON
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-6 py-8">
+        <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-120px)]">
+          {/* Left Panel - Configuration */}
+          <div className="lg:col-span-5 space-y-6 overflow-y-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Plus className="w-5 h-5" />
+                  Add Pricing Strategy
+                </CardTitle>
+                <CardDescription>
+                  Choose a pricing strategy to configure and preview
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Strategy Type</Label>
+                  <Select value={selectedStrategyType} onValueChange={(value: PricingStrategyType) => setSelectedStrategyType(value)}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(STRATEGY_LABELS).map(([type, label]) => {
+                        const Icon = getStrategyIcon(type as PricingStrategyType);
+                        return (
+                          <SelectItem key={type} value={type}>
+                            <div className="flex items-center gap-2">
+                              <Icon className="w-4 h-4" />
+                              {label}
+                            </div>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-sm text-muted-foreground">
+                    {STRATEGY_DESCRIPTIONS[selectedStrategyType]}
+                  </p>
+                </div>
+                <Button onClick={() => addStrategy(selectedStrategyType)} className="w-full">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add {STRATEGY_LABELS[selectedStrategyType]}
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Strategy Configuration */}
+            <div className="space-y-4">
+              {strategies.map((strategy) => (
+                <StrategyConfigCard 
+                  key={strategy.id} 
+                  strategy={strategy}
+                  onUpdate={updateStrategy}
+                  onRemove={removeStrategy}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Panel - Preview */}
+          <div className="lg:col-span-7 space-y-6">
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Eye className="w-5 h-5" />
+                  Live Preview
+                </CardTitle>
+                <CardDescription>
+                  See how your pricing strategies would appear to customers
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="h-full overflow-y-auto">
+                {strategies.length === 0 ? (
+                  <div className="flex items-center justify-center h-96 text-center">
+                    <div className="space-y-4">
+                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+                        <BarChart3 className="w-8 h-8 text-muted-foreground" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">No strategies configured</h3>
+                        <p className="text-muted-foreground">Add a pricing strategy to see the live preview</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <PricingPreview strategies={strategies} comparisonMode={comparisonMode} />
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
+    </div>
+  );
+}
+
+function StrategyConfigCard({ 
+  strategy, 
+  onUpdate, 
+  onRemove 
+}: { 
+  strategy: PricingStrategy;
+  onUpdate: (id: string, updates: Partial<PricingStrategy>) => void;
+  onRemove: (id: string) => void;
+}) {
+  const Icon = strategy.type === 'flat-rate' ? Package :
+               strategy.type === 'usage-based' ? BarChart3 :
+               strategy.type === 'tiered' ? Star :
+               strategy.type === 'per-user' ? Users :
+               strategy.type === 'freemium' ? Zap : Settings;
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Icon className="w-5 h-5" />
+            <CardTitle className="text-lg">{strategy.name}</CardTitle>
+            <Badge variant="secondary">{STRATEGY_LABELS[strategy.type]}</Badge>
+          </div>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => onRemove(strategy.id)}
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <StrategyForm strategy={strategy} onUpdate={onUpdate} />
+      </CardContent>
+    </Card>
+  );
+}
+
+function StrategyForm({ 
+  strategy, 
+  onUpdate 
+}: { 
+  strategy: PricingStrategy;
+  onUpdate: (id: string, updates: Partial<PricingStrategy>) => void;
+}) {
+  const updateField = (field: string, value: any) => {
+    onUpdate(strategy.id, { [field]: value });
+  };
+
+  const updateNestedField = (parentField: string, field: string, value: any) => {
+    const parent = (strategy as any)[parentField];
+    onUpdate(strategy.id, { 
+      [parentField]: { ...parent, [field]: value }
+    });
+  };
+
+  if (strategy.type === 'flat-rate') {
+    const flatStrategy = strategy as FlatRateStrategy;
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Price ($)</Label>
+            <Input 
+              type="number" 
+              value={flatStrategy.price}
+              onChange={(e) => updateField('price', Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <Label>Billing Period</Label>
+            <Select value={flatStrategy.billingPeriod} onValueChange={(value) => updateField('billingPeriod', value)}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="monthly">Monthly</SelectItem>
+                <SelectItem value="yearly">Yearly</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div>
+          <Label>Features (one per line)</Label>
+          <Textarea 
+            value={flatStrategy.features.join('\n')}
+            onChange={(e) => updateField('features', e.target.value.split('\n').filter(f => f.trim()))}
+            rows={4}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (strategy.type === 'tiered') {
+    const tieredStrategy = strategy as TieredStrategy;
+    return (
+      <div className="space-y-4">
+        <div className="text-sm font-medium">Tiers Configuration</div>
+        {tieredStrategy.tiers.map((tier, index) => (
+          <Card key={tier.id} className="p-4">
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Tier Name</Label>
+                  <Input 
+                    value={tier.name}
+                    onChange={(e) => {
+                      const newTiers = [...tieredStrategy.tiers];
+                      newTiers[index] = { ...tier, name: e.target.value };
+                      updateField('tiers', newTiers);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>Price ($)</Label>
+                  <Input 
+                    type="number"
+                    value={tier.price}
+                    onChange={(e) => {
+                      const newTiers = [...tieredStrategy.tiers];
+                      newTiers[index] = { ...tier, price: Number(e.target.value) };
+                      updateField('tiers', newTiers);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label>Features (one per line)</Label>
+                <Textarea 
+                  value={tier.features.join('\n')}
+                  onChange={(e) => {
+                    const newTiers = [...tieredStrategy.tiers];
+                    newTiers[index] = { ...tier, features: e.target.value.split('\n').filter(f => f.trim()) };
+                    updateField('tiers', newTiers);
+                  }}
+                  rows={3}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch 
+                  checked={tier.popular || false}
+                  onCheckedChange={(checked) => {
+                    const newTiers = [...tieredStrategy.tiers];
+                    newTiers[index] = { ...tier, popular: checked };
+                    updateField('tiers', newTiers);
+                  }}
+                />
+                <Label>Mark as popular</Label>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // Add other strategy type forms here...
+  return (
+    <div className="p-4 text-center text-muted-foreground">
+      Configuration form for {strategy.type} coming soon...
+    </div>
+  );
+}
+
+function PricingPreview({ 
+  strategies, 
+  comparisonMode 
+}: { 
+  strategies: PricingStrategy[];
+  comparisonMode: boolean;
+}) {
+  return (
+    <div className="space-y-8">
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold">Choose Your Plan</h2>
+        <p className="text-muted-foreground">Select the perfect plan for your needs</p>
+      </div>
+
+      {strategies.map((strategy) => (
+        <div key={strategy.id} className="space-y-4">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold">{strategy.name}</h3>
+            <Badge variant="outline">{STRATEGY_LABELS[strategy.type]}</Badge>
+          </div>
+          
+          {strategy.type === 'flat-rate' && (
+            <FlatRatePreview strategy={strategy as FlatRateStrategy} />
+          )}
+          
+          {strategy.type === 'tiered' && (
+            <TieredPreview strategy={strategy as TieredStrategy} />
+          )}
+          
+          {/* Add other strategy previews... */}
+          
+          <Separator />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FlatRatePreview({ strategy }: { strategy: FlatRateStrategy }) {
+  return (
+    <Card className="max-w-md">
+      <CardHeader className="text-center">
+        <CardTitle>{strategy.name}</CardTitle>
+        <div className="space-y-1">
+          <div className="text-3xl font-bold">${strategy.price}</div>
+          <div className="text-muted-foreground">per {strategy.billingPeriod === 'monthly' ? 'month' : 'year'}</div>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <ul className="space-y-2">
+          {strategy.features.map((feature, index) => (
+            <li key={index} className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+        <Button className="w-full">Get Started</Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+function TieredPreview({ strategy }: { strategy: TieredStrategy }) {
+  return (
+    <div className="grid md:grid-cols-3 gap-6">
+      {strategy.tiers.map((tier) => (
+        <Card key={tier.id} className={`relative ${tier.popular ? 'ring-2 ring-primary' : ''}`}>
+          {tier.popular && (
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
+            </div>
+          )}
+          <CardHeader className="text-center">
+            <CardTitle>{tier.name}</CardTitle>
+            <div className="space-y-1">
+              <div className="text-3xl font-bold">${tier.price}</div>
+              <div className="text-muted-foreground">per {tier.billingPeriod === 'monthly' ? 'month' : 'year'}</div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <ul className="space-y-2">
+              {tier.features.map((feature, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <Button className="w-full" variant={tier.popular ? "default" : "outline"}>
+              Get Started
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }
