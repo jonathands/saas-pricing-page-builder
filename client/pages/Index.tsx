@@ -319,10 +319,11 @@ export default function Index() {
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-12 gap-8 h-[calc(100vh-120px)]">
-          {/* Left Panel - Configuration */}
-          <div className="lg:col-span-5 space-y-6 overflow-y-auto">
+      {/* Main Layout with Resizable Sidebar */}
+      <div className="flex h-[calc(100vh-73px)]">
+        {/* Resizable Sidebar - Builder Area */}
+        <ResizableSidebar defaultWidth={450} minWidth={350} maxWidth={700}>
+          <div className="h-full overflow-y-auto p-6 space-y-6 bg-muted/30">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -387,67 +388,82 @@ export default function Index() {
               ))}
             </div>
           </div>
+        </ResizableSidebar>
 
-          {/* Right Panel - Preview */}
-          <div className="lg:col-span-7 space-y-6">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="w-5 h-5" />
-                  Live Preview
-                </CardTitle>
-                <CardDescription>
-                  See how your pricing strategies would appear to customers
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="h-full overflow-y-auto">
+        {/* Main Content Area - Pricing Page Preview */}
+        <div className="flex-1 overflow-hidden">
+          <ThemedPricingPage className="h-full">
+            <div className="h-full flex flex-col">
+              {/* Preview Header */}
+              <div className="bg-white/90 backdrop-blur-sm border-b px-6 py-4 flex-shrink-0">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground">Live Pricing Page</h2>
+                    <p className="text-sm text-muted-foreground">
+                      Real-time preview with your theme and strategies
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {strategies.length > 0 && comparisonMode && strategies.length > 1 && (
+                      <Badge variant="secondary">Comparison Mode</Badge>
+                    )}
+                    <Badge variant="outline">
+                      {strategies.length} strateg{strategies.length === 1 ? 'y' : 'ies'}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              {/* Preview Content */}
+              <div className="flex-1 overflow-y-auto">
                 {strategies.length === 0 ? (
-                  <div className="flex items-center justify-center h-96 text-center">
-                    <div className="space-y-4">
-                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
-                        <BarChart3 className="w-8 h-8 text-muted-foreground" />
+                  <div className="flex items-center justify-center h-full text-center">
+                    <div className="space-y-4 max-w-md">
+                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                        <BarChart3 className="w-8 h-8 text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          No strategies configured
+                        <h3 className="text-xl font-semibold text-foreground mb-2">
+                          Design Your Pricing Strategy
                         </h3>
-                        <p className="text-muted-foreground">
-                          Add a pricing strategy to see the live preview
+                        <p className="text-muted-foreground mb-4">
+                          Add pricing strategies from the sidebar to see your live pricing page.
+                          Customize themes and see real-time updates.
                         </p>
-                        <Button variant="outline" className="mt-4" disabled>
-                          <Monitor className="w-4 h-4 mr-2" />
-                          Preview Page (Add strategies first)
+                        <Button
+                          variant="outline"
+                          disabled
+                          className="glass-effect"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Add strategies to get started
                         </Button>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <div>
+                  <div className="p-6">
                     <PricingPreview
                       strategies={strategies}
                       comparisonMode={comparisonMode}
                     />
                     {comparisonMode && strategies.length > 1 && (
-                      <div className="mt-8 space-y-6">
+                      <div className="mt-12 space-y-8">
                         <div>
-                          <h3 className="text-xl font-semibold mb-4">
-                            Strategy Comparison
-                          </h3>
+                          <h3 className="text-2xl font-semibold mb-6">Strategy Comparison</h3>
                           <ComparisonTable strategies={strategies} />
                         </div>
                         <div>
-                          <h4 className="text-lg font-semibold mb-4">
-                            Cost Analysis
-                          </h4>
+                          <h4 className="text-xl font-semibold mb-6">Cost Analysis</h4>
                           <CostChart strategies={strategies} />
                         </div>
                       </div>
                     )}
                   </div>
                 )}
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </div>
+          </ThemedPricingPage>
         </div>
       </div>
 
