@@ -423,7 +423,6 @@ export default function Index() {
           isOpen={previewModalOpen}
           onClose={() => setPreviewModalOpen(false)}
           strategies={strategies}
-          comparisonMode={comparisonMode}
         />
       </div>
     </ThemeProvider>
