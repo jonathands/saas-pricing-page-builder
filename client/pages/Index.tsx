@@ -184,7 +184,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className={`min-h-screen bg-gradient-to-br ${theme.backgroundColor}`}>
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -194,19 +194,46 @@ export default function Index() {
                 <BarChart3 className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">PricingCraft</h1>
-                <p className="text-sm text-muted-foreground">SaaS Pricing Strategy Builder</p>
+                <h1
+                  className="text-xl font-bold text-foreground"
+                  style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
+                >
+                  PricingCraft
+                </h1>
+                <p
+                  className="text-sm text-muted-foreground"
+                  style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+                >
+                  SaaS Pricing Strategy Builder
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="comparison-mode" className="text-sm">Comparison Mode</Label>
-                <Switch 
-                  id="comparison-mode"
-                  checked={comparisonMode}
-                  onCheckedChange={setComparisonMode}
-                />
+                <Label htmlFor="preview-mode" className="text-sm">Preview Mode</Label>
+                <Tabs value={previewMode} onValueChange={(value: any) => setPreviewMode(value)}>
+                  <TabsList className="h-8">
+                    <TabsTrigger value="live" className="text-xs px-2">
+                      <Eye className="w-3 h-3 mr-1" />
+                      Live
+                    </TabsTrigger>
+                    <TabsTrigger value="pricing-page" className="text-xs px-2">
+                      <Monitor className="w-3 h-3 mr-1" />
+                      Page
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
+              {previewMode === 'live' && (
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="comparison-mode" className="text-sm">Comparison</Label>
+                  <Switch
+                    id="comparison-mode"
+                    checked={comparisonMode}
+                    onCheckedChange={setComparisonMode}
+                  />
+                </div>
+              )}
               <Button onClick={exportConfiguration} variant="outline" size="sm">
                 <Download className="w-4 h-4 mr-2" />
                 Export JSON
