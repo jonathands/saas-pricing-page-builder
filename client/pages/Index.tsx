@@ -321,7 +321,7 @@ export default function Index() {
       <div className="flex h-[calc(100vh-73px)]">
         {/* Resizable Sidebar - Builder Area */}
         <ResizableSidebar defaultWidth={450} minWidth={320} maxWidth={800}>
-          <div className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100">
+          <div className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100" style={{ fontFamily: '"Open Sans", sans-serif' }}>
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-slate-100">
