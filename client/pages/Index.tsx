@@ -1016,6 +1016,10 @@ function PricingPreview({
             <PerUserPreview strategy={strategy as PerUserStrategy} />
           )}
 
+          {strategy.type === "feature-based" && (
+            <FeatureBasedPreview strategy={strategy as FeatureBasedStrategy} />
+          )}
+
           <Separator />
         </div>
       ))}
