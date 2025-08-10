@@ -95,7 +95,8 @@ export function ThemeSettings() {
         onClick={() => setIsOpen(true)}
         variant="outline"
         size="sm"
-        className="fixed bottom-4 right-4 z-50 shadow-lg"
+        className="fixed bottom-4 right-4 z-50 shadow-lg bg-slate-800 border-slate-600 text-slate-200 hover:bg-slate-700 hover:text-slate-100"
+        style={{ fontFamily: '"Open Sans", sans-serif' }}
       >
         <Settings className="w-4 h-4 mr-2" />
         Theme Settings
