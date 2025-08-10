@@ -9,9 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings, TrendingUp, DollarSign, CheckCircle } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings, CheckCircle } from "lucide-react";
+import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { 
   PricingStrategy, 
   PricingStrategyType, 
