@@ -30,6 +30,10 @@ export function ThemedPricingPage({
           --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
         }
 
+        .themed-pricing-page {
+          font-family: var(--font-text, ${theme.textFont});
+        }
+
         .themed-pricing-page h1,
         .themed-pricing-page h2,
         .themed-pricing-page h3,
