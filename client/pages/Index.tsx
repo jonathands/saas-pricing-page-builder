@@ -322,8 +322,8 @@ export default function Index() {
       {/* Main Layout with Resizable Sidebar */}
       <div className="flex h-[calc(100vh-73px)]">
         {/* Resizable Sidebar - Builder Area */}
-        <ResizableSidebar defaultWidth={450} minWidth={350} maxWidth={700}>
-          <div className="h-full overflow-y-auto p-6 space-y-6 bg-muted/30">
+        <ResizableSidebar defaultWidth={450} minWidth={320} maxWidth={800}>
+          <div className="h-full overflow-y-auto p-6 space-y-6 bg-slate-900 text-slate-100">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
