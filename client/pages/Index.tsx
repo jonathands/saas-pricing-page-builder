@@ -211,30 +211,22 @@ export default function Index() {
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="preview-mode" className="text-sm">Preview Mode</Label>
-                <Tabs value={previewMode} onValueChange={(value: any) => setPreviewMode(value)}>
-                  <TabsList className="h-8">
-                    <TabsTrigger value="live" className="text-xs px-2">
-                      <Eye className="w-3 h-3 mr-1" />
-                      Live
-                    </TabsTrigger>
-                    <TabsTrigger value="pricing-page" className="text-xs px-2">
-                      <Monitor className="w-3 h-3 mr-1" />
-                      Page
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
+                <Label htmlFor="comparison-mode" className="text-sm">Comparison</Label>
+                <Switch
+                  id="comparison-mode"
+                  checked={comparisonMode}
+                  onCheckedChange={setComparisonMode}
+                />
               </div>
-              {previewMode === 'live' && (
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="comparison-mode" className="text-sm">Comparison</Label>
-                  <Switch
-                    id="comparison-mode"
-                    checked={comparisonMode}
-                    onCheckedChange={setComparisonMode}
-                  />
-                </div>
-              )}
+              <Button
+                onClick={() => setPreviewModalOpen(true)}
+                variant="outline"
+                size="sm"
+                disabled={strategies.length === 0}
+              >
+                <Monitor className="w-4 h-4 mr-2" />
+                Preview Page
+              </Button>
               <Button onClick={exportConfiguration} variant="outline" size="sm">
                 <Download className="w-4 h-4 mr-2" />
                 Export JSON
