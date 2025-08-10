@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { PricingPagePreviewModal } from "@/components/PricingPagePreviewModal";
+import { FeatureBasedPreview } from "@/components/FeatureBasedPreview";
 import { ThemeSettings } from "@/components/ThemeSettings";
 import { ResizableSidebar } from "@/components/ResizableSidebar";
 import { ThemedPricingPage } from "@/components/ThemedPricingPage";
