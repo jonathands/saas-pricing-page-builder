@@ -1,63 +1,88 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { TrendingUp } from "lucide-react";
-import { 
-  PricingStrategy, 
+import {
+  PricingStrategy,
   STRATEGY_LABELS,
   FlatRateStrategy,
   UsageBasedStrategy,
   TieredStrategy,
-  PerUserStrategy
+  PerUserStrategy,
 } from "@shared/pricing";
 
-export function ComparisonTable({ strategies }: { strategies: PricingStrategy[] }) {
+export function ComparisonTable({
+  strategies,
+}: {
+  strategies: PricingStrategy[];
+}) {
   const getStrategyMetrics = (strategy: PricingStrategy) => {
     switch (strategy.type) {
-      case 'flat-rate':
+      case "flat-rate":
         const flatStrategy = strategy as FlatRateStrategy;
         return {
           startingPrice: flatStrategy.price,
-          scalability: 'Low',
-          complexity: 'Very Low',
-          customerType: 'SMB',
-          revenueModel: 'Predictable'
+          scalability: "Low",
+          complexity: "Very Low",
+          customerType: "SMB",
+          revenueModel: "Predictable",
         };
-      case 'usage-based':
+      case "usage-based":
         const usageStrategy = strategy as UsageBasedStrategy;
         return {
           startingPrice: usageStrategy.basePrice,
-          scalability: 'Very High',
-          complexity: 'High',
-          customerType: 'Enterprise',
-          revenueModel: 'Variable'
+          scalability: "Very High",
+          complexity: "High",
+          customerType: "Enterprise",
+          revenueModel: "Variable",
         };
-      case 'tiered':
+      case "tiered":
         const tieredStrategy = strategy as TieredStrategy;
         return {
-          startingPrice: Math.min(...tieredStrategy.tiers.map(t => t.price)),
-          scalability: 'High',
-          complexity: 'Medium',
-          customerType: 'All Segments',
-          revenueModel: 'Predictable'
+          startingPrice: Math.min(...tieredStrategy.tiers.map((t) => t.price)),
+          scalability: "High",
+          complexity: "Medium",
+          customerType: "All Segments",
+          revenueModel: "Predictable",
         };
-      case 'per-user':
+      case "per-user":
         const userStrategy = strategy as PerUserStrategy;
         return {
           startingPrice: userStrategy.pricePerUser * userStrategy.minimumUsers,
-          scalability: 'High',
-          complexity: 'Low',
-          customerType: 'Teams',
-          revenueModel: 'Linear Growth'
+          scalability: "High",
+          complexity: "Low",
+          customerType: "Teams",
+          revenueModel: "Linear Growth",
         };
       default:
         return {
           startingPrice: 0,
-          scalability: 'Unknown',
-          complexity: 'Unknown',
-          customerType: 'Unknown',
-          revenueModel: 'Unknown'
+          scalability: "Unknown",
+          complexity: "Unknown",
+          customerType: "Unknown",
+          revenueModel: "Unknown",
         };
     }
   };
@@ -84,11 +109,21 @@ export function ComparisonTable({ strategies }: { strategies: PricingStrategy[] 
                 <TableRow key={strategy.id}>
                   <TableCell className="font-medium">{strategy.name}</TableCell>
                   <TableCell>
-                    <Badge variant="outline">{STRATEGY_LABELS[strategy.type]}</Badge>
+                    <Badge variant="outline">
+                      {STRATEGY_LABELS[strategy.type]}
+                    </Badge>
                   </TableCell>
                   <TableCell>${metrics.startingPrice}</TableCell>
                   <TableCell>
-                    <Badge variant={metrics.scalability === 'Very High' ? 'default' : metrics.scalability === 'High' ? 'secondary' : 'outline'}>
+                    <Badge
+                      variant={
+                        metrics.scalability === "Very High"
+                          ? "default"
+                          : metrics.scalability === "High"
+                            ? "secondary"
+                            : "outline"
+                      }
+                    >
                       {metrics.scalability}
                     </Badge>
                   </TableCell>
@@ -107,42 +142,51 @@ export function ComparisonTable({ strategies }: { strategies: PricingStrategy[] 
 
 export function CostChart({ strategies }: { strategies: PricingStrategy[] }) {
   const usagePoints = [100, 500, 1000, 2500, 5000, 10000];
-  
-  const chartData = usagePoints.map(usage => {
+
+  const chartData = usagePoints.map((usage) => {
     const dataPoint: any = { usage };
-    
-    strategies.forEach(strategy => {
+
+    strategies.forEach((strategy) => {
       let cost = 0;
-      
+
       switch (strategy.type) {
-        case 'flat-rate':
+        case "flat-rate":
           cost = (strategy as FlatRateStrategy).price;
           break;
-        case 'usage-based':
+        case "usage-based":
           const usageStrategy = strategy as UsageBasedStrategy;
           const overage = Math.max(0, usage - usageStrategy.includedUsage);
-          cost = usageStrategy.basePrice + (overage * usageStrategy.usagePrice);
+          cost = usageStrategy.basePrice + overage * usageStrategy.usagePrice;
           break;
-        case 'per-user':
+        case "per-user":
           // Assume 5 users for comparison
           const userStrategy = strategy as PerUserStrategy;
-          cost = Math.max(5, userStrategy.minimumUsers) * userStrategy.pricePerUser;
+          cost =
+            Math.max(5, userStrategy.minimumUsers) * userStrategy.pricePerUser;
           break;
-        case 'tiered':
+        case "tiered":
           // Use middle tier for comparison
           const tieredStrategy = strategy as TieredStrategy;
-          const middleTier = tieredStrategy.tiers[Math.floor(tieredStrategy.tiers.length / 2)];
+          const middleTier =
+            tieredStrategy.tiers[Math.floor(tieredStrategy.tiers.length / 2)];
           cost = middleTier.price;
           break;
       }
-      
+
       dataPoint[strategy.name] = cost;
     });
-    
+
     return dataPoint;
   });
 
-  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7c7c', '#8dd1e1', '#d084d0'];
+  const colors = [
+    "#8884d8",
+    "#82ca9d",
+    "#ffc658",
+    "#ff7c7c",
+    "#8dd1e1",
+    "#d084d0",
+  ];
 
   return (
     <Card>
@@ -162,16 +206,16 @@ export function CostChart({ strategies }: { strategies: PricingStrategy[] }) {
             <XAxis
               dataKey="usage"
               type="number"
-              domain={['dataMin', 'dataMax']}
+              domain={["dataMin", "dataMax"]}
               tickFormatter={(value) => value.toLocaleString()}
             />
             <YAxis
               type="number"
-              domain={['dataMin', 'dataMax']}
+              domain={["dataMin", "dataMax"]}
               tickFormatter={(value) => `$${value}`}
             />
             <Tooltip
-              formatter={(value: any) => [`$${value}`, 'Cost']}
+              formatter={(value: any) => [`$${value}`, "Cost"]}
               labelFormatter={(value) => `Usage: ${value}`}
             />
             {strategies.map((strategy, index) => (

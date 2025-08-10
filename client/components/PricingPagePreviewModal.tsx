@@ -1,10 +1,15 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Monitor, Tablet, Smartphone, X } from 'lucide-react';
-import { PricingPagePreview } from '@/components/PricingPagePreview';
+import { Monitor, Tablet, Smartphone, X } from "lucide-react";
+import { PricingPagePreview } from "@/components/PricingPagePreview";
 import { PricingStrategy } from "@shared/pricing";
 
 interface PricingPagePreviewModalProps {
@@ -15,30 +20,35 @@ interface PricingPagePreviewModalProps {
 
 const SCREEN_SIZES = {
   desktop: {
-    name: 'Desktop',
+    name: "Desktop",
     icon: Monitor,
-    width: '1200px',
-    height: '800px',
-    description: '1200×800'
+    width: "1200px",
+    height: "800px",
+    description: "1200×800",
   },
   tablet: {
-    name: 'Tablet',
+    name: "Tablet",
     icon: Tablet,
-    width: '768px',
-    height: '1024px',
-    description: '768×1024'
+    width: "768px",
+    height: "1024px",
+    description: "768×1024",
   },
   mobile: {
-    name: 'Mobile',
+    name: "Mobile",
     icon: Smartphone,
-    width: '375px',
-    height: '667px',
-    description: '375×667'
-  }
+    width: "375px",
+    height: "667px",
+    description: "375×667",
+  },
 };
 
-export function PricingPagePreviewModal({ isOpen, onClose, strategies }: PricingPagePreviewModalProps) {
-  const [selectedSize, setSelectedSize] = useState<keyof typeof SCREEN_SIZES>('desktop');
+export function PricingPagePreviewModal({
+  isOpen,
+  onClose,
+  strategies,
+}: PricingPagePreviewModalProps) {
+  const [selectedSize, setSelectedSize] =
+    useState<keyof typeof SCREEN_SIZES>("desktop");
 
   if (!isOpen) return null;
 
@@ -50,7 +60,9 @@ export function PricingPagePreviewModal({ isOpen, onClose, strategies }: Pricing
         <DialogHeader className="p-6 pb-4 border-b">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-xl font-semibold">Pricing Page Preview</DialogTitle>
+              <DialogTitle className="text-xl font-semibold">
+                Pricing Page Preview
+              </DialogTitle>
               <p className="text-sm text-muted-foreground mt-1">
                 See how your pricing page looks across different devices
               </p>
@@ -59,18 +71,28 @@ export function PricingPagePreviewModal({ isOpen, onClose, strategies }: Pricing
               <X className="w-4 h-4" />
             </Button>
           </div>
-          
+
           {/* Screen Size Selector */}
           <div className="mt-4">
-            <Tabs value={selectedSize} onValueChange={(value: any) => setSelectedSize(value)}>
+            <Tabs
+              value={selectedSize}
+              onValueChange={(value: any) => setSelectedSize(value)}
+            >
               <TabsList className="grid w-full grid-cols-3">
                 {Object.entries(SCREEN_SIZES).map(([key, size]) => {
                   const Icon = size.icon;
                   return (
-                    <TabsTrigger key={key} value={key} className="flex items-center gap-2">
+                    <TabsTrigger
+                      key={key}
+                      value={key}
+                      className="flex items-center gap-2"
+                    >
                       <Icon className="w-4 h-4" />
                       <span className="hidden sm:inline">{size.name}</span>
-                      <Badge variant="outline" className="text-xs hidden md:inline">
+                      <Badge
+                        variant="outline"
+                        className="text-xs hidden md:inline"
+                      >
                         {size.description}
                       </Badge>
                     </TabsTrigger>
@@ -84,14 +106,14 @@ export function PricingPagePreviewModal({ isOpen, onClose, strategies }: Pricing
         {/* Preview Container */}
         <div className="flex-1 p-6 bg-slate-100 overflow-hidden">
           <div className="h-full flex items-center justify-center">
-            <div 
+            <div
               className="bg-white rounded-lg shadow-2xl overflow-hidden border"
               style={{
                 width: currentSize.width,
                 height: currentSize.height,
-                maxWidth: '100%',
-                maxHeight: '100%',
-                transition: 'all 0.3s ease-in-out'
+                maxWidth: "100%",
+                maxHeight: "100%",
+                transition: "all 0.3s ease-in-out",
               }}
             >
               {/* Preview Header */}
@@ -111,13 +133,21 @@ export function PricingPagePreviewModal({ isOpen, onClose, strategies }: Pricing
 
               {/* Preview Content */}
               <div className="h-[calc(100%-48px)] overflow-auto">
-                <div 
+                <div
                   style={{
-                    transform: selectedSize === 'mobile' ? 'scale(0.85)' : 
-                               selectedSize === 'tablet' ? 'scale(0.9)' : 'scale(1)',
-                    transformOrigin: 'top left',
-                    width: selectedSize === 'mobile' ? '118%' : 
-                           selectedSize === 'tablet' ? '111%' : '100%'
+                    transform:
+                      selectedSize === "mobile"
+                        ? "scale(0.85)"
+                        : selectedSize === "tablet"
+                          ? "scale(0.9)"
+                          : "scale(1)",
+                    transformOrigin: "top left",
+                    width:
+                      selectedSize === "mobile"
+                        ? "118%"
+                        : selectedSize === "tablet"
+                          ? "111%"
+                          : "100%",
                   }}
                 >
                   <PricingPagePreview strategies={strategies} />
@@ -131,13 +161,20 @@ export function PricingPagePreviewModal({ isOpen, onClose, strategies }: Pricing
         <div className="border-t p-4 bg-muted/30">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <div className="flex items-center gap-4">
-              <span>Current view: {currentSize.name} ({currentSize.description})</span>
+              <span>
+                Current view: {currentSize.name} ({currentSize.description})
+              </span>
               {strategies.length > 0 && (
-                <span>{strategies.length} strateg{strategies.length === 1 ? 'y' : 'ies'} configured</span>
+                <span>
+                  {strategies.length} strateg
+                  {strategies.length === 1 ? "y" : "ies"} configured
+                </span>
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs">Use tabs above to switch between device sizes</span>
+              <span className="text-xs">
+                Use tabs above to switch between device sizes
+              </span>
             </div>
           </div>
         </div>

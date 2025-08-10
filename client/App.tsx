@@ -13,7 +13,11 @@ import NotFound from "./pages/NotFound";
 // Suppress Recharts defaultProps warnings
 const originalWarn = console.warn;
 console.warn = (...args) => {
-  if (args[0] && typeof args[0] === 'string' && args[0].includes('defaultProps will be removed from function components')) {
+  if (
+    args[0] &&
+    typeof args[0] === "string" &&
+    args[0].includes("defaultProps will be removed from function components")
+  ) {
     return;
   }
   originalWarn.apply(console, args);
