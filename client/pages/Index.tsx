@@ -604,13 +604,13 @@ function StrategyForm({
     const tieredStrategy = strategy as TieredStrategy;
     return (
       <div className="space-y-4">
-        <div className="text-sm font-medium">Tiers Configuration</div>
+        <div className="text-sm font-medium text-slate-200">Tiers Configuration</div>
         {tieredStrategy.tiers.map((tier, index) => (
-          <Card key={tier.id} className="p-4">
+          <Card key={tier.id} className="p-4 bg-slate-700 border-slate-600">
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Tier Name</Label>
+                  <Label className="text-slate-200">Tier Name</Label>
                   <Input
                     value={tier.name}
                     onChange={(e) => {
@@ -618,10 +618,11 @@ function StrategyForm({
                       newTiers[index] = { ...tier, name: e.target.value };
                       updateField("tiers", newTiers);
                     }}
+                    className="bg-slate-600 border-slate-500 text-slate-100"
                   />
                 </div>
                 <div>
-                  <Label>Price ($)</Label>
+                  <Label className="text-slate-200">Price ($)</Label>
                   <Input
                     type="number"
                     value={tier.price}
@@ -633,11 +634,12 @@ function StrategyForm({
                       };
                       updateField("tiers", newTiers);
                     }}
+                    className="bg-slate-600 border-slate-500 text-slate-100"
                   />
                 </div>
               </div>
               <div>
-                <Label>Features (one per line)</Label>
+                <Label className="text-slate-200">Features (one per line)</Label>
                 <Textarea
                   value={tier.features.join("\n")}
                   onChange={(e) => {
@@ -651,6 +653,7 @@ function StrategyForm({
                     updateField("tiers", newTiers);
                   }}
                   rows={3}
+                  className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -662,7 +665,7 @@ function StrategyForm({
                     updateField("tiers", newTiers);
                   }}
                 />
-                <Label>Mark as popular</Label>
+                <Label className="text-slate-200">Mark as popular</Label>
               </div>
             </div>
           </Card>
