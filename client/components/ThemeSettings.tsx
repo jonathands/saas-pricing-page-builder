@@ -213,7 +213,7 @@ export function ThemeSettings() {
                       }
                       className="w-12 h-8 p-1 border-none"
                     />
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
                       {theme.secondaryColor}
                     </Badge>
                   </div>
