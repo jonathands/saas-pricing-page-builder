@@ -689,3 +689,103 @@ function TieredPreview({ strategy }: { strategy: TieredStrategy }) {
     </div>
   );
 }
+
+function UsageBasedPreview({ strategy }: { strategy: UsageBasedStrategy }) {
+  const sampleUsages = [100, 500, 1000, 2500, 5000];
+
+  return (
+    <div className="grid md:grid-cols-2 gap-6">
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle>{strategy.name}</CardTitle>
+          <div className="space-y-1">
+            <div className="text-3xl font-bold">${strategy.basePrice}</div>
+            <div className="text-muted-foreground">base + ${strategy.usagePrice} per {strategy.usageUnit}</div>
+            <div className="text-sm text-muted-foreground">Includes {strategy.includedUsage} {strategy.usageUnit}</div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <ul className="space-y-2">
+            {strategy.features.map((feature, index) => (
+              <li key={index} className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-primary" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <Button className="w-full">Get Started</Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Usage Examples</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {sampleUsages.map((usage) => {
+              const overage = Math.max(0, usage - strategy.includedUsage);
+              const totalCost = strategy.basePrice + (overage * strategy.usagePrice);
+              return (
+                <div key={usage} className="flex justify-between text-sm">
+                  <span>{usage.toLocaleString()} {strategy.usageUnit}</span>
+                  <span className="font-semibold">${totalCost.toFixed(2)}</span>
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function PerUserPreview({ strategy }: { strategy: PerUserStrategy }) {
+  const sampleUserCounts = [3, 5, 10, 25, 50];
+
+  return (
+    <div className="grid md:grid-cols-2 gap-6">
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle>{strategy.name}</CardTitle>
+          <div className="space-y-1">
+            <div className="text-3xl font-bold">${strategy.pricePerUser}</div>
+            <div className="text-muted-foreground">per user / {strategy.billingPeriod === 'monthly' ? 'month' : 'year'}</div>
+            <div className="text-sm text-muted-foreground">Minimum {strategy.minimumUsers} users</div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <ul className="space-y-2">
+            {strategy.features.map((feature, index) => (
+              <li key={index} className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <Button className="w-full">Get Started</Button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Pricing Examples</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {sampleUserCounts.map((userCount) => {
+              const effectiveUsers = Math.max(userCount, strategy.minimumUsers);
+              const totalCost = effectiveUsers * strategy.pricePerUser;
+              return (
+                <div key={userCount} className="flex justify-between text-sm">
+                  <span>{userCount} users</span>
+                  <span className="font-semibold">${totalCost.toFixed(2)}</span>
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
