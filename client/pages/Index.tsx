@@ -144,8 +144,8 @@ export default function Index() {
     setStrategies((prev: any) => [...prev, newStrategy]);
   }, [strategies]);
 
-  const updateStrategy = useCallback((id: string, updates: Partial<PricingStrategy>) => {
-    setStrategies(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
+  const updateStrategy = useCallback((id: string, updates: any) => {
+    setStrategies((prev: any) => prev.map((s: any) => s.id === id ? { ...s, ...updates } : s));
   }, []);
 
   const removeStrategy = useCallback((id: string) => {
