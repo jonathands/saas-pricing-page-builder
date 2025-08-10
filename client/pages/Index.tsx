@@ -133,9 +133,11 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
 };
 
 export default function Index() {
+  const { theme } = useTheme();
   const [strategies, setStrategies] = useState<PricingStrategy[]>([]);
   const [selectedStrategyType, setSelectedStrategyType] = useState<PricingStrategyType>('tiered');
   const [comparisonMode, setComparisonMode] = useState(false);
+  const [previewMode, setPreviewMode] = useState<'live' | 'pricing-page'>('live');
 
   const addStrategy = useCallback((type: PricingStrategyType) => {
     const preset = SAMPLE_PRESETS[type];
