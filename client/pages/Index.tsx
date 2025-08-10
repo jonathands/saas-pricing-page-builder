@@ -353,6 +353,13 @@ export default function Index() {
 
       {/* Theme Settings */}
       <ThemeSettings />
+
+      {/* Pricing Page Preview Modal */}
+      <PricingPagePreviewModal
+        isOpen={previewModalOpen}
+        onClose={() => setPreviewModalOpen(false)}
+        strategies={strategies}
+      />
     </div>
   );
 }
