@@ -9,8 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings, CheckCircle } from "lucide-react";
+import { Download, Plus, Trash2, Eye, BarChart3, Zap, Users, Star, Package, Settings, CheckCircle, CreditCard, Monitor } from "lucide-react";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
+import { PricingPagePreview } from "@/components/PricingPagePreview";
+import { ThemeSettings } from "@/components/ThemeSettings";
+import { useTheme } from "@/contexts/ThemeContext";
 import { 
   PricingStrategy, 
   PricingStrategyType, 
