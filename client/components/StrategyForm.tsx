@@ -19,6 +19,8 @@ import {
   Trash2,
   Package,
   Settings,
+  Zap,
+  CreditCard,
 } from "lucide-react";
 import {
   PricingStrategy,
