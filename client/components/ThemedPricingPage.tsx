@@ -24,10 +24,6 @@ export function ThemedPricingPage({
       className={`${className} transition-all duration-300`}
       style={{
         background: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-<<<<<<< HEAD
-      }}
-=======
-        fontFamily: theme.textFont,
         // Set scoped CSS variables only for this container and its children
         '--primary': primaryHslValue,
         '--secondary': secondaryHslValue,
@@ -35,7 +31,6 @@ export function ThemedPricingPage({
         '--font-button': theme.buttonFont,
         '--font-text': theme.textFont,
       } as React.CSSProperties}
->>>>>>> origin/main
     >
       <style dangerouslySetInnerHTML={{
         __html: `
