@@ -677,22 +677,10 @@ export function StrategyForm({
                   </div>
                 </div>
 
-                <div>
-                  <Label className="text-slate-200">Features (one per line)</Label>
-                  <Textarea
-                    value={tier.features.join("\n")}
-                    onChange={(e) => {
-                      updatePaidTier(
-                        index,
-                        "features",
-                        e.target.value.split("\n").filter((f) => f.trim()),
-                      );
-                    }}
-                    rows={3}
-                    className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                    placeholder="e.g., Priority support&#10;Advanced features&#10;Unlimited projects"
-                  />
-                </div>
+                <FeatureEditor
+                  features={tier.features}
+                  onChange={(features: EnhancedFeature[]) => updatePaidTier(index, "features", features)}
+                />
               </div>
             </Card>
           ))}
