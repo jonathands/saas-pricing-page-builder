@@ -422,12 +422,14 @@ export default function Index() {
           </ResizableSidebar>
 
           {/* Right Side - Preview */}
-          <div className="flex-1 bg-background">
-            <ThemedPricingPage className="h-full overflow-y-auto p-8">
-              <PricingPreview
-                strategies={strategies}
-                comparisonMode={comparisonMode}
-              />
+          <div className="flex-1 bg-background min-h-0">
+            <ThemedPricingPage className="h-full">
+              <div className="h-full overflow-y-auto p-4 lg:p-8">
+                <PricingPreview
+                  strategies={strategies}
+                  comparisonMode={comparisonMode}
+                />
+              </div>
             </ThemedPricingPage>
           </div>
         </div>
