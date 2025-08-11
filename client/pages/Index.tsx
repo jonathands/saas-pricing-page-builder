@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { PricingPagePreviewModal } from "@/components/PricingPagePreviewModal";
+import { ComparisonModal } from "@/components/ComparisonModal";
 import { ThemeSettings } from "@/components/ThemeSettings";
 import { ResizableSidebar } from "@/components/ResizableSidebar";
 import { ThemedPricingPage } from "@/components/ThemedPricingPage";
@@ -221,6 +222,7 @@ export default function Index() {
     useState<PricingStrategyType>("tiered");
   const [comparisonMode, setComparisonMode] = useState(false);
   const [previewModalOpen, setPreviewModalOpen] = useState(false);
+  const [comparisonModalOpen, setComparisonModalOpen] = useState(false);
 
   const addStrategy = useCallback(
     (type: PricingStrategyType) => {
@@ -308,6 +310,16 @@ export default function Index() {
                     onCheckedChange={setComparisonMode}
                   />
                 </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setComparisonModalOpen(true)}
+                  className="border-slate-600 text-slate-200 hover:bg-slate-800"
+                  disabled={strategies.length < 2}
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Compare Strategies
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -436,10 +448,16 @@ export default function Index() {
 
         {/* Preview Modal */}
         <PricingPagePreviewModal
-          isOpen={previewModalOpen}
-          onClose={() => setPreviewModalOpen(false)}
-          strategies={strategies}
-        />
+        isOpen={previewModalOpen}
+        onClose={() => setPreviewModalOpen(false)}
+        strategies={strategies}
+      />
+
+      <ComparisonModal
+        isOpen={comparisonModalOpen}
+        onClose={() => setComparisonModalOpen(false)}
+        strategies={strategies}
+      />
       </div>
     </ThemeProvider>
   );
