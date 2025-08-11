@@ -16,7 +16,8 @@ interface FlatRatePreviewProps {
 export function FlatRatePreview({ strategy }: FlatRatePreviewProps) {
   const { theme } = useTheme();
   return (
-    <Card className="max-w-md" style={{ borderColor: theme.secondaryColor }}>
+    <div className="flex justify-center">
+      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
       <CardHeader className="text-center">
         <CardTitle style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}>
           {strategy.name}
@@ -58,6 +59,7 @@ export function FlatRatePreview({ strategy }: FlatRatePreviewProps) {
           Get Started
         </Button>
       </CardContent>
-    </Card>
+      </Card>
+    </div>
   );
 }
