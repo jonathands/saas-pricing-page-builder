@@ -169,8 +169,8 @@ export function PricingPagePreviewModal({
         </div>
 
         {/* Footer */}
-        <div className="border-t p-4 bg-muted/30">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <div className="border-t border-slate-700 p-4 bg-slate-800">
+          <div className="flex items-center justify-between text-sm text-slate-400">
             <div className="flex items-center gap-4">
               <span>
                 Current view: {currentSize.name} ({currentSize.description})
@@ -183,7 +183,7 @@ export function PricingPagePreviewModal({
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs">
+              <span className="text-xs text-slate-500">
                 Use tabs above to switch between device sizes
               </span>
             </div>
