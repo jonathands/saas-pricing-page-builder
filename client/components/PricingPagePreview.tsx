@@ -27,6 +27,7 @@ import {
   CreditCard,
   Lock,
   ChevronLeft,
+  Plus,
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { FeatureDisplay } from "@/components/FeatureDisplay";
