@@ -84,57 +84,108 @@ export function PricingPreview({
         </p>
       </div>
 
-      {strategies.map((strategy) => (
-        <div key={strategy.id} className="space-y-4">
-          <div className="flex items-center gap-2">
-            <h3 
-              className="text-lg font-semibold"
-              style={{ 
+      {/* Strategy Display */}
+      <div className="space-y-6 lg:space-y-8">
+        {strategies.map((strategy) => (
+          <div key={strategy.id} className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <h3
+                className="text-lg lg:text-xl font-semibold"
+                style={{
+                  fontFamily: `var(--font-header, ${theme.headerFont})`,
+                  color: theme.primaryColor
+                }}
+              >
+                {strategy.name}
+              </h3>
+              <Badge
+                variant="outline"
+                className="w-fit"
+                style={{
+                  borderColor: theme.primaryColor,
+                  color: theme.primaryColor,
+                  fontFamily: `var(--font-text, ${theme.textFont})`
+                }}
+              >
+                {STRATEGY_LABELS[strategy.type]}
+              </Badge>
+            </div>
+
+            <div className="w-full overflow-x-auto">
+              {strategy.type === "flat-rate" && (
+                <FlatRatePreview strategy={strategy as FlatRateStrategy} />
+              )}
+
+              {strategy.type === "tiered" && (
+                <TieredPreview strategy={strategy as TieredStrategy} />
+              )}
+
+              {strategy.type === "usage-based" && (
+                <UsageBasedPreview strategy={strategy as UsageBasedStrategy} />
+              )}
+
+              {strategy.type === "per-user" && (
+                <PerUserPreview strategy={strategy as PerUserStrategy} />
+              )}
+
+              {strategy.type === "freemium" && (
+                <FreemiumPreview strategy={strategy as FreemiumStrategy} />
+              )}
+
+              {strategy.type === "feature-based" && (
+                <FeatureBasedPreview strategy={strategy as FeatureBasedStrategy} />
+              )}
+            </div>
+
+            {strategies.length > 1 && <Separator />}
+          </div>
+        ))}
+      </div>
+
+      {/* Comparison Section */}
+      {comparisonMode && strategies.length > 1 && (
+        <div className="space-y-6 lg:space-y-8 pt-6 lg:pt-8 border-t">
+          <div className="text-center space-y-2">
+            <h2
+              className="text-xl lg:text-2xl font-bold"
+              style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
                 color: theme.primaryColor
               }}
             >
-              {strategy.name}
-            </h3>
-            <Badge 
-              variant="outline"
-              style={{ 
-                borderColor: theme.primaryColor,
-                color: theme.primaryColor,
-                fontFamily: `var(--font-text, ${theme.textFont})`
+              Strategy Comparison
+            </h2>
+            <p
+              className="text-sm lg:text-base"
+              style={{
+                fontFamily: `var(--font-text, ${theme.textFont})`,
+                color: 'hsl(var(--muted-foreground))'
               }}
             >
-              {STRATEGY_LABELS[strategy.type]}
-            </Badge>
+              Compare your pricing strategies side by side
+            </p>
           </div>
 
-          {strategy.type === "flat-rate" && (
-            <FlatRatePreview strategy={strategy as FlatRateStrategy} />
-          )}
+          <div className="space-y-6">
+            <div className="overflow-x-auto">
+              <ComparisonTable strategies={strategies} />
+            </div>
 
-          {strategy.type === "tiered" && (
-            <TieredPreview strategy={strategy as TieredStrategy} />
-          )}
-
-          {strategy.type === "usage-based" && (
-            <UsageBasedPreview strategy={strategy as UsageBasedStrategy} />
-          )}
-
-          {strategy.type === "per-user" && (
-            <PerUserPreview strategy={strategy as PerUserStrategy} />
-          )}
-
-          {strategy.type === "freemium" && (
-            <FreemiumPreview strategy={strategy as FreemiumStrategy} />
-          )}
-
-          {strategy.type === "feature-based" && (
-            <FeatureBasedPreview strategy={strategy as FeatureBasedStrategy} />
-          )}
-
-          <Separator />
+            <div className="w-full">
+              <h3
+                className="text-lg font-semibold mb-4"
+                style={{
+                  fontFamily: `var(--font-header, ${theme.headerFont})`,
+                  color: theme.primaryColor
+                }}
+              >
+                Cost Analysis
+              </h3>
+              <CostChart strategies={strategies} />
+            </div>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }
