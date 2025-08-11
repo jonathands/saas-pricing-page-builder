@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import { FlatRateStrategy } from "@shared/pricing";
 
 interface FlatRatePreviewProps {
