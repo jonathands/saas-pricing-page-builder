@@ -113,10 +113,10 @@ export function PricingPagePreviewModal({
         </DialogHeader>
 
         {/* Preview Container */}
-        <div className="flex-1 p-6 bg-slate-100 overflow-hidden">
+        <div className="flex-1 p-6 bg-slate-800 overflow-hidden">
           <div className="h-full flex items-center justify-center">
             <div
-              className="bg-white rounded-lg shadow-2xl overflow-hidden border"
+              className="bg-white rounded-lg shadow-2xl overflow-hidden border border-slate-600"
               style={{
                 width: currentSize.width,
                 height: currentSize.height,
@@ -126,16 +126,16 @@ export function PricingPagePreviewModal({
               }}
             >
               {/* Preview Header */}
-              <div className="bg-slate-50 border-b px-4 py-2 flex items-center gap-2">
+              <div className="bg-slate-100 border-b px-4 py-2 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                   <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 </div>
-                <div className="flex-1 text-center text-sm text-muted-foreground">
+                <div className="flex-1 text-center text-sm text-slate-600">
                   yourapp.com/pricing
                 </div>
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="outline" className="text-xs border-slate-300 text-slate-600">
                   {currentSize.name}
                 </Badge>
               </div>
