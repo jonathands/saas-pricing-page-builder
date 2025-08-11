@@ -146,26 +146,14 @@ export function StrategyForm({
                   />
                 </div>
               </div>
-              <div>
-                <Label className="text-slate-200">
-                  Features (one per line)
-                </Label>
-                <Textarea
-                  value={tier.features.join("\n")}
-                  onChange={(e) => {
-                    const newTiers = [...tieredStrategy.tiers];
-                    newTiers[index] = {
-                      ...tier,
-                      features: e.target.value
-                        .split("\n")
-                        .filter((f) => f.trim()),
-                    };
-                    updateField("tiers", newTiers);
-                  }}
-                  rows={3}
-                  className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                />
-              </div>
+              <FeatureEditor
+                features={tier.features}
+                onChange={(features: EnhancedFeature[]) => {
+                  const newTiers = [...tieredStrategy.tiers];
+                  newTiers[index] = { ...tier, features };
+                  updateField("tiers", newTiers);
+                }}
+              />
               <div className="flex items-center gap-2">
                 <Switch
                   checked={tier.popular || false}
