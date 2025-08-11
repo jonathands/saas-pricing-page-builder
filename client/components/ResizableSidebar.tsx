@@ -67,24 +67,30 @@ export function ResizableSidebar({
   return (
     <div
       ref={sidebarRef}
-      className={cn("relative bg-background border-r", className)}
-      style={{ width: `${width}px`, flexShrink: 0 }}
+      className={cn(
+        "relative bg-background border-r",
+        isMobile ? "w-full lg:w-auto" : "",
+        className
+      )}
+      style={isMobile ? {} : { width: `${width}px`, flexShrink: 0 }}
     >
       {children}
 
-      {/* Resize handle */}
-      <div
-        ref={resizerRef}
-        className={cn(
-          "absolute top-0 right-0 w-1 h-full cursor-col-resize bg-slate-600 hover:bg-primary/70 transition-colors",
-          "before:absolute before:content-[''] before:w-3 before:h-full before:-left-1 before:top-0",
-          isResizing && "bg-primary",
-        )}
-        onMouseDown={handleMouseDown}
-      />
+      {/* Resize handle - only show on desktop */}
+      {!isMobile && (
+        <div
+          ref={resizerRef}
+          className={cn(
+            "absolute top-0 right-0 w-1 h-full cursor-col-resize bg-slate-600 hover:bg-primary/70 transition-colors",
+            "before:absolute before:content-[''] before:w-3 before:h-full before:-left-1 before:top-0",
+            isResizing && "bg-primary",
+          )}
+          onMouseDown={handleMouseDown}
+        />
+      )}
 
       {/* Resize indicator */}
-      {isResizing && (
+      {isResizing && !isMobile && (
         <div className="fixed inset-0 z-50 pointer-events-none">
           <div
             className="absolute top-0 bottom-0 w-0.5 bg-primary shadow-lg"
