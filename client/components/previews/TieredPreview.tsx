@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/contexts/ThemeContext";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import { TieredStrategy } from "@shared/pricing";
 
 interface TieredPreviewProps {
