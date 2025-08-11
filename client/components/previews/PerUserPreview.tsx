@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import { PerUserStrategy } from "@shared/pricing";
 
 interface PerUserPreviewProps {
