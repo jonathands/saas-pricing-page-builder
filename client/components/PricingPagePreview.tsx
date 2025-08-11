@@ -68,7 +68,7 @@ function MockCheckout({
   const handleInputChange = (field: string, value: string) => {
     // For credit card, only allow 0s (mockup)
     if (field === "cardNumber") {
-      const filteredValue = value.replace(/[^0]/g, '').slice(0, 16);
+      const filteredValue = value.replace(/[^0]/g, "").slice(0, 16);
       setFormData((prev) => ({ ...prev, [field]: filteredValue }));
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }));
@@ -179,7 +179,8 @@ function MockCheckout({
                   🎭 Demo Mode - Mockup Only
                 </p>
                 <p className="text-xs text-blue-600">
-                  This is a demonstration checkout. Card number field only accepts zeros (0000...). No real payment processing.
+                  This is a demonstration checkout. Card number field only
+                  accepts zeros (0000...). No real payment processing.
                 </p>
               </div>
               <div>
@@ -261,11 +262,12 @@ function MockCheckout({
                 </CardContent>
               </Card>
               <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-            <p className="text-sm text-amber-800">
-              <strong>🎭 Demo Checkout:</strong> This is a demonstration only. No real payment will be processed.
-              The card number field accepts only zeros to emphasize this is a mockup.
-            </p>
-          </div>
+                <p className="text-sm text-amber-800">
+                  <strong>🎭 Demo Checkout:</strong> This is a demonstration
+                  only. No real payment will be processed. The card number field
+                  accepts only zeros to emphasize this is a mockup.
+                </p>
+              </div>
             </div>
           )}
 
@@ -351,18 +353,18 @@ export function PricingPagePreview({
       <div className="text-center max-w-4xl mx-auto mb-16">
         <h1
           className="text-5xl font-bold mb-6"
-          style={{ 
+          style={{
             fontFamily: `var(--font-header, ${theme.headerFont})`,
-            color: theme.primaryColor
+            color: theme.primaryColor,
           }}
         >
           Choose Your Perfect Plan
         </h1>
-        <p 
+        <p
           className="text-xl max-w-2xl mx-auto"
           style={{
             fontFamily: `var(--font-text, ${theme.textFont})`,
-            color: 'hsl(var(--muted-foreground))'
+            color: "hsl(var(--muted-foreground))",
           }}
         >
           Join thousands of businesses who trust our platform to grow their
@@ -370,11 +372,11 @@ export function PricingPagePreview({
         </p>
 
         {/* Trust indicators */}
-        <div 
+        <div
           className="flex items-center justify-center gap-8 mt-8 text-sm"
           style={{
             fontFamily: `var(--font-text, ${theme.textFont})`,
-            color: 'hsl(var(--muted-foreground))'
+            color: "hsl(var(--muted-foreground))",
           }}
         >
           <div className="flex items-center gap-2">
@@ -401,15 +403,15 @@ export function PricingPagePreview({
                 className="text-3xl font-bold mb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  color: theme.primaryColor
+                  color: theme.primaryColor,
                 }}
               >
                 {strategy.name}
               </h2>
-              <p 
+              <p
                 style={{
                   fontFamily: `var(--font-text, ${theme.textFont})`,
-                  color: 'hsl(var(--muted-foreground))'
+                  color: "hsl(var(--muted-foreground))",
                 }}
               >
                 {strategy.description}
@@ -471,18 +473,18 @@ export function PricingPagePreview({
       <div className="text-center mt-20 max-w-2xl mx-auto">
         <h3
           className="text-2xl font-bold mb-4"
-          style={{ 
+          style={{
             fontFamily: `var(--font-header, ${theme.headerFont})`,
-            color: theme.primaryColor
+            color: theme.primaryColor,
           }}
         >
           Questions? We're here to help
         </h3>
-        <p 
+        <p
           className="mb-6"
           style={{
             fontFamily: `var(--font-text, ${theme.textFont})`,
-            color: 'hsl(var(--muted-foreground))'
+            color: "hsl(var(--muted-foreground))",
           }}
         >
           Get in touch with our sales team to find the perfect plan for your
@@ -491,10 +493,10 @@ export function PricingPagePreview({
         <Button
           variant="outline"
           size="lg"
-          style={{ 
+          style={{
             fontFamily: `var(--font-button, ${theme.buttonFont})`,
             borderColor: theme.primaryColor,
-            color: theme.primaryColor
+            color: theme.primaryColor,
           }}
           className="hover:bg-primary/10"
         >
@@ -515,7 +517,10 @@ export function PricingPagePreview({
 function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
+      <Card
+        className="w-full max-w-md"
+        style={{ borderColor: theme.secondaryColor }}
+      >
         <CardHeader className="text-center">
           <CardTitle
             className="text-2xl"
@@ -528,7 +533,7 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-4xl font-bold"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               ${strategy.price}
@@ -536,7 +541,7 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
             <div
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               per {strategy.billingPeriod}
@@ -554,10 +559,10 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
             className="w-full"
             size="lg"
             onClick={() => onGetStarted(strategy, strategy)}
-            style={{ 
+            style={{
               fontFamily: `var(--font-button, ${theme.buttonFont})`,
               backgroundColor: theme.primaryColor,
-              borderColor: theme.primaryColor
+              borderColor: theme.primaryColor,
             }}
           >
             Get Started
@@ -575,19 +580,21 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
         <Card
           key={tier.id}
           className={`relative ${tier.popular ? "scale-105" : ""}`}
-          style={{ 
-            borderColor: tier.popular ? theme.primaryColor : theme.secondaryColor,
-            borderWidth: tier.popular ? '2px' : '1px'
+          style={{
+            borderColor: tier.popular
+              ? theme.primaryColor
+              : theme.secondaryColor,
+            borderWidth: tier.popular ? "2px" : "1px",
           }}
         >
           {tier.popular && (
             <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <Badge 
+              <Badge
                 className="px-4 py-1"
-                style={{ 
+                style={{
                   backgroundColor: theme.primaryColor,
-                  color: 'white',
-                  fontFamily: `var(--font-text, ${theme.textFont})`
+                  color: "white",
+                  fontFamily: `var(--font-text, ${theme.textFont})`,
                 }}
               >
                 Most Popular
@@ -595,26 +602,26 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
             </div>
           )}
           <CardHeader className="text-center">
-            <CardTitle 
+            <CardTitle
               className="text-xl"
               style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
             >
               {tier.name}
             </CardTitle>
             <div className="space-y-2">
-              <div 
+              <div
                 className="text-3xl font-bold"
-                style={{ 
+                style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  color: theme.primaryColor
+                  color: theme.primaryColor,
                 }}
               >
                 ${tier.price}
               </div>
-              <div 
+              <div
                 style={{
                   fontFamily: `var(--font-text, ${theme.textFont})`,
-                  color: 'hsl(var(--muted-foreground))'
+                  color: "hsl(var(--muted-foreground))",
                 }}
               >
                 per {tier.billingPeriod}
@@ -633,15 +640,19 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
               size="lg"
               variant={tier.popular ? "default" : "outline"}
               onClick={() => onGetStarted(tier, strategy)}
-              style={tier.popular ? {
-                fontFamily: `var(--font-button, ${theme.buttonFont})`,
-                backgroundColor: theme.primaryColor,
-                borderColor: theme.primaryColor
-              } : {
-                fontFamily: `var(--font-button, ${theme.buttonFont})`,
-                borderColor: theme.primaryColor,
-                color: theme.primaryColor
-              }}
+              style={
+                tier.popular
+                  ? {
+                      fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                      backgroundColor: theme.primaryColor,
+                      borderColor: theme.primaryColor,
+                    }
+                  : {
+                      fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                      borderColor: theme.primaryColor,
+                      color: theme.primaryColor,
+                    }
+              }
             >
               Get Started
             </Button>
@@ -655,37 +666,40 @@ function TieredPricingCards({ strategy, onGetStarted, theme }: any) {
 function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
+      <Card
+        className="w-full max-w-md"
+        style={{ borderColor: theme.secondaryColor }}
+      >
         <CardHeader className="text-center">
-          <CardTitle 
+          <CardTitle
             className="text-2xl"
             style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
           >
             {strategy.name}
           </CardTitle>
           <div className="space-y-2">
-            <div 
+            <div
               className="text-4xl font-bold"
-              style={{ 
+              style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               ${strategy.basePrice}
             </div>
-            <div 
+            <div
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               base + ${strategy.usagePrice} per {strategy.usageUnit}
             </div>
-            <div 
+            <div
               className="text-sm"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               Includes {strategy.includedUsage.toLocaleString()}{" "}
@@ -704,10 +718,10 @@ function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
             className="w-full"
             size="lg"
             onClick={() => onGetStarted(strategy, strategy)}
-            style={{ 
+            style={{
               fontFamily: `var(--font-button, ${theme.buttonFont})`,
               backgroundColor: theme.primaryColor,
-              borderColor: theme.primaryColor
+              borderColor: theme.primaryColor,
             }}
           >
             Get Started
@@ -721,7 +735,10 @@ function UsageBasedPricingCard({ strategy, onGetStarted, theme }: any) {
 function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
+      <Card
+        className="w-full max-w-md"
+        style={{ borderColor: theme.secondaryColor }}
+      >
         <CardHeader className="text-center">
           <CardTitle
             className="text-2xl"
@@ -734,7 +751,7 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-4xl font-bold"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               ${strategy.pricePerUser}
@@ -742,7 +759,7 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
             <div
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               per user / {strategy.billingPeriod}
@@ -751,7 +768,7 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-sm"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               Minimum {strategy.minimumUsers} users
@@ -772,7 +789,7 @@ function PerUserPricingCard({ strategy, onGetStarted, theme }: any) {
             style={{
               fontFamily: `var(--font-button, ${theme.buttonFont})`,
               backgroundColor: theme.primaryColor,
-              borderColor: theme.primaryColor
+              borderColor: theme.primaryColor,
             }}
           >
             Get Started
@@ -805,7 +822,7 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
           className={`relative ${tier.isFree ? "border-green-500" : ""}`}
           style={{
             borderColor: tier.isFree ? "#22c55e" : theme.secondaryColor,
-            borderWidth: tier.isFree ? '2px' : '1px'
+            borderWidth: tier.isFree ? "2px" : "1px",
           }}
         >
           {tier.isFree && (
@@ -814,8 +831,8 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
                 className="px-4 py-1"
                 style={{
                   backgroundColor: "#22c55e",
-                  color: 'white',
-                  fontFamily: `var(--font-text, ${theme.textFont})`
+                  color: "white",
+                  fontFamily: `var(--font-text, ${theme.textFont})`,
                 }}
               >
                 Free Forever
@@ -827,7 +844,7 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
               className="text-xl"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: tier.isFree ? "#22c55e" : undefined
+                color: tier.isFree ? "#22c55e" : undefined,
               }}
             >
               {tier.name}
@@ -837,16 +854,16 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
                 className="text-3xl font-bold"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  color: tier.isFree ? "#22c55e" : theme.primaryColor
+                  color: tier.isFree ? "#22c55e" : theme.primaryColor,
                 }}
               >
-                {tier.isFree ? 'Free' : `$${tier.price}`}
+                {tier.isFree ? "Free" : `$${tier.price}`}
               </div>
               {!tier.isFree && (
                 <div
                   style={{
                     fontFamily: `var(--font-text, ${theme.textFont})`,
-                    color: 'hsl(var(--muted-foreground))'
+                    color: "hsl(var(--muted-foreground))",
                   }}
                 >
                   per {tier.billingPeriod === "monthly" ? "month" : "year"}
@@ -857,10 +874,10 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
                   className="text-sm"
                   style={{
                     fontFamily: `var(--font-text, ${theme.textFont})`,
-                    color: 'hsl(var(--muted-foreground))'
+                    color: "hsl(var(--muted-foreground))",
                   }}
                 >
-                  {tier.usageLimit} {tier.isFree ? 'usage limit' : 'included'}
+                  {tier.usageLimit} {tier.isFree ? "usage limit" : "included"}
                 </div>
               )}
             </div>
@@ -877,17 +894,21 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
               size="lg"
               variant={tier.isFree ? "default" : "outline"}
               onClick={() => onGetStarted(tier, strategy)}
-              style={tier.isFree ? {
-                fontFamily: `var(--font-button, ${theme.buttonFont})`,
-                backgroundColor: "#22c55e",
-                borderColor: "#22c55e"
-              } : {
-                fontFamily: `var(--font-button, ${theme.buttonFont})`,
-                borderColor: theme.primaryColor,
-                color: theme.primaryColor
-              }}
+              style={
+                tier.isFree
+                  ? {
+                      fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                      backgroundColor: "#22c55e",
+                      borderColor: "#22c55e",
+                    }
+                  : {
+                      fontFamily: `var(--font-button, ${theme.buttonFont})`,
+                      borderColor: theme.primaryColor,
+                      color: theme.primaryColor,
+                    }
+              }
             >
-              {tier.isFree ? 'Get Started Free' : 'Upgrade Now'}
+              {tier.isFree ? "Get Started Free" : "Upgrade Now"}
             </Button>
           </CardContent>
         </Card>
@@ -899,7 +920,10 @@ function FreemiumPricingCards({ strategy, onGetStarted, theme }: any) {
 function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
   const mandatoryFeatures = strategy.features.filter((f: any) => f.mandatory);
   const optionalFeatures = strategy.features.filter((f: any) => !f.mandatory);
-  const mandatoryTotal = mandatoryFeatures.reduce((sum: number, f: any) => sum + f.price, 0);
+  const mandatoryTotal = mandatoryFeatures.reduce(
+    (sum: number, f: any) => sum + f.price,
+    0,
+  );
   const totalPrice = strategy.basePrice + mandatoryTotal;
 
   return (
@@ -918,7 +942,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-4xl font-bold"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               From ${totalPrice}
@@ -926,7 +950,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
             <div
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               per {strategy.billingPeriod === "monthly" ? "month" : "year"}
@@ -935,7 +959,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-sm"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               Base price: ${strategy.basePrice}
@@ -949,7 +973,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
               className="font-semibold text-sm mb-3"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               Base Package
@@ -966,7 +990,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                 className="text-xs"
                 style={{
                   fontFamily: `var(--font-text, ${theme.textFont})`,
-                  color: 'hsl(var(--muted-foreground))'
+                  color: "hsl(var(--muted-foreground))",
                 }}
               >
                 Core platform access
@@ -984,9 +1008,9 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                 <Badge
                   className="text-xs"
                   style={{
-                    backgroundColor: '#ea580c',
-                    color: 'white',
-                    fontFamily: `var(--font-text, ${theme.textFont})`
+                    backgroundColor: "#ea580c",
+                    color: "white",
+                    fontFamily: `var(--font-text, ${theme.textFont})`,
                   }}
                 >
                   Required
@@ -1000,16 +1024,23 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                     className="flex items-center justify-between text-sm"
                   >
                     <div className="flex items-center gap-2">
-                      <Check className="w-4 h-4" style={{ color: theme.primaryColor }} />
-                      <span style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}>
+                      <Check
+                        className="w-4 h-4"
+                        style={{ color: theme.primaryColor }}
+                      />
+                      <span
+                        style={{
+                          fontFamily: `var(--font-text, ${theme.textFont})`,
+                        }}
+                      >
                         {feature.name}
                       </span>
                     </div>
                     <span
                       className="font-medium"
                       style={{
-                        color: '#16a34a',
-                        fontFamily: `var(--font-text, ${theme.textFont})`
+                        color: "#16a34a",
+                        fontFamily: `var(--font-text, ${theme.textFont})`,
                       }}
                     >
                       +${feature.price}
@@ -1027,7 +1058,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
             style={{
               fontFamily: `var(--font-button, ${theme.buttonFont})`,
               backgroundColor: theme.primaryColor,
-              borderColor: theme.primaryColor
+              borderColor: theme.primaryColor,
             }}
           >
             Start Customizing
@@ -1047,7 +1078,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
           <CardDescription
             style={{
               fontFamily: `var(--font-text, ${theme.textFont})`,
-              color: 'hsl(var(--muted-foreground))'
+              color: "hsl(var(--muted-foreground))",
             }}
           >
             Customize your plan with the features you need
@@ -1076,11 +1107,13 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                 className="flex justify-between items-center p-2 border rounded"
               >
                 <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4" style={{ color: '#16a34a' }} />
+                  <Check className="w-4 h-4" style={{ color: "#16a34a" }} />
                   <div>
                     <div
                       className="font-medium text-sm"
-                      style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+                      style={{
+                        fontFamily: `var(--font-text, ${theme.textFont})`,
+                      }}
                     >
                       {feature.name}
                     </div>
@@ -1088,7 +1121,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                       className="text-xs"
                       style={{
                         fontFamily: `var(--font-text, ${theme.textFont})`,
-                        color: 'hsl(var(--muted-foreground))'
+                        color: "hsl(var(--muted-foreground))",
                       }}
                     >
                       Required
@@ -1098,8 +1131,8 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                 <span
                   className="font-medium"
                   style={{
-                    color: '#16a34a',
-                    fontFamily: `var(--font-text, ${theme.textFont})`
+                    color: "#16a34a",
+                    fontFamily: `var(--font-text, ${theme.textFont})`,
                   }}
                 >
                   +${feature.price}
@@ -1115,14 +1148,19 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                 <div className="flex items-center gap-2">
                   <div
                     className="w-4 h-4 border rounded-sm flex items-center justify-center"
-                    style={{ borderColor: 'hsl(var(--muted-foreground))' }}
+                    style={{ borderColor: "hsl(var(--muted-foreground))" }}
                   >
-                    <Star className="w-3 h-3" style={{ color: 'hsl(var(--muted-foreground))' }} />
+                    <Star
+                      className="w-3 h-3"
+                      style={{ color: "hsl(var(--muted-foreground))" }}
+                    />
                   </div>
                   <div>
                     <div
                       className="font-medium text-sm"
-                      style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+                      style={{
+                        fontFamily: `var(--font-text, ${theme.textFont})`,
+                      }}
                     >
                       {feature.name}
                     </div>
@@ -1130,7 +1168,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                       className="text-xs"
                       style={{
                         fontFamily: `var(--font-text, ${theme.textFont})`,
-                        color: 'hsl(var(--muted-foreground))'
+                        color: "hsl(var(--muted-foreground))",
                       }}
                     >
                       Optional
@@ -1141,7 +1179,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
                   className="font-medium"
                   style={{
                     fontFamily: `var(--font-text, ${theme.textFont})`,
-                    color: 'hsl(var(--muted-foreground))'
+                    color: "hsl(var(--muted-foreground))",
                   }}
                 >
                   +${feature.price}
@@ -1156,10 +1194,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
               style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
             >
               <span>Starting Total:</span>
-              <span
-                className="text-lg"
-                style={{ color: theme.primaryColor }}
-              >
+              <span className="text-lg" style={{ color: theme.primaryColor }}>
                 ${totalPrice}/
                 {strategy.billingPeriod === "monthly" ? "mo" : "yr"}
               </span>
@@ -1168,7 +1203,7 @@ function FeatureBasedPricingCard({ strategy, onGetStarted, theme }: any) {
               className="text-xs text-right"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
               + selected optional features

@@ -38,7 +38,7 @@ export function ComparisonModal({
               Compare your pricing strategies side by side
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="text-center py-8">
             <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
               <BarChart3 className="w-8 h-8 text-slate-500" />
@@ -47,7 +47,8 @@ export function ComparisonModal({
               Need More Strategies
             </h3>
             <p className="text-slate-400 mb-4">
-              Add at least 2 pricing strategies to see detailed comparisons and analysis.
+              Add at least 2 pricing strategies to see detailed comparisons and
+              analysis.
             </p>
             <Button
               onClick={onClose}
@@ -77,7 +78,8 @@ export function ComparisonModal({
                 Strategy Comparison
               </DialogTitle>
               <DialogDescription className="text-slate-300">
-                Compare your pricing strategies side by side with detailed analytics
+                Compare your pricing strategies side by side with detailed
+                analytics
               </DialogDescription>
             </div>
             <div className="flex gap-2">
@@ -108,7 +110,7 @@ export function ComparisonModal({
               className="text-xl font-bold print:text-2xl print:text-black print:mb-2"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               Comparing {strategies.length} Strategies
@@ -117,13 +119,15 @@ export function ComparisonModal({
               className="text-sm print:text-base print:text-gray-700"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
-                color: 'hsl(var(--muted-foreground))'
+                color: "hsl(var(--muted-foreground))",
               }}
             >
-              Analyze and compare the key metrics, scalability, and cost structures
+              Analyze and compare the key metrics, scalability, and cost
+              structures
             </p>
             <div className="print:block hidden text-sm text-gray-500 mt-4">
-              Generated on {new Date().toLocaleDateString()} - PricingCraft Strategy Analysis
+              Generated on {new Date().toLocaleDateString()} - PricingCraft
+              Strategy Analysis
             </div>
           </div>
 
@@ -134,7 +138,7 @@ export function ComparisonModal({
                 className="text-lg font-semibold mb-3 print:text-xl print:text-black print:border-b print:border-gray-300 print:pb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  color: theme.primaryColor
+                  color: theme.primaryColor,
                 }}
               >
                 Strategy Comparison Matrix
@@ -151,7 +155,7 @@ export function ComparisonModal({
                 className="text-lg font-semibold mb-3 print:text-xl print:text-black print:border-b print:border-gray-300 print:pb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
-                  color: theme.primaryColor
+                  color: theme.primaryColor,
                 }}
               >
                 Cost Analysis Chart
@@ -166,7 +170,7 @@ export function ComparisonModal({
               className="font-semibold mb-3 print:text-black print:border-b print:border-gray-300 print:pb-2"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
-                color: theme.primaryColor
+                color: theme.primaryColor,
               }}
             >
               Key Insights
@@ -175,25 +179,29 @@ export function ComparisonModal({
               <li className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
-                  <strong>Usage-based</strong> strategies scale best with high-volume customers
+                  <strong>Usage-based</strong> strategies scale best with
+                  high-volume customers
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
-                  <strong>Tiered</strong> plans offer predictable revenue and suit most business sizes
+                  <strong>Tiered</strong> plans offer predictable revenue and
+                  suit most business sizes
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
-                  <strong>Flat-rate</strong> pricing provides simplicity but limited scalability
+                  <strong>Flat-rate</strong> pricing provides simplicity but
+                  limited scalability
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
-                  <strong>Per-user</strong> models grow linearly with team expansion
+                  <strong>Per-user</strong> models grow linearly with team
+                  expansion
                 </span>
               </li>
             </ul>
@@ -220,7 +228,7 @@ export function ComparisonModal({
               onClick={() => {
                 // Export comparison data
                 const data = {
-                  strategies: strategies.map(s => ({
+                  strategies: strategies.map((s) => ({
                     name: s.name,
                     type: s.type,
                     // Add more strategy details for export
@@ -228,12 +236,12 @@ export function ComparisonModal({
                   exportedAt: new Date().toISOString(),
                 };
                 const blob = new Blob([JSON.stringify(data, null, 2)], {
-                  type: 'application/json'
+                  type: "application/json",
                 });
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
+                const a = document.createElement("a");
                 a.href = url;
-                a.download = 'pricing-comparison.json';
+                a.download = "pricing-comparison.json";
                 a.click();
                 URL.revokeObjectURL(url);
               }}

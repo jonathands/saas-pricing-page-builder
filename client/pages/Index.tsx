@@ -59,10 +59,25 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     description: "Perfect for straightforward SaaS products",
     price: 49,
     features: [
-      { id: "1", text: "Unlimited projects", icon: "Package", iconPosition: "before" },
-      { id: "2", text: "24/7 support", icon: "Headphones", iconPosition: "before" },
+      {
+        id: "1",
+        text: "Unlimited projects",
+        icon: "Package",
+        iconPosition: "before",
+      },
+      {
+        id: "2",
+        text: "24/7 support",
+        icon: "Headphones",
+        iconPosition: "before",
+      },
       { id: "3", text: "API access", icon: "Settings", iconPosition: "before" },
-      { id: "4", text: "Advanced analytics", icon: "BarChart3", iconPosition: "before" },
+      {
+        id: "4",
+        text: "Advanced analytics",
+        icon: "BarChart3",
+        iconPosition: "before",
+      },
     ],
     billingPeriod: "monthly" as const,
   },
@@ -76,10 +91,30 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     usageUnit: "API calls",
     includedUsage: 1000,
     features: [
-      { id: "1", text: "Base platform access", icon: "Cloud", iconPosition: "before" },
-      { id: "2", text: "Real-time monitoring", icon: "BarChart3", iconPosition: "before" },
-      { id: "3", text: "Usage analytics", icon: "Clock", iconPosition: "before" },
-      { id: "4", text: "API documentation", icon: "FileText", iconPosition: "before" },
+      {
+        id: "1",
+        text: "Base platform access",
+        icon: "Cloud",
+        iconPosition: "before",
+      },
+      {
+        id: "2",
+        text: "Real-time monitoring",
+        icon: "BarChart3",
+        iconPosition: "before",
+      },
+      {
+        id: "3",
+        text: "Usage analytics",
+        icon: "Clock",
+        iconPosition: "before",
+      },
+      {
+        id: "4",
+        text: "API documentation",
+        icon: "FileText",
+        iconPosition: "before",
+      },
     ],
   },
   tiered: {
@@ -93,9 +128,24 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: "Basic",
         price: 19,
         features: [
-          { id: "1", text: "5 projects", icon: "Package", iconPosition: "before" },
-          { id: "2", text: "Basic support", icon: "Mail", iconPosition: "before" },
-          { id: "3", text: "Core features", icon: "Star", iconPosition: "before" },
+          {
+            id: "1",
+            text: "5 projects",
+            icon: "Package",
+            iconPosition: "before",
+          },
+          {
+            id: "2",
+            text: "Basic support",
+            icon: "Mail",
+            iconPosition: "before",
+          },
+          {
+            id: "3",
+            text: "Core features",
+            icon: "Star",
+            iconPosition: "before",
+          },
         ],
         billingPeriod: "monthly" as const,
       },
@@ -104,10 +154,30 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: "Pro",
         price: 49,
         features: [
-          { id: "1", text: "25 projects", icon: "Package", iconPosition: "before" },
-          { id: "2", text: "Priority support", icon: "Headphones", iconPosition: "before" },
-          { id: "3", text: "Advanced features", icon: "Zap", iconPosition: "before" },
-          { id: "4", text: "API access", icon: "Settings", iconPosition: "before" },
+          {
+            id: "1",
+            text: "25 projects",
+            icon: "Package",
+            iconPosition: "before",
+          },
+          {
+            id: "2",
+            text: "Priority support",
+            icon: "Headphones",
+            iconPosition: "before",
+          },
+          {
+            id: "3",
+            text: "Advanced features",
+            icon: "Zap",
+            iconPosition: "before",
+          },
+          {
+            id: "4",
+            text: "API access",
+            icon: "Settings",
+            iconPosition: "before",
+          },
         ],
         billingPeriod: "monthly" as const,
         popular: true,
@@ -117,10 +187,30 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: "Enterprise",
         price: 149,
         features: [
-          { id: "1", text: "Unlimited projects", icon: "Package", iconPosition: "before" },
-          { id: "2", text: "Dedicated support", icon: "Shield", iconPosition: "before" },
-          { id: "3", text: "Custom integrations", icon: "Globe", iconPosition: "before" },
-          { id: "4", text: "SLA guarantee", icon: "Award", iconPosition: "before" },
+          {
+            id: "1",
+            text: "Unlimited projects",
+            icon: "Package",
+            iconPosition: "before",
+          },
+          {
+            id: "2",
+            text: "Dedicated support",
+            icon: "Shield",
+            iconPosition: "before",
+          },
+          {
+            id: "3",
+            text: "Custom integrations",
+            icon: "Globe",
+            iconPosition: "before",
+          },
+          {
+            id: "4",
+            text: "SLA guarantee",
+            icon: "Award",
+            iconPosition: "before",
+          },
         ],
         billingPeriod: "monthly" as const,
       },
@@ -134,10 +224,30 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     pricePerUser: 15,
     minimumUsers: 3,
     features: [
-      { id: "1", text: "Per-user workspaces", icon: "Users", iconPosition: "before" },
-      { id: "2", text: "Team collaboration", icon: "Users", iconPosition: "before" },
-      { id: "3", text: "Admin controls", icon: "Shield", iconPosition: "before" },
-      { id: "4", text: "Usage insights", icon: "BarChart3", iconPosition: "before" },
+      {
+        id: "1",
+        text: "Per-user workspaces",
+        icon: "Users",
+        iconPosition: "before",
+      },
+      {
+        id: "2",
+        text: "Team collaboration",
+        icon: "Users",
+        iconPosition: "before",
+      },
+      {
+        id: "3",
+        text: "Admin controls",
+        icon: "Shield",
+        iconPosition: "before",
+      },
+      {
+        id: "4",
+        text: "Usage insights",
+        icon: "BarChart3",
+        iconPosition: "before",
+      },
     ],
     billingPeriod: "monthly" as const,
   },
@@ -149,8 +259,18 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     freeTier: {
       features: [
         { id: "1", text: "1 project", icon: "Package", iconPosition: "before" },
-        { id: "2", text: "Basic features", icon: "Star", iconPosition: "before" },
-        { id: "3", text: "Community support", icon: "Users", iconPosition: "before" },
+        {
+          id: "2",
+          text: "Basic features",
+          icon: "Star",
+          iconPosition: "before",
+        },
+        {
+          id: "3",
+          text: "Community support",
+          icon: "Users",
+          iconPosition: "before",
+        },
       ],
       usageLimit: 100,
     },
@@ -160,9 +280,24 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: "Starter",
         price: 9,
         features: [
-          { id: "1", text: "5 projects", icon: "Package", iconPosition: "before" },
-          { id: "2", text: "Premium features", icon: "Zap", iconPosition: "before" },
-          { id: "3", text: "Email support", icon: "Mail", iconPosition: "before" },
+          {
+            id: "1",
+            text: "5 projects",
+            icon: "Package",
+            iconPosition: "before",
+          },
+          {
+            id: "2",
+            text: "Premium features",
+            icon: "Zap",
+            iconPosition: "before",
+          },
+          {
+            id: "3",
+            text: "Email support",
+            icon: "Mail",
+            iconPosition: "before",
+          },
         ],
         usageLimit: 1000,
         billingPeriod: "monthly" as const,
@@ -172,9 +307,24 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         name: "Professional",
         price: 29,
         features: [
-          { id: "1", text: "Unlimited projects", icon: "Package", iconPosition: "before" },
-          { id: "2", text: "All features", icon: "Star", iconPosition: "before" },
-          { id: "3", text: "Priority support", icon: "Headphones", iconPosition: "before" },
+          {
+            id: "1",
+            text: "Unlimited projects",
+            icon: "Package",
+            iconPosition: "before",
+          },
+          {
+            id: "2",
+            text: "All features",
+            icon: "Star",
+            iconPosition: "before",
+          },
+          {
+            id: "3",
+            text: "Priority support",
+            icon: "Headphones",
+            iconPosition: "before",
+          },
         ],
         billingPeriod: "monthly" as const,
       },
@@ -448,16 +598,16 @@ export default function Index() {
 
         {/* Preview Modal */}
         <PricingPagePreviewModal
-        isOpen={previewModalOpen}
-        onClose={() => setPreviewModalOpen(false)}
-        strategies={strategies}
-      />
+          isOpen={previewModalOpen}
+          onClose={() => setPreviewModalOpen(false)}
+          strategies={strategies}
+        />
 
-      <ComparisonModal
-        isOpen={comparisonModalOpen}
-        onClose={() => setComparisonModalOpen(false)}
-        strategies={strategies}
-      />
+        <ComparisonModal
+          isOpen={comparisonModalOpen}
+          onClose={() => setComparisonModalOpen(false)}
+          strategies={strategies}
+        />
       </div>
     </ThemeProvider>
   );
