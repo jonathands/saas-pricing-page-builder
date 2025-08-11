@@ -332,10 +332,10 @@ export default function Index() {
         </header>
 
         {/* Main Content */}
-        <div className="flex h-[calc(100vh-80px)]">
+        <div className="flex flex-col lg:flex-row h-[calc(100vh-80px)]">
           <ResizableSidebar>
             {/* Left Sidebar - Strategy Builder */}
-            <div className="p-6 bg-slate-900 h-full overflow-y-auto space-y-6">
+            <div className="p-4 lg:p-6 bg-slate-900 h-full overflow-y-auto space-y-4 lg:space-y-6">
               {/* Add Strategy Section */}
               <div className="space-y-4">
                 <h2 className="text-lg font-semibold text-slate-100">
