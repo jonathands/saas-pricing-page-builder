@@ -63,10 +63,11 @@ const ICON_MAP: Record<string, any> = {
   ChevronRight,
 };
 
-export function FeatureDisplay({ 
-  features, 
-  className = "", 
-  iconColorClass = "text-primary" 
+export function FeatureDisplay({
+  features,
+  className = "",
+  iconColorClass = "text-primary",
+  style
 }: FeatureDisplayProps) {
   // Convert legacy features to enhanced format for consistent rendering
   const enhancedFeatures: EnhancedFeature[] = Array.isArray(features)
