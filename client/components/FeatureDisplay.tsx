@@ -85,7 +85,7 @@ export function FeatureDisplay({
     : [];
 
   return (
-    <ul className={`space-y-2 ${className}`}>
+    <ul className={`space-y-2 ${className}`} style={style}>
       {enhancedFeatures.map((feature, index) => {
         const IconComponent = ICON_MAP[feature.icon || "Check"] || Check;
         
