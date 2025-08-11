@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -14,6 +15,8 @@ import {
   Settings,
   Zap,
   Trash2,
+  ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 import { StrategyForm } from "./StrategyForm";
 import {
