@@ -30,7 +30,9 @@ import {
   PerUserStrategy,
   FreemiumStrategy,
   FeatureBasedStrategy,
+  EnhancedFeature,
 } from "@shared/pricing";
+import { FeatureEditor } from "./FeatureEditor";
 
 interface StrategyFormProps {
   strategy: PricingStrategy;
