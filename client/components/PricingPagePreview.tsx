@@ -29,6 +29,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import {
   PricingStrategy,
   FlatRateStrategy,
