@@ -66,7 +66,13 @@ function MockCheckout({
   });
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    // For credit card, only allow 0s (mockup)
+    if (field === "cardNumber") {
+      const filteredValue = value.replace(/[^0]/g, '').slice(0, 16);
+      setFormData((prev) => ({ ...prev, [field]: filteredValue }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    }
   };
 
   const handleNext = () => {
@@ -168,6 +174,14 @@ function MockCheckout({
           {step === 2 && (
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Payment Information</h3>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                <p className="text-sm text-blue-800 font-medium mb-1">
+                  🎭 Demo Mode - Mockup Only
+                </p>
+                <p className="text-xs text-blue-600">
+                  This is a demonstration checkout. Card number field only accepts zeros (0000...). No real payment processing.
+                </p>
+              </div>
               <div>
                 <Label htmlFor="cardNumber">Card Number</Label>
                 <Input
@@ -176,8 +190,12 @@ function MockCheckout({
                   onChange={(e) =>
                     handleInputChange("cardNumber", e.target.value)
                   }
-                  placeholder="1234 5678 9012 3456"
+                  placeholder="0000 0000 0000 0000"
+                  className="font-mono"
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Only zeros (0) are accepted for this demo
+                </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -242,12 +260,12 @@ function MockCheckout({
                   </div>
                 </CardContent>
               </Card>
-              <div className="bg-muted p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> This is a demonstration checkout. No
-                  actual payment will be processed.
-                </p>
-              </div>
+              <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
+            <p className="text-sm text-amber-800">
+              <strong>🎭 Demo Checkout:</strong> This is a demonstration only. No real payment will be processed.
+              The card number field accepts only zeros to emphasize this is a mockup.
+            </p>
+          </div>
             </div>
           )}
 
