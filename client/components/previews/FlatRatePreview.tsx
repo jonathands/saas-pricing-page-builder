@@ -42,21 +42,11 @@ export function FlatRatePreview({ strategy }: FlatRatePreviewProps) {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <ul className="space-y-2">
-          {strategy.features.map((feature, index) => (
-            <li 
-              key={index} 
-              className="flex items-center gap-2"
-              style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
-            >
-              <div 
-                className="w-1.5 h-1.5 rounded-full" 
-                style={{ backgroundColor: theme.primaryColor }}
-              />
-              {feature}
-            </li>
-          ))}
-        </ul>
+        <FeatureDisplay
+          features={strategy.features}
+          iconColorClass="text-primary"
+          style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+        />
         <Button 
           className="w-full"
           style={{ 
