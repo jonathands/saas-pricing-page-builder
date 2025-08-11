@@ -36,6 +36,8 @@ import {
   TieredStrategy,
   UsageBasedStrategy,
   PerUserStrategy,
+  FreemiumStrategy,
+  FeatureBasedStrategy,
 } from "@shared/pricing";
 
 interface MockCheckoutProps {
@@ -422,6 +424,22 @@ export function PricingPagePreview({
             {strategy.type === "per-user" && (
               <PerUserPricingCard
                 strategy={strategy as PerUserStrategy}
+                onGetStarted={handleGetStarted}
+                theme={theme}
+              />
+            )}
+
+            {strategy.type === "freemium" && (
+              <FreemiumPricingCards
+                strategy={strategy as FreemiumStrategy}
+                onGetStarted={handleGetStarted}
+                theme={theme}
+              />
+            )}
+
+            {strategy.type === "feature-based" && (
+              <FeatureBasedPricingCard
+                strategy={strategy as FeatureBasedStrategy}
                 onGetStarted={handleGetStarted}
                 theme={theme}
               />
