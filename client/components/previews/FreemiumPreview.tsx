@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Zap } from "lucide-react";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import { FreemiumStrategy } from "@shared/pricing";
 
 interface FreemiumPreviewProps {
