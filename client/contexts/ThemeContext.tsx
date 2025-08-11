@@ -90,31 +90,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, [theme.headerFont, theme.buttonFont, theme.textFont]);
 
-  // Apply CSS custom properties
-  useEffect(() => {
-    const root = document.documentElement;
-
-    // Extract HSL values from the primaryColor
-    const primaryHsl = theme.primaryColor.match(
-      /hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/,
-    );
-    if (primaryHsl) {
-      const [, h, s, l] = primaryHsl;
-      root.style.setProperty("--primary", `${h} ${s}% ${l}%`);
-    }
-
-    const secondaryHsl = theme.secondaryColor.match(
-      /hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/,
-    );
-    if (secondaryHsl) {
-      const [, h, s, l] = secondaryHsl;
-      root.style.setProperty("--secondary", `${h} ${s}% ${l}%`);
-    }
-
-    root.style.setProperty("--font-header", theme.headerFont);
-    root.style.setProperty("--font-button", theme.buttonFont);
-    root.style.setProperty("--font-text", theme.textFont);
-  }, [theme]);
+  // Note: We no longer set global CSS custom properties on document.documentElement
+  // to avoid affecting components outside the ThemeProvider scope.
+  // Instead, individual components will use the theme object directly via inline styles.
 
   return (
     <ThemeContext.Provider value={{ theme, updateTheme, resetTheme }}>

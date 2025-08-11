@@ -36,7 +36,6 @@ import { ResizableSidebar } from "@/components/ResizableSidebar";
 import { ThemedPricingPage } from "@/components/ThemedPricingPage";
 import { StrategyConfigCard } from "@/components/StrategyConfigCard";
 import { PricingPreview } from "@/components/PricingPreview";
-import { useTheme } from "@/contexts/ThemeContext";
 import {
   PricingStrategy,
   PricingStrategyType,
@@ -201,7 +200,6 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
 };
 
 export default function Index() {
-  const { theme } = useTheme();
   const [strategies, setStrategies] = useState<PricingStrategy[]>([]);
   const [selectedStrategyType, setSelectedStrategyType] =
     useState<PricingStrategyType>("tiered");
@@ -369,6 +367,7 @@ export default function Index() {
                 </p>
               </div>
 
+<<<<<<< HEAD
               {/* Strategy Cards */}
               <div className="space-y-4">
                 <h2 className="text-lg font-semibold text-slate-100">
@@ -406,6 +405,111 @@ export default function Index() {
               )}
             </div>
           </ResizableSidebar>
+=======
+            {/* Strategy Configuration */}
+            <div className="space-y-4">
+              {strategies.map((strategy) => (
+                <StrategyConfigCard
+                  key={strategy.id}
+                  strategy={strategy}
+                  onUpdate={updateStrategy}
+                  onRemove={removeStrategy}
+                />
+              ))}
+            </div>
+          </div>
+        </ResizableSidebar>
+
+        {/* Main Content Area - Pricing Page Preview */}
+        <div className="flex-1 overflow-hidden">
+          <ThemeProvider>
+            <ThemedPricingPage className="h-full">
+              <div className="h-full flex flex-col">
+                {/* Preview Header */}
+                <div className="bg-white/90 backdrop-blur-sm border-b px-6 py-4 flex-shrink-0">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-lg font-semibold text-foreground">
+                        Live Pricing Page
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        Real-time preview with your theme and strategies
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {strategies.length > 0 &&
+                        comparisonMode &&
+                        strategies.length > 1 && (
+                          <Badge variant="secondary">Comparison Mode</Badge>
+                        )}
+                      <Badge variant="outline">
+                        {strategies.length} strateg
+                        {strategies.length === 1 ? "y" : "ies"}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Preview Content */}
+                <div className="flex-1 overflow-y-auto">
+                  {strategies.length === 0 ? (
+                    <div className="flex items-center justify-center h-full text-center">
+                      <div className="space-y-4 max-w-md">
+                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                          <BarChart3 className="w-8 h-8 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-foreground mb-2">
+                            Design Your Pricing Strategy
+                          </h3>
+                          <p className="text-muted-foreground mb-4">
+                            Add pricing strategies from the sidebar to see your
+                            live pricing page. Customize themes and see real-time
+                            updates.
+                          </p>
+                          <Button
+                            variant="outline"
+                            disabled
+                            className="glass-effect"
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add strategies to get started
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-6">
+                      <PricingPreview
+                        strategies={strategies}
+                        comparisonMode={comparisonMode}
+                      />
+                      {comparisonMode && strategies.length > 1 && (
+                        <div className="mt-12 space-y-8">
+                          <div>
+                            <h3 className="text-2xl font-semibold mb-6">
+                              Strategy Comparison
+                            </h3>
+                            <ComparisonTable strategies={strategies} />
+                          </div>
+                          <div>
+                            <h4 className="text-xl font-semibold mb-6">
+                              Cost Analysis
+                            </h4>
+                            <CostChart strategies={strategies} />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </ThemedPricingPage>
+
+            {/* Theme Settings */}
+            <ThemeSettings />
+          </ThemeProvider>
+>>>>>>> origin/main
 
           {/* Right Side - Preview */}
           <div className="flex-1 bg-background">
