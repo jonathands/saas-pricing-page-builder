@@ -539,24 +539,13 @@ export function StrategyForm({
               <Badge className="bg-green-600 text-white">Always Free</Badge>
             </div>
 
-            <div>
-              <Label className="text-slate-200">Features (one per line)</Label>
-              <Textarea
-                value={freemiumStrategy.freeTier.features.join("\n")}
-                onChange={(e) => {
-                  const newFreeTier = {
-                    ...freemiumStrategy.freeTier,
-                    features: e.target.value
-                      .split("\n")
-                      .filter((f) => f.trim()),
-                  };
-                  updateField("freeTier", newFreeTier);
-                }}
-                rows={3}
-                className="bg-slate-600 border-slate-500 text-slate-100 placeholder:text-slate-400"
-                placeholder="e.g., Basic access&#10;Community support&#10;1 project"
-              />
-            </div>
+            <FeatureEditor
+              features={freemiumStrategy.freeTier.features}
+              onChange={(features: EnhancedFeature[]) => {
+                const newFreeTier = { ...freemiumStrategy.freeTier, features };
+                updateField("freeTier", newFreeTier);
+              }}
+            />
 
             <div>
               <Label className="text-slate-200">Usage Limit (optional)</Label>
