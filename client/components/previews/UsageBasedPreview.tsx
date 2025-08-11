@@ -19,7 +19,7 @@ export function UsageBasedPreview({ strategy }: UsageBasedPreviewProps) {
   const sampleUsages = [100, 500, 1000, 2500, 5000];
 
   return (
-    <div className="grid md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
       <Card style={{ borderColor: theme.secondaryColor }}>
         <CardHeader className="text-center">
           <CardTitle style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}>
