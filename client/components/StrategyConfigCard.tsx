@@ -58,19 +58,17 @@ export function StrategyConfigCard({
     <Card className="bg-slate-800 border-slate-700">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleExpanded}
-              className="text-slate-400 hover:text-slate-200 hover:bg-slate-700 p-1 h-auto"
-            >
+          <div
+            className="flex items-center gap-2 cursor-pointer flex-1 hover:bg-slate-700/30 -m-2 p-2 rounded-md transition-colors"
+            onClick={toggleExpanded}
+          >
+            <div className="text-slate-400">
               {isExpanded ? (
                 <ChevronDown className="w-4 h-4" />
               ) : (
                 <ChevronRight className="w-4 h-4" />
               )}
-            </Button>
+            </div>
             <Icon className="w-5 h-5 text-slate-300" />
             <CardTitle className="text-lg text-slate-100">
               {strategy.name}
@@ -85,7 +83,10 @@ export function StrategyConfigCard({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onRemove(strategy.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove(strategy.id);
+            }}
             className="text-slate-400 hover:text-slate-200 hover:bg-slate-700"
           >
             <Trash2 className="w-4 h-4" />
