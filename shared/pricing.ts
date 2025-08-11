@@ -46,7 +46,7 @@ export interface TieredStrategy extends BasePricingStrategy {
     id: string;
     name: string;
     price: number;
-    features: string[];
+    features: string[] | EnhancedFeature[];
     usageLimit?: number;
     billingPeriod: "monthly" | "yearly";
     popular?: boolean;
