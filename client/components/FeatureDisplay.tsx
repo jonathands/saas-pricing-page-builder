@@ -31,6 +31,7 @@ interface FeatureDisplayProps {
   features: string[] | EnhancedFeature[];
   className?: string;
   iconColorClass?: string;
+  style?: React.CSSProperties;
 }
 
 // Icon mapping (same as in FeatureEditor)
