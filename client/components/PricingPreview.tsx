@@ -29,19 +29,52 @@ export function PricingPreview({
   comparisonMode,
 }: PricingPreviewProps) {
   const { theme } = useTheme();
+
+  if (strategies.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full min-h-[400px] text-center">
+        <div className="space-y-4 max-w-md mx-auto">
+          <div
+            className="text-6xl opacity-20"
+            style={{ color: theme.primaryColor }}
+          >
+            💰
+          </div>
+          <h3
+            className="text-xl font-semibold"
+            style={{
+              fontFamily: `var(--font-header, ${theme.headerFont})`,
+              color: theme.primaryColor
+            }}
+          >
+            No Pricing Strategies Yet
+          </h3>
+          <p
+            className="text-muted-foreground"
+            style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+          >
+            Add pricing strategies from the sidebar to see your live pricing page.
+            Customize themes and see real-time updates.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8 max-w-7xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 
-          className="text-3xl font-bold"
-          style={{ 
+        <h2
+          className="text-2xl lg:text-3xl font-bold"
+          style={{
             fontFamily: `var(--font-header, ${theme.headerFont})`,
             color: theme.primaryColor
           }}
         >
           Choose Your Plan
         </h2>
-        <p 
+        <p
+          className="text-sm lg:text-base"
           style={{
             fontFamily: `var(--font-text, ${theme.textFont})`,
             color: 'hsl(var(--muted-foreground))'
