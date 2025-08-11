@@ -27,7 +27,7 @@ export interface BasePricingStrategy {
 export interface FlatRateStrategy extends BasePricingStrategy {
   type: "flat-rate";
   price: number;
-  features: string[];
+  features: string[] | EnhancedFeature[];
   billingPeriod: "monthly" | "yearly";
 }
 
