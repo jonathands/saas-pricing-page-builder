@@ -64,14 +64,14 @@ export interface PerUserStrategy extends BasePricingStrategy {
 export interface FreemiumStrategy extends BasePricingStrategy {
   type: "freemium";
   freeTier: {
-    features: string[];
+    features: string[] | EnhancedFeature[];
     usageLimit?: number;
   };
   paidTiers: {
     id: string;
     name: string;
     price: number;
-    features: string[];
+    features: string[] | EnhancedFeature[];
     usageLimit?: number;
     billingPeriod: "monthly" | "yearly";
   }[];
