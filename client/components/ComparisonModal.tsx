@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { useTheme } from "@/contexts/ThemeContext";
 import { PricingStrategy } from "@shared/pricing";
-import { BarChart3, X } from "lucide-react";
+import { BarChart3, X, Printer } from "lucide-react";
 
 interface ComparisonModalProps {
   isOpen: boolean;
@@ -62,10 +62,14 @@ export function ComparisonModal({
     );
   }
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-slate-900 border-slate-700">
-        <DialogHeader>
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto bg-slate-900 border-slate-700 print:bg-white print:border-gray-300 print:text-black print:max-w-none print:max-h-none print:overflow-visible">
+        <DialogHeader className="print:border-b print:border-gray-300 print:pb-4">
           <div className="flex items-center justify-between">
             <div>
               <DialogTitle className="flex items-center gap-2 text-slate-100">
@@ -76,22 +80,32 @@ export function ComparisonModal({
                 Compare your pricing strategies side by side with detailed analytics
               </DialogDescription>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="text-slate-400 hover:text-slate-100 hover:bg-slate-800"
-            >
-              <X className="w-4 h-4" />
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handlePrint}
+                className="text-slate-400 hover:text-slate-100 hover:bg-slate-800 print:hidden"
+              >
+                <Printer className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="text-slate-400 hover:text-slate-100 hover:bg-slate-800 print:hidden"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 
-        <div className="space-y-6 mt-6">
+        <div className="space-y-6 mt-6 print:mt-4">
           {/* Strategy Overview */}
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-2 print:text-left">
             <h2
-              className="text-xl font-bold"
+              className="text-xl font-bold print:text-2xl print:text-black print:mb-2"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
                 color: theme.primaryColor
@@ -100,7 +114,7 @@ export function ComparisonModal({
               Comparing {strategies.length} Strategies
             </h2>
             <p
-              className="text-sm"
+              className="text-sm print:text-base print:text-gray-700"
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
                 color: 'hsl(var(--muted-foreground))'
@@ -108,13 +122,16 @@ export function ComparisonModal({
             >
               Analyze and compare the key metrics, scalability, and cost structures
             </p>
+            <div className="print:block hidden text-sm text-gray-500 mt-4">
+              Generated on {new Date().toLocaleDateString()} - PricingCraft Strategy Analysis
+            </div>
           </div>
 
           {/* Comparison Table */}
-          <div className="space-y-4">
-            <div>
+          <div className="space-y-4 print:space-y-6">
+            <div className="print:break-inside-avoid">
               <h3
-                className="text-lg font-semibold mb-3"
+                className="text-lg font-semibold mb-3 print:text-xl print:text-black print:border-b print:border-gray-300 print:pb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
                   color: theme.primaryColor
@@ -122,16 +139,16 @@ export function ComparisonModal({
               >
                 Strategy Comparison Matrix
               </h3>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto print:overflow-visible">
                 <ComparisonTable strategies={strategies} />
               </div>
             </div>
 
-            <Separator className="bg-slate-700" />
+            <Separator className="bg-slate-700 print:bg-gray-300 print:my-6" />
 
-            <div>
+            <div className="print:break-inside-avoid">
               <h3
-                className="text-lg font-semibold mb-3"
+                className="text-lg font-semibold mb-3 print:text-xl print:text-black print:border-b print:border-gray-300 print:pb-2"
                 style={{
                   fontFamily: `var(--font-header, ${theme.headerFont})`,
                   color: theme.primaryColor
@@ -144,9 +161,9 @@ export function ComparisonModal({
           </div>
 
           {/* Key Insights */}
-          <div className="bg-slate-800 rounded-lg p-4 border border-slate-700">
+          <div className="bg-slate-800 rounded-lg p-4 border border-slate-700 print:bg-gray-50 print:border-gray-300 print:break-inside-avoid">
             <h4
-              className="font-semibold mb-3"
+              className="font-semibold mb-3 print:text-black print:border-b print:border-gray-300 print:pb-2"
               style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
                 color: theme.primaryColor
@@ -154,27 +171,27 @@ export function ComparisonModal({
             >
               Key Insights
             </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
+            <ul className="space-y-2 text-sm text-slate-300 print:text-gray-700 print:space-y-3">
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
                   <strong>Usage-based</strong> strategies scale best with high-volume customers
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
                   <strong>Tiered</strong> plans offer predictable revenue and suit most business sizes
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
                   <strong>Flat-rate</strong> pricing provides simplicity but limited scalability
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 print:bg-gray-400" />
                 <span>
                   <strong>Per-user</strong> models grow linearly with team expansion
                 </span>
@@ -183,7 +200,15 @@ export function ComparisonModal({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-700">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-700 print:hidden">
+            <Button
+              variant="outline"
+              onClick={handlePrint}
+              className="border-slate-600 text-slate-200 hover:bg-slate-800"
+            >
+              <Printer className="w-4 h-4 mr-2" />
+              Print Report
+            </Button>
             <Button
               variant="outline"
               onClick={onClose}
