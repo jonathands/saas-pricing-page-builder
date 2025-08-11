@@ -480,23 +480,23 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
     <div className="flex justify-center">
       <Card className="w-full max-w-md" style={{ borderColor: theme.secondaryColor }}>
         <CardHeader className="text-center">
-          <CardTitle 
+          <CardTitle
             className="text-2xl"
             style={{ fontFamily: `var(--font-header, ${theme.headerFont})` }}
           >
             {strategy.name}
           </CardTitle>
           <div className="space-y-2">
-            <div 
+            <div
               className="text-4xl font-bold"
-              style={{ 
+              style={{
                 fontFamily: `var(--font-header, ${theme.headerFont})`,
                 color: theme.primaryColor
               }}
             >
               ${strategy.price}
             </div>
-            <div 
+            <div
               style={{
                 fontFamily: `var(--font-text, ${theme.textFont})`,
                 color: 'hsl(var(--muted-foreground))'
@@ -507,18 +507,12 @@ function FlatRatePricingCard({ strategy, onGetStarted, theme }: any) {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <ul className="space-y-3">
-            {strategy.features.map((feature: string, index: number) => (
-              <li 
-                key={index} 
-                className="flex items-center gap-3"
-                style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
-              >
-                <Check className="w-5 h-5" style={{ color: theme.primaryColor }} />
-                {feature}
-              </li>
-            ))}
-          </ul>
+          <FeatureDisplay
+            features={strategy.features}
+            iconColorClass="text-primary"
+            className="space-y-3"
+            style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+          />
           <Button
             className="w-full"
             size="lg"
