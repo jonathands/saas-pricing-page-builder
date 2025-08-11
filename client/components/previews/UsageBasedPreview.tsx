@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { FeatureDisplay } from "@/components/FeatureDisplay";
 import { UsageBasedStrategy } from "@shared/pricing";
 
 interface UsageBasedPreviewProps {
