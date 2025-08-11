@@ -37,7 +37,7 @@ export interface UsageBasedStrategy extends BasePricingStrategy {
   usagePrice: number;
   usageUnit: string;
   includedUsage: number;
-  features: string[];
+  features: string[] | EnhancedFeature[];
 }
 
 export interface TieredStrategy extends BasePricingStrategy {
