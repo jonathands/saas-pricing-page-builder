@@ -35,6 +35,8 @@ export function StrategyConfigCard({
   onUpdate,
   onRemove,
 }: StrategyConfigCardProps) {
+  const [isExpanded, setIsExpanded] = useState(true);
+
   const Icon =
     strategy.type === "flat-rate"
       ? Package
@@ -48,11 +50,27 @@ export function StrategyConfigCard({
               ? Zap
               : Settings;
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <Card className="bg-slate-800 border-slate-700">
-      <CardHeader>
+      <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleExpanded}
+              className="text-slate-400 hover:text-slate-200 hover:bg-slate-700 p-1 h-auto"
+            >
+              {isExpanded ? (
+                <ChevronDown className="w-4 h-4" />
+              ) : (
+                <ChevronRight className="w-4 h-4" />
+              )}
+            </Button>
             <Icon className="w-5 h-5 text-slate-300" />
             <CardTitle className="text-lg text-slate-100">
               {strategy.name}
@@ -74,9 +92,11 @@ export function StrategyConfigCard({
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
-        <StrategyForm strategy={strategy} onUpdate={onUpdate} />
-      </CardContent>
+      {isExpanded && (
+        <CardContent className="pt-0">
+          <StrategyForm strategy={strategy} onUpdate={onUpdate} />
+        </CardContent>
+      )}
     </Card>
   );
 }
