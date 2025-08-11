@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useTheme } from "@/contexts/ThemeContext";
+import { ComparisonTable, CostChart } from "@/components/ComparisonComponents";
 import { FlatRatePreview } from "./previews/FlatRatePreview";
 import { TieredPreview } from "./previews/TieredPreview";
 import { UsageBasedPreview } from "./previews/UsageBasedPreview";
