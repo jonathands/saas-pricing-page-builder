@@ -98,20 +98,10 @@ export function StrategyForm({
             </Select>
           </div>
         </div>
-        <div>
-          <Label className="text-slate-200">Features (one per line)</Label>
-          <Textarea
-            value={flatStrategy.features.join("\n")}
-            onChange={(e) =>
-              updateField(
-                "features",
-                e.target.value.split("\n").filter((f) => f.trim()),
-              )
-            }
-            rows={4}
-            className="bg-slate-700 border-slate-600 text-slate-100 placeholder:text-slate-400"
-          />
-        </div>
+        <FeatureEditor
+          features={flatStrategy.features}
+          onChange={(features: EnhancedFeature[]) => updateField("features", features)}
+        />
       </div>
     );
   }
