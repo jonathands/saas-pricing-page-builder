@@ -59,14 +59,10 @@ export function FreemiumPreview({ strategy }: FreemiumPreviewProps) {
           </CardHeader>
           
           <CardContent className="space-y-4">
-            <ul className="space-y-2">
-              {tier.features.map((feature, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Check className={`w-4 h-4 ${tier.isFree ? 'text-green-500' : 'text-primary'}`} />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+            <FeatureDisplay
+              features={tier.features}
+              iconColorClass={tier.isFree ? 'text-green-500' : 'text-primary'}
+            />
             
             <Button 
               className={`w-full ${tier.isFree ? 'bg-green-600 hover:bg-green-700' : ''}`}
