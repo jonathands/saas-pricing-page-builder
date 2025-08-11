@@ -55,18 +55,11 @@ export function UsageBasedPreview({ strategy }: UsageBasedPreviewProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <ul className="space-y-2">
-            {strategy.features.map((feature, index) => (
-              <li 
-                key={index} 
-                className="flex items-center gap-2"
-                style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
-              >
-                <CheckCircle className="w-4 h-4" style={{ color: theme.primaryColor }} />
-                {feature}
-              </li>
-            ))}
-          </ul>
+          <FeatureDisplay
+            features={strategy.features}
+            iconColorClass="text-primary"
+            style={{ fontFamily: `var(--font-text, ${theme.textFont})` }}
+          />
           <Button 
             className="w-full"
             style={{ 
