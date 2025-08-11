@@ -75,10 +75,10 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     usageUnit: "API calls",
     includedUsage: 1000,
     features: [
-      "Base platform access",
-      "Real-time monitoring",
-      "Usage analytics",
-      "API documentation",
+      { id: "1", text: "Base platform access", icon: "Cloud", iconPosition: "before" },
+      { id: "2", text: "Real-time monitoring", icon: "BarChart3", iconPosition: "before" },
+      { id: "3", text: "Usage analytics", icon: "Clock", iconPosition: "before" },
+      { id: "4", text: "API documentation", icon: "FileText", iconPosition: "before" },
     ],
   },
   tiered: {
