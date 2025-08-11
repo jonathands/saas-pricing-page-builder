@@ -146,7 +146,11 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
     name: "Freemium Growth",
     description: "Free tier with premium upgrades",
     freeTier: {
-      features: ["1 project", "Basic features", "Community support"],
+      features: [
+        { id: "1", text: "1 project", icon: "Package", iconPosition: "before" },
+        { id: "2", text: "Basic features", icon: "Star", iconPosition: "before" },
+        { id: "3", text: "Community support", icon: "Users", iconPosition: "before" },
+      ],
       usageLimit: 100,
     },
     paidTiers: [
@@ -154,7 +158,11 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         id: "starter",
         name: "Starter",
         price: 9,
-        features: ["5 projects", "Premium features", "Email support"],
+        features: [
+          { id: "1", text: "5 projects", icon: "Package", iconPosition: "before" },
+          { id: "2", text: "Premium features", icon: "Zap", iconPosition: "before" },
+          { id: "3", text: "Email support", icon: "Mail", iconPosition: "before" },
+        ],
         usageLimit: 1000,
         billingPeriod: "monthly" as const,
       },
@@ -162,7 +170,11 @@ const SAMPLE_PRESETS: Record<PricingStrategyType, any> = {
         id: "professional",
         name: "Professional",
         price: 29,
-        features: ["Unlimited projects", "All features", "Priority support"],
+        features: [
+          { id: "1", text: "Unlimited projects", icon: "Package", iconPosition: "before" },
+          { id: "2", text: "All features", icon: "Star", iconPosition: "before" },
+          { id: "3", text: "Priority support", icon: "Headphones", iconPosition: "before" },
+        ],
         billingPeriod: "monthly" as const,
       },
     ],
