@@ -2,6 +2,13 @@
  * Shared types for SaaS pricing strategies
  */
 
+export interface EnhancedFeature {
+  id: string;
+  text: string;
+  icon?: string;
+  iconPosition?: "before" | "after";
+}
+
 export type PricingStrategyType =
   | "flat-rate"
   | "usage-based"
