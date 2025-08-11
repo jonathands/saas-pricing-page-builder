@@ -57,7 +57,7 @@ export interface PerUserStrategy extends BasePricingStrategy {
   type: "per-user";
   pricePerUser: number;
   minimumUsers: number;
-  features: string[];
+  features: string[] | EnhancedFeature[];
   billingPeriod: "monthly" | "yearly";
 }
 
