@@ -57,18 +57,26 @@ export function PricingPagePreviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] h-full p-0 gap-0">
-        <DialogHeader className="p-6 pb-4 border-b">
+      <DialogContent
+        className="max-w-[95vw] max-h-[95vh] h-full p-0 gap-0 bg-slate-900 border-slate-700"
+        style={{ fontFamily: '"Open Sans", sans-serif' }}
+      >
+        <DialogHeader className="p-6 pb-4 border-b border-slate-700">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-xl font-semibold">
+              <DialogTitle className="text-xl font-semibold text-slate-100">
                 Pricing Page Preview
               </DialogTitle>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm text-slate-300 mt-1">
                 See how your pricing page looks across different devices
               </p>
             </div>
-            <Button variant="ghost" size="sm" onClick={onClose}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+            >
               <X className="w-4 h-4" />
             </Button>
           </div>
@@ -79,20 +87,20 @@ export function PricingPagePreviewModal({
               value={selectedSize}
               onValueChange={(value: any) => setSelectedSize(value)}
             >
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-3 bg-slate-800 border-slate-600">
                 {Object.entries(SCREEN_SIZES).map(([key, size]) => {
                   const Icon = size.icon;
                   return (
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 text-slate-300 data-[state=active]:text-slate-100 data-[state=active]:bg-slate-700"
                     >
                       <Icon className="w-4 h-4" />
                       <span className="hidden sm:inline">{size.name}</span>
                       <Badge
                         variant="outline"
-                        className="text-xs hidden md:inline"
+                        className="text-xs hidden md:inline border-slate-600 text-slate-400"
                       >
                         {size.description}
                       </Badge>
