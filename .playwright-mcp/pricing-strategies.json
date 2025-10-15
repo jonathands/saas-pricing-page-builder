@@ -1,0 +1,141 @@
+{
+  "strategies": [
+    {
+      "type": "flat-rate",
+      "description": "Simple flat rate pricing model",
+      "price": 29,
+      "features": [
+        {
+          "id": "1",
+          "text": "Core features",
+          "icon": "Star",
+          "iconPosition": "before"
+        },
+        {
+          "id": "2",
+          "text": "24/7 support",
+          "icon": "Headphones",
+          "iconPosition": "before"
+        },
+        {
+          "id": "3",
+          "text": "API access",
+          "icon": "Settings",
+          "iconPosition": "before"
+        }
+      ],
+      "billingPeriod": "yearly",
+      "id": "strategy-1758807591535-a73a7tyvw",
+      "name": "Simple Plan"
+    },
+    {
+      "type": "usage-based",
+      "description": "Pay for what you use",
+      "basePrice": 10,
+      "usagePrice": 0.05,
+      "usageUnit": "API calls",
+      "includedUsage": 1000,
+      "features": [
+        {
+          "id": "1",
+          "text": "Base platform access",
+          "icon": "Cloud",
+          "iconPosition": "before"
+        },
+        {
+          "id": "2",
+          "text": "Real-time monitoring",
+          "icon": "BarChart3",
+          "iconPosition": "before"
+        },
+        {
+          "id": "3",
+          "text": "Usage analytics",
+          "icon": "Clock",
+          "iconPosition": "before"
+        }
+      ],
+      "id": "strategy-1758807606827-20vrjj6fx",
+      "name": "Pay as you Scale"
+    },
+    {
+      "type": "freemium",
+      "description": "Free tier with premium options",
+      "freeTier": {
+        "features": [
+          {
+            "id": "1",
+            "text": "1 project",
+            "icon": "Package",
+            "iconPosition": "before"
+          },
+          {
+            "id": "2",
+            "text": "Basic features",
+            "icon": "Star",
+            "iconPosition": "before"
+          },
+          {
+            "id": "3",
+            "text": "Community support",
+            "icon": "Users",
+            "iconPosition": "before"
+          }
+        ],
+        "usageLimit": 100
+      },
+      "paidTiers": [
+        {
+          "id": "starter",
+          "name": "Starter",
+          "price": 9,
+          "features": [
+            {
+              "id": "1",
+              "text": "5 projects",
+              "icon": "Package",
+              "iconPosition": "before"
+            },
+            {
+              "id": "2",
+              "text": "Premium features",
+              "icon": "Zap",
+              "iconPosition": "before"
+            }
+          ],
+          "usageLimit": 1000,
+          "billingPeriod": "monthly"
+        },
+        {
+          "id": "professional",
+          "name": "Professional",
+          "price": 29,
+          "features": [
+            {
+              "id": "1",
+              "text": "Unlimited projects",
+              "icon": "Package",
+              "iconPosition": "before"
+            },
+            {
+              "id": "2",
+              "text": "All features",
+              "icon": "Star",
+              "iconPosition": "before"
+            },
+            {
+              "id": "3",
+              "text": "Priority support",
+              "icon": "Headphones",
+              "iconPosition": "before"
+            }
+          ],
+          "billingPeriod": "monthly"
+        }
+      ],
+      "id": "strategy-1758807905453-fvkcwystk",
+      "name": "Freemium Model"
+    }
+  ],
+  "comparisonMode": false
+}

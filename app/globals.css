@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 255 84% 60%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 255 84% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 255 84% 60%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 255 84% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-text, "Inter", sans-serif);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-header, "Inter", sans-serif);
+  }
+
+  button {
+    font-family: var(--font-button, "Inter", sans-serif);
+  }
+}
+
+/* Print styles for comparison modal */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Hide scrollbars and overflow on print */
+  * {
+    overflow: visible !important;
+  }
+
+  /* Ensure proper page breaks */
+  .print\\:break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Table print optimizations */
+  table {
+    border-collapse: collapse;
+    width: 100% !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* Chart print styles */
+  .recharts-wrapper {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Hide interactive elements on print */
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print\\:block {
+    display: block !important;
+  }
+
+  /* Dialog content adjustments */
+  [role="dialog"] {
+    position: static !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+/* Responsive and scrolling improvements */
+@media (max-width: 1023px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+
+  .sidebar-mobile {
+    width: 100% !important;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .preview-mobile {
+    min-height: 40vh;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Better focus states */
+.focus-visible\:ring-2:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--ring));
+}
+
+/* Centralized form styling for better visibility */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  @apply border-2 border-slate-300 dark:border-slate-600;
+  @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+  @apply transition-all duration-200;
+}
+
+/* Enhanced input styling for dark theme */
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="number"],
+.dark input[type="search"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark textarea,
+.dark select {
+  @apply bg-slate-800 border-slate-600 text-slate-100;
+  @apply hover:border-slate-500;
+  @apply focus:border-primary focus:ring-primary/20;
+}
+
+/* Input placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  @apply text-slate-400 dark:text-slate-500;
+}
+
+/* Specific form component classes */
+.form-input {
+  @apply border-2 border-slate-300 dark:border-slate-600;
+  @apply bg-white dark:bg-slate-800;
+  @apply text-slate-900 dark:text-slate-100;
+  @apply rounded-md px-3 py-2;
+  @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+  @apply transition-all duration-200;
+}
+
+.form-input:hover {
+  @apply border-slate-400 dark:border-slate-500;
+}
+
+.form-select {
+  @apply form-input;
+  @apply appearance-none bg-no-repeat;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.dark .form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%259ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+/* Form labels */
+.form-label {
+  @apply text-sm font-medium text-slate-700 dark:text-slate-300;
+  @apply mb-2 block;
+}
+
+/* Form groups */
+.form-group {
+  @apply space-y-2;
+}

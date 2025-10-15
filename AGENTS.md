@@ -1,163 +1,124 @@
 # Fusion Starter
 
-A production-ready full-stack React application template with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.
+A production-ready Next.js 15 application template tailored for building a SaaS pricing page builder. The stack combines the Next.js App Router, React 18, TypeScript, TailwindCSS, Radix UI, and modern tooling so you can focus on pricing experiences instead of project plumbing.
 
-While the starter comes with a express server, only create endpoint when strictly neccesary, for example to encapsulate logic that must leave in the server, such as private keys handling, or certain DB operations, db...
+Only add API routes when logic must execute on the server (e.g. secrets, database operations). Keep everything else in the client for maximum responsiveness.
 
 ## Tech Stack
 
-- **Frontend**: React 18 + React Router 6 (spa) + TypeScript + Vite + TailwindCSS 3
-- **Backend**: Express server integrated with Vite dev server
+- **Framework**: Next.js 15 (App Router) + React 18 + TypeScript
+- **Styling**: TailwindCSS 3 with design tokens defined in `app/globals.css`
+- **UI**: Radix UI + shadcn/ui components + Lucide icons
+- **Data**: TanStack Query for client-side data orchestration
 - **Testing**: Vitest
-- **UI**: Radix UI + TailwindCSS 3 + Lucide React icons
 
 ## Project Structure
 
 ```
-client/                   # React SPA frontend
-├── pages/                # Route components (Index.tsx = home)
-├── components/ui/        # Pre-built UI component library
-├── App.tsx                # App entry point and with SPA routing setup
-└── global.css            # TailwindCSS 3 theming and global styles
+app/                      # Next.js App Router entrypoints
+├── page.tsx              # Pricing builder experience
+├── layout.tsx            # Root layout + providers
+├── not-found.tsx         # 404 route
+└── api/                  # Route handlers (e.g. /api/ping)
 
-server/                   # Express API backend
-├── index.ts              # Main server setup (express config + routes)
-└── routes/               # API handlers
-
-shared/                   # Types used by both client & server
-└── api.ts                # Example of how to share api interfaces
+components/               # Reusable UI and feature components
+contexts/                 # React context providers (client components)
+hooks/                    # Custom React hooks
+lib/                      # Shared utilities
+services/                 # Client-side service helpers
+shared/                   # Types shared with API routes
 ```
 
-## Key Features
+## Routing
 
-## SPA Routing System
+Next.js App Router drives navigation:
 
-The routing system is powered by React Router 6:
+- `app/page.tsx` renders the pricing builder preview with all configured plans.
+- Additional routes live inside `app/` (e.g. `app/(marketing)/about/page.tsx`).
+- 404s render through `app/not-found.tsx`.
 
-- `client/pages/Index.tsx` represents the home page.
-- Routes are defined in `client/App.tsx` using the `react-router-dom` import
-- Route files are located in the `client/pages/` directory
+### API Routes
 
-For example, routes can be defined with:
+Use route handlers under `app/api/*/route.ts` for any server-side logic. Responses are typed with the modules in `shared/`.
 
 ```typescript
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// app/api/demo/route.ts
+import { NextResponse } from "next/server";
+import { DemoResponse } from "@shared/api";
 
-<Routes>
-  <Route path="/" element={<Index />} />
-  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-  <Route path="*" element={<NotFound />} />
-</Routes>;
+export function GET() {
+  const response: DemoResponse = { message: "Hello from Next.js API route" };
+  return NextResponse.json(response);
+}
 ```
 
-### Styling System
-
-- **Primary**: TailwindCSS 3 utility classes
-- **Theme and design tokens**: Configure in `client/global.css` 
-- **UI components**: Pre-built library in `client/components/ui/`
-- **Utility**: `cn()` function combines `clsx` + `tailwind-merge` for conditional classes
+Call the route from the client with standard `fetch`:
 
 ```typescript
-// cn utility usage
+const res = await fetch("/api/demo");
+const data: DemoResponse = await res.json();
+```
+
+## Styling System
+
+- **TailwindCSS** powers utility styling.
+- **Tokens** live in `app/globals.css`; update custom colors or radius values there and in `tailwind.config.ts`.
+- **UI Components** sit under `components/ui/` and expose the shadcn-style API.
+- `cn()` from `@/lib/utils` merges class names safely.
+
+```typescript
 className={cn(
   "base-classes",
   { "conditional-class": condition },
-  props.className  // User overrides
+  props.className // user overrides
 )}
 ```
 
-### Express Server Integration
+## Shared Types
 
-- **Development**: Single port (8080) for both frontend/backend
-- **Hot reload**: Both client and server code
-- **API endpoints**: Prefixed with `/api/`
+Use the aliases configured in `tsconfig.json`:
 
-#### Example API Routes
-- `GET /api/ping` - Simple ping api
-- `GET /api/demo` - Demo endpoint  
-
-### Shared Types
-Import consistent types in both client and server:
-```typescript
-import { DemoResponse } from '@shared/api';
-```
-
-Path aliases:
-- `@shared/*` - Shared folder
-- `@/*` - Client folder
+- `@/*` resolves to the repository root (app, components, lib, etc.)
+- `@shared/*` resolves to `shared/`
 
 ## Development Commands
 
 ```bash
-npm run dev        # Start dev server (client + server)
-npm run build      # Production build
-npm run start      # Start production server
-npm run typecheck  # TypeScript validation
-npm test          # Run Vitest tests
+pnpm dev        # Start Next.js dev server (hot reload)
+pnpm build      # Production build
+pnpm start      # Start production server
+pnpm typecheck  # TypeScript validation
+pnpm lint       # ESLint with Next rules
+pnpm test       # Run Vitest tests
 ```
 
 ## Adding Features
 
-### Add new colors to the theme
+### Extend the Theme
 
-Open `client/global.css` and `tailwind.config.ts` and add new tailwind colors.
+1. Update CSS variables in `app/globals.css`.
+2. Add matching entries to `tailwind.config.ts`.
 
 ### New API Route
-1. **Optional**: Create a shared interface in `shared/api.ts`:
-```typescript
-export interface MyRouteResponse {
-  message: string;
-  // Add other response properties here
-}
-```
 
-2. Create a new route handler in `server/routes/my-route.ts`:
-```typescript
-import { RequestHandler } from "express";
-import { MyRouteResponse } from "@shared/api"; // Optional: for type safety
+1. Optionally create a shared type in `shared/api.ts`.
+2. Add a handler under `app/api/<route>/route.ts` exporting the HTTP methods you need.
+3. Consume via `fetch` on the client or `fetch`/`cookies` on the server.
 
-export const handleMyRoute: RequestHandler = (req, res) => {
-  const response: MyRouteResponse = {
-    message: 'Hello from my endpoint!'
-  };
-  res.json(response);
-};
-```
+### Additional Pages
 
-3. Register the route in `server/index.ts`:
-```typescript
-import { handleMyRoute } from "./routes/my-route";
+1. Create a directory such as `app/pricing/page.tsx`.
+2. Export a component (`export default function Pricing() { ... }`).
 
-// Add to the createServer function:
-app.get("/api/my-endpoint", handleMyRoute);
-```
+## Deployment Notes
 
-4. Use in React components with type safety:
-```typescript
-import { MyRouteResponse } from '@shared/api'; // Optional: for type safety
+- **Standard**: `pnpm build` then `pnpm start`.
+- **Netlify**: Uses `@netlify/plugin-nextjs` via `netlify.toml`.
+- **Vercel**: Deploy directly with `vercel`, no extra config needed.
 
-const response = await fetch('/api/my-endpoint');
-const data: MyRouteResponse = await response.json();
-```
+## Architecture Highlights
 
-### New Page Route
-1. Create component in `client/pages/MyPage.tsx`
-2. Add route in `client/App.tsx`:
-```typescript
-<Route path="/my-page" element={<MyPage />} />
-```
-
-## Production Deployment
-
-- **Standard**: `npm run build` + `npm start`
-- **Binary**: Self-contained executables (Linux, macOS, Windows)
-- **Cloud Deployment**: Use either Netlify or Vercel via their MCP integrations for easy deployment. Both providers work well with this starter template.
-
-## Architecture Notes
-
-- Single-port development with Vite + Express integration
-- TypeScript throughout (client, server, shared)
-- Full hot reload for rapid development
-- Production-ready with multiple deployment options
-- Comprehensive UI component library included
-- Type-safe API communication via shared interfaces
+- Next.js App Router with React 18 client components for interactive pricing tooling.
+- TypeScript end-to-end with shared contracts in `shared/`.
+- Tailwind-powered styling plus Radix UI primitives.
+- TanStack Query for data fetching/caching when backend endpoints are added.

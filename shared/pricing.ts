@@ -1,5 +1,5 @@
 /**
- * Shared types for SaaS pricing strategies
+ * Shared types for SaaS pricing models
  */
 
 export interface EnhancedFeature {
@@ -9,7 +9,7 @@ export interface EnhancedFeature {
   iconPosition?: "before" | "after";
 }
 
-export type PricingStrategyType =
+export type PricingModelType =
   | "flat-rate"
   | "usage-based"
   | "tiered"
@@ -17,21 +17,21 @@ export type PricingStrategyType =
   | "freemium"
   | "feature-based";
 
-export interface BasePricingStrategy {
+export interface BasePricingModel {
   id: string;
   type: PricingStrategyType;
   name: string;
   description: string;
 }
 
-export interface FlatRateStrategy extends BasePricingStrategy {
+export interface FlatRateModel extends BasePricingModel {
   type: "flat-rate";
   price: number;
   features: string[] | EnhancedFeature[];
   billingPeriod: "monthly" | "yearly";
 }
 
-export interface UsageBasedStrategy extends BasePricingStrategy {
+export interface UsageBasedModel extends BasePricingModel {
   type: "usage-based";
   basePrice: number;
   usagePrice: number;
@@ -40,7 +40,7 @@ export interface UsageBasedStrategy extends BasePricingStrategy {
   features: string[] | EnhancedFeature[];
 }
 
-export interface TieredStrategy extends BasePricingStrategy {
+export interface TieredModel extends BasePricingModel {
   type: "tiered";
   tiers: {
     id: string;
@@ -53,7 +53,7 @@ export interface TieredStrategy extends BasePricingStrategy {
   }[];
 }
 
-export interface PerUserStrategy extends BasePricingStrategy {
+export interface PerUserModel extends BasePricingModel {
   type: "per-user";
   pricePerUser: number;
   minimumUsers: number;
@@ -61,7 +61,7 @@ export interface PerUserStrategy extends BasePricingStrategy {
   billingPeriod: "monthly" | "yearly";
 }
 
-export interface FreemiumStrategy extends BasePricingStrategy {
+export interface FreemiumModel extends BasePricingModel {
   type: "freemium";
   freeTier: {
     features: string[] | EnhancedFeature[];
@@ -77,7 +77,7 @@ export interface FreemiumStrategy extends BasePricingStrategy {
   }[];
 }
 
-export interface FeatureBasedStrategy extends BasePricingStrategy {
+export interface FeatureBasedModel extends BasePricingModel {
   type: "feature-based";
   basePrice: number;
   features: {
@@ -90,21 +90,21 @@ export interface FeatureBasedStrategy extends BasePricingStrategy {
   billingPeriod: "monthly" | "yearly";
 }
 
-export type PricingStrategy =
-  | FlatRateStrategy
-  | UsageBasedStrategy
-  | TieredStrategy
-  | PerUserStrategy
-  | FreemiumStrategy
-  | FeatureBasedStrategy;
+export type PricingModel =
+  | FlatRateModel
+  | UsageBasedModel
+  | TieredModel
+  | PerUserModel
+  | FreemiumModel
+  | FeatureBasedModel;
 
 export interface PricingConfiguration {
-  strategies: PricingStrategy[];
-  selectedStrategy?: string;
+  models: PricingModel[];
+  selectedModel?: string;
   comparisonMode: boolean;
 }
 
-export const STRATEGY_LABELS: Record<PricingStrategyType, string> = {
+export const MODEL_LABELS: Record<PricingModelType, string> = {
   "flat-rate": "Flat-Rate Pricing",
   "usage-based": "Usage-Based Pricing",
   tiered: "Tiered Pricing",
@@ -113,7 +113,7 @@ export const STRATEGY_LABELS: Record<PricingStrategyType, string> = {
   "feature-based": "Feature-Based Pricing",
 };
 
-export const STRATEGY_DESCRIPTIONS: Record<PricingStrategyType, string> = {
+export const MODEL_DESCRIPTIONS: Record<PricingModelType, string> = {
   "flat-rate":
     "One price for the entire product, simple to communicate, best for single-product SaaS.",
   "usage-based":
